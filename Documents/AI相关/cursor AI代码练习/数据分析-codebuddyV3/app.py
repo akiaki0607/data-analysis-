@@ -26,6 +26,10 @@ class GEOAnalyzer:
     def load_excel_data(self, file_path):
         """加载Excel数据"""
         try:
+            # 首先获取所有工作表名称
+            xl_file = pd.ExcelFile(file_path)
+            sheet_names = xl_file.sheet_names
+            
             # 读取数据封面
             cover_df = pd.read_excel(file_path, sheet_name='数据封面')
             self.client_name = cover_df[cover_df['字段名称'] == '客户名称']['字段值'].iloc[0]
@@ -65,11 +69,33 @@ class GEOAnalyzer:
             except Exception as e:
                 print(f"读取数据封面竞品信息时出错: {e}")
             
+            # 自动检测关键词数据分析工作表名称
+            keyword_sheet_name = None
+            for name in ['关键词数据分析_清洗后', '关键词数据分析']:
+                if name in sheet_names:
+                    keyword_sheet_name = name
+                    break
+            
+            if not keyword_sheet_name:
+                raise Exception("找不到关键词数据分析工作表")
+            
+            # 自动检测信源数据分析工作表名称
+            source_sheet_name = None
+            for name in ['信源数据分析_清洗后', '信源数据分析']:
+                if name in sheet_names:
+                    source_sheet_name = name
+                    break
+            
+            if not source_sheet_name:
+                raise Exception("找不到信源数据分析工作表")
+            
             # 读取关键词数据分析
-            keyword_df = pd.read_excel(file_path, sheet_name='关键词数据分析_清洗后')
+            keyword_df = pd.read_excel(file_path, sheet_name=keyword_sheet_name)
             
             # 读取信源数据分析
-            source_df = pd.read_excel(file_path, sheet_name='信源数据分析_清洗后')
+            source_df = pd.read_excel(file_path, sheet_name=source_sheet_name)
+            
+            print(f"使用工作表: 关键词数据 - {keyword_sheet_name}, 信源数据 - {source_sheet_name}")
             
             self.data = {
                 'cover': cover_df,
@@ -90,19 +116,19 @@ class GEOAnalyzer:
         client_weak = keyword_df[
             (keyword_df['品牌'] == self.client_name) & 
             (keyword_df['可见概率'] < 35)
-        ][['关键词', '平台', '可见概率']].copy()
+        ][['关键词名称', 'AI平台名称', '可见概率']].copy()
         
         weak_combinations = []
         
         for _, row in client_weak.iterrows():
-            keyword = row['关键词']
-            platform = row['平台']
+            keyword = row['关键词名称']
+            platform = row['AI平台名称']
             client_visibility = row['可见概率']
             
             # 检查竞品在同一关键词-平台组合的表现
             competitor_data = keyword_df[
-                (keyword_df['关键词'] == keyword) & 
-                (keyword_df['平台'] == platform) & 
+                (keyword_df['关键词名称'] == keyword) & 
+                (keyword_df['AI平台名称'] == platform) & 
                 (keyword_df['品牌'].isin(self.competitors))
             ]
             
@@ -206,7 +232,7 @@ class GEOAnalyzer:
                             for combo in blue_ocean_combinations
                         )
                         
-                        # 表1：优秀信源平台表（只显示基本信息）
+                        # 表1：优秀信源平台表（显示所有优秀信源平台）
                         excellent_sources.append({
                             '关键词': keyword,
                             'AI平台': platform,
@@ -215,7 +241,7 @@ class GEOAnalyzer:
                             '是否蓝海': is_blue_ocean
                         })
                         
-                        # 表2：检查客户在该信源平台的表现
+                        # 表2：检查客户在该信源平台的表现，只有薄弱的才加入薄弱分析表
                         client_source_data = platform_sources[
                             (platform_sources['信源平台名称'] == source_name) & 
                             (platform_sources['品牌'] == self.client_name)
@@ -228,17 +254,38 @@ class GEOAnalyzer:
                             client_article_ratio = client_source_data['选用信源文章占比'].iloc[0]
                             is_weak_source = client_article_ratio < 50
                         
-                        weakness_analysis.append({
-                            '关键词': keyword,
-                            'AI平台': platform,
-                            '信源平台名称': source_name,
-                            '选用信源文章总数': total_articles,
-                            '客户信源文章占比': client_article_ratio,
-                            '是否薄弱信源平台': is_weak_source,
-                            '是否蓝海': is_blue_ocean
-                        })
+                        # 只有薄弱的信源平台才添加到薄弱分析表
+                        if is_weak_source:
+                            weakness_analysis.append({
+                                '关键词': keyword,
+                                'AI平台': platform,
+                                '信源平台名称': source_name,
+                                '选用信源文章总数': total_articles,
+                                '客户信源文章占比': client_article_ratio,
+                                '是否薄弱信源平台': is_weak_source,
+                                '是否蓝海': is_blue_ocean
+                            })
         
-        return excellent_sources, weakness_analysis
+        # 在返回前对两个列表进行去重
+        # 去重优秀信源平台表
+        seen_excellent = set()
+        unique_excellent_sources = []
+        for item in excellent_sources:
+            key = (item['关键词'], item['AI平台'], item['信源平台名称'])
+            if key not in seen_excellent:
+                seen_excellent.add(key)
+                unique_excellent_sources.append(item)
+        
+        # 去重薄弱分析表
+        seen_weakness = set()
+        unique_weakness_analysis = []
+        for item in weakness_analysis:
+            key = (item['关键词'], item['AI平台'], item['信源平台名称'])
+            if key not in seen_weakness:
+                seen_weakness.add(key)
+                unique_weakness_analysis.append(item)
+        
+        return unique_excellent_sources, unique_weakness_analysis
     
     def run_full_analysis(self):
         """运行完整分析"""
@@ -350,14 +397,18 @@ def export_excel():
                 blue_ocean_df = pd.DataFrame(analysis_results['blue_ocean_combinations'])
                 blue_ocean_df.to_excel(writer, sheet_name='蓝海关键词组合', index=False)
             
-            # 4. 优秀信源平台表
+            # 4. 优秀信源平台表（去重）
             if 'excellent_sources' in analysis_results and analysis_results['excellent_sources']:
                 excellent_df = pd.DataFrame(analysis_results['excellent_sources'])
+                # 按关键词、AI平台、信源平台名称去重，保留第一条记录
+                excellent_df = excellent_df.drop_duplicates(subset=['关键词', 'AI平台', '信源平台名称'], keep='first')
                 excellent_df.to_excel(writer, sheet_name='优秀信源平台', index=False)
             
-            # 5. 优秀信源平台与薄弱分析表
+            # 5. 信源平台薄弱分析表（去重）
             if 'source_analysis' in analysis_results and analysis_results['source_analysis']:
                 source_df = pd.DataFrame(analysis_results['source_analysis'])
+                # 按关键词、AI平台、信源平台名称去重，保留第一条记录
+                source_df = source_df.drop_duplicates(subset=['关键词', 'AI平台', '信源平台名称'], keep='first')
                 source_df.to_excel(writer, sheet_name='信源平台薄弱分析', index=False)
             
             # 6. 竞品分析表
