@@ -18,6 +18,11 @@
         </button>
     </li>
     <li class="nav-item" role="presentation">
+        <button class="nav-link" id="competitor-tab" data-bs-toggle="tab" data-bs-target="#competitor" type="button" role="tab">
+            <i class="fas fa-users"></i> 竞品分析
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
         <button class="nav-link" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis" type="button" role="tab">
             <i class="fas fa-chart-bar"></i> 深度分析
         </button>
@@ -97,27 +102,75 @@
                 <i class="fas fa-info-circle"></i> 品牌识别功能将在数据预处理完成后激活
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">客户名称</div>
+                        <div class="card-header">客户品牌信息</div>
                         <div class="card-body text-center">
                             <h4 id="clientName">-</h4>
+                            <p class="text-muted">系统将自动识别客户品牌名称</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    
+    <div class="tab-pane fade" id="competitor" role="tabpanel">
+        <div class="content-section">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> 竞品分析功能将在品牌识别完成后激活
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">核心竞品</div>
+                        <div class="card-header">
+                            <i class="fas fa-star"></i> 核心竞品
+                        </div>
                         <div class="card-body">
-                            <div id="coreCompetitors">-</div>
+                            <div id="coreCompetitors">
+                                <p class="text-muted">等待数据分析...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">其他竞品</div>
+                        <div class="card-header">
+                            <i class="fas fa-users"></i> 其他竞品
+                        </div>
                         <div class="card-body">
-                            <div id="otherCompetitors">-</div>
+                            <div id="otherCompetitors">
+                                <p class="text-muted">等待数据分析...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-chart-line"></i> 竞品分析概览
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <h5 id="totalCompetitors">0</h5>
+                                    <p class="text-muted">竞品总数</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 id="coreCompetitorCount">0</h5>
+                                    <p class="text-muted">核心竞品</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 id="otherCompetitorCount">0</h5>
+                                    <p class="text-muted">其他竞品</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 id="competitorAnalysisStatus">待分析</h5>
+                                    <p class="text-muted">分析状态</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -264,6 +317,7 @@ function animateProgress() {
     // 激活后续标签页
     $('#preprocess-tab').removeClass('disabled');
     $('#identify-tab').removeClass('disabled');
+    $('#competitor-tab').removeClass('disabled');
     $('#analysis-tab').removeClass('disabled');
     $('#report-tab').removeClass('disabled');
     

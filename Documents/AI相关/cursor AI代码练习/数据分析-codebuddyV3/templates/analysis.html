@@ -8,6 +8,11 @@
         </button>
     </li>
     <li class="nav-item" role="presentation">
+        <button class="nav-link" id="competitor-analysis-tab" data-bs-toggle="tab" data-bs-target="#competitor-analysis" type="button" role="tab">
+            <i class="fas fa-users"></i> 竞品分析
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
         <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab">
             <i class="fas fa-chart-bar"></i> 最终结果
         </button>
@@ -138,8 +143,6 @@
                                     <th>排名</th>
                                     <th>关键词</th>
                                     <th>薄弱AI平台数量</th>
-                                    <th>平均客户可见概率</th>
-                                    <th>平均竞品可见概率</th>
                                     <th>优先级</th>
                                 </tr>
                             </thead>
@@ -153,12 +156,6 @@
                                     <td><strong>{{ keyword }}</strong></td>
                                     <td>
                                         <span class="badge badge-info" style="color: black !important; background-color: #d1ecf1 !important;">{{ count }} 个平台</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-danger">{{ "%.1f"|format(stats.avg_client_visibility) }}%</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-warning">{{ "%.1f"|format(stats.avg_competitor_visibility) }}%</span>
                                     </td>
                                     <td>
                                         {% if count >= 4 %}
@@ -177,13 +174,58 @@
                 </div>
             </div>
             
-            <!-- 信源平台分析 -->
+            <!-- 优秀信源平台表 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-star"></i> 优秀信源平台表
+                    <span class="badge badge-info ms-2">{{ results.excellent_sources|length }} 条记录</span>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> 
+                        每个"关键词-AI平台"组合的前10个优秀信源平台（按文章总数倒序排列）
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>关键词</th>
+                                    <th>AI平台</th>
+                                    <th>信源平台</th>
+                                    <th>文章总数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for source in results.excellent_sources[:50] %}
+                                <tr>
+                                    <td>{{ source.关键词 }}</td>
+                                    <td>{{ source.AI平台 }}</td>
+                                    <td>{{ source.信源平台名称 }}</td>
+                                    <td>
+                                        <span class="badge badge-info" style="color: black !important; background-color: #d1ecf1 !important;">{{ source.选用信源文章总数 }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if results.excellent_sources|length > 50 %}
+                    <p class="text-muted text-center mt-3">显示前50条，共{{ results.excellent_sources|length }}条记录</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- 优秀信源平台与薄弱分析表 -->
             <div class="card">
                 <div class="card-header">
                     <i class="fas fa-globe"></i> 优秀信源平台与薄弱分析
                     <span class="badge badge-info ms-2">{{ results.source_analysis|length }} 条记录</span>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        基于优秀信源平台，分析客户薄弱环节（客户占比<50%为薄弱）
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -197,7 +239,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for source in results.source_analysis[:30] %}
+                                {% for source in results.source_analysis[:50] %}
                                 <tr>
                                     <td>{{ source.关键词 }}</td>
                                     <td>{{ source.AI平台 }}</td>
@@ -222,9 +264,155 @@
                             </tbody>
                         </table>
                     </div>
-                    {% if results.source_analysis|length > 30 %}
-                    <p class="text-muted text-center mt-3">显示前30条，共{{ results.source_analysis|length }}条记录</p>
+                    {% if results.source_analysis|length > 50 %}
+                    <p class="text-muted text-center mt-3">显示前50条，共{{ results.source_analysis|length }}条记录</p>
                     {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 竞品分析标签页 -->
+    <div class="tab-pane fade" id="competitor-analysis" role="tabpanel">
+        <div class="content-section">
+            <!-- 竞品概览 -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-users"></i> 竞品分析概览
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <h4 class="text-primary">{{ results.competitors|length }}</h4>
+                                    <p class="text-muted">竞品总数</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="text-success">{{ results.blue_ocean_count }}</h4>
+                                    <p class="text-muted">蓝海机会</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="text-warning">{{ results.weak_combinations_count }}</h4>
+                                    <p class="text-muted">薄弱组合</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="text-info">{{ results.sorted_keywords|length }}</h4>
+                                    <p class="text-muted">优先关键词</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 竞品详细列表 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-list"></i> 竞品品牌详细分析
+                </div>
+                <div class="card-body">
+                    {% if results.competitors %}
+                    <div class="row">
+                        {% for competitor in results.competitors %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <i class="fas fa-building"></i> {{ competitor }}
+                                    </h6>
+                                    <p class="card-text">
+                                        <small class="text-muted">竞品品牌 #{{ loop.index }}</small>
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="badge badge-info">活跃竞品</span>
+                                        <small class="text-muted">已识别</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i> 暂无竞品数据
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- 竞品表现对比 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar"></i> 竞品表现对比分析
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> 
+                        基于关键词-AI平台组合分析，识别出客户相对于竞品的薄弱环节和蓝海机会
+                    </div>
+                    
+                    <!-- 竞品在蓝海关键词中的表现 -->
+                    <h6>竞品在蓝海关键词中的表现</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>关键词</th>
+                                    <th>AI平台</th>
+                                    <th>最强竞品</th>
+                                    <th>竞品可见概率</th>
+                                    <th>客户可见概率</th>
+                                    <th>机会评估</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for combo in results.blue_ocean_combinations[:15] %}
+                                <tr>
+                                    <td>{{ combo.关键词 }}</td>
+                                    <td>{{ combo.AI平台 }}</td>
+                                    <td>{{ combo.最高竞品名称 }}</td>
+                                    <td>
+                                        <span class="badge badge-warning">{{ "%.1f"|format(combo.竞品最高可见概率) }}%</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-danger">{{ "%.1f"|format(combo.客户可见概率) }}%</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-success">蓝海机会</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 竞品分析结论 -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-lightbulb"></i> 竞品分析结论
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>竞争态势分析</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> 识别出 {{ results.competitors|length }} 个主要竞品</li>
+                                <li><i class="fas fa-check text-success"></i> 发现 {{ results.blue_ocean_count }} 个蓝海机会</li>
+                                <li><i class="fas fa-check text-success"></i> 客户在 {{ results.weak_combinations_count }} 个组合中表现薄弱</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>竞争优势建议</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-arrow-right text-primary"></i> 重点关注蓝海关键词</li>
+                                <li><i class="fas fa-arrow-right text-primary"></i> 避开竞品强势领域</li>
+                                <li><i class="fas fa-arrow-right text-primary"></i> 建立差异化优势</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

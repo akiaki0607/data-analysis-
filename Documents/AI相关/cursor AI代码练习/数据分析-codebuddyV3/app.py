@@ -163,63 +163,66 @@ class GEOAnalyzer:
         return sorted_keywords, blue_ocean_combinations, keyword_stats
     
     def identify_excellent_source_platforms(self, blue_ocean_combinations, sorted_keywords):
-        """识别优秀信源平台 - 按PRD V3要求实现"""
+        """识别优秀信源平台 - 按PRD 5.1.5和5.1.6要求实现，返回两张表的数据"""
         if 'sources' not in self.data:
-            return []
+            return [], []
             
         source_df = self.data['sources']
-        
-        # 第一步：按PRD V3要求，先选出前20个优秀信源平台（按选用信源文章总数倒序排列）
-        # 对所有信源平台按文章总数进行全局排序
-        all_source_stats = source_df.groupby('信源平台名称')['选用信源文章总数'].first().reset_index()
-        all_source_stats = all_source_stats.sort_values('选用信源文章总数', ascending=False)
-        top_20_excellent_sources = all_source_stats.head(20)['信源平台名称'].tolist()
-        
-        print(f"选出的前20个优秀信源平台: {top_20_excellent_sources}")
-        
-        # 第二步：基于这前20个优秀信源平台进行薄弱分析
-        results = []
+        excellent_sources = []  # 表1：优秀信源平台表
+        weakness_analysis = []  # 表2：优秀信源平台与薄弱分析表
         
         # 按关键词优先级顺序处理（按照蓝海关键词计算后的顺序排列）
         for keyword, _ in sorted_keywords:  # 处理所有蓝海关键词
             keyword_platforms = [combo['AI平台'] for combo in blue_ocean_combinations if combo['关键词'] == keyword]
             
             for platform in keyword_platforms:
-                # 获取该关键词-AI平台组合的信源平台数据，但只考虑前20个优秀信源平台
+                # 5.1.5: 对每个"关键词-AI平台"组合，选取前10个优秀信源平台
                 platform_sources = source_df[
                     (source_df['关键词名称'] == keyword) & 
-                    (source_df['AI平台'] == platform) &
-                    (source_df['信源平台名称'].isin(top_20_excellent_sources))
+                    (source_df['AI平台'] == platform)
                 ].copy()
                 
                 if len(platform_sources) > 0:
-                    # 对这些优秀信源平台进行薄弱分析
-                    for source_name in top_20_excellent_sources:
-                        source_data = platform_sources[platform_sources['信源平台名称'] == source_name]
+                    # 按"选用信源文章总数"倒序排列，选取前10个
+                    platform_sources_sorted = platform_sources.sort_values('选用信源文章总数', ascending=False)
+                    top_10_sources = platform_sources_sorted.head(10)
+                    
+                    # 生成两张表的数据
+                    for _, source_row in top_10_sources.iterrows():
+                        source_name = source_row['信源平台名称']
+                        total_articles = source_row['选用信源文章总数']
                         
-                        if len(source_data) > 0:
-                            total_articles = source_data['选用信源文章总数'].iloc[0]
-                            
-                            # 检查客户在该信源平台的表现
-                            client_source_data = source_data[source_data['品牌'] == self.client_name]
-                            
-                            client_article_ratio = 0
-                            is_weak_source = True
-                            
-                            if len(client_source_data) > 0:
-                                client_article_ratio = client_source_data['选用信源文章占比'].iloc[0]
-                                is_weak_source = client_article_ratio < 50
-                            
-                            results.append({
-                                '关键词': keyword,
-                                'AI平台': platform,
-                                '信源平台名称': source_name,
-                                '选用信源文章总数': total_articles,
-                                '客户信源文章占比': client_article_ratio,
-                                '是否薄弱信源平台': is_weak_source
-                            })
+                        # 表1：优秀信源平台表（只显示基本信息）
+                        excellent_sources.append({
+                            '关键词': keyword,
+                            'AI平台': platform,
+                            '信源平台名称': source_name,
+                            '选用信源文章总数': total_articles
+                        })
+                        
+                        # 表2：检查客户在该信源平台的表现
+                        client_source_data = platform_sources[
+                            (platform_sources['信源平台名称'] == source_name) & 
+                            (platform_sources['品牌'] == self.client_name)
+                        ]
+                        
+                        client_article_ratio = 0
+                        is_weak_source = True
+                        
+                        if len(client_source_data) > 0:
+                            client_article_ratio = client_source_data['选用信源文章占比'].iloc[0]
+                            is_weak_source = client_article_ratio < 50
+                        
+                        weakness_analysis.append({
+                            '关键词': keyword,
+                            'AI平台': platform,
+                            '信源平台名称': source_name,
+                            '选用信源文章总数': total_articles,
+                            '客户信源文章占比': client_article_ratio,
+                            '是否薄弱信源平台': is_weak_source
+                        })
         
-        return results
+        return excellent_sources, weakness_analysis
     
     def run_full_analysis(self):
         """运行完整分析"""
@@ -230,7 +233,7 @@ class GEOAnalyzer:
         sorted_keywords, blue_ocean_combinations, keyword_stats = self.prioritize_blue_ocean_keywords(weak_combinations)
         
         # 3. 识别优秀信源平台
-        source_analysis = self.identify_excellent_source_platforms(blue_ocean_combinations, sorted_keywords)
+        excellent_sources, weakness_analysis = self.identify_excellent_source_platforms(blue_ocean_combinations, sorted_keywords)
         
         self.analysis_results = {
             'client_name': self.client_name,
@@ -241,7 +244,8 @@ class GEOAnalyzer:
             'blue_ocean_combinations': blue_ocean_combinations,
             'sorted_keywords': sorted_keywords,
             'keyword_stats': keyword_stats,
-            'source_analysis': source_analysis,
+            'excellent_sources': excellent_sources,  # 表1：优秀信源平台表
+            'source_analysis': weakness_analysis,    # 表2：优秀信源平台与薄弱分析表
             'analysis_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
