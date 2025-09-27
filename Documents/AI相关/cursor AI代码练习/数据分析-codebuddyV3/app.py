@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_file
 import pandas as pd
 import os
 import json
 from datetime import datetime
 from werkzeug.utils import secure_filename
+import io
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -171,8 +172,15 @@ class GEOAnalyzer:
         excellent_sources = []  # 表1：优秀信源平台表
         weakness_analysis = []  # 表2：优秀信源平台与薄弱分析表
         
-        # 按关键词优先级顺序处理（按照蓝海关键词计算后的顺序排列）
-        for keyword, _ in sorted_keywords:  # 处理所有蓝海关键词
+        # 获取所有蓝海关键词（只处理真正的蓝海关键词）
+        blue_ocean_keywords = set(combo['关键词'] for combo in blue_ocean_combinations)
+        
+        # 按关键词优先级顺序处理（只处理蓝海关键词）
+        for keyword, _ in sorted_keywords:
+            # 只处理蓝海关键词
+            if keyword not in blue_ocean_keywords:
+                continue
+                
             keyword_platforms = [combo['AI平台'] for combo in blue_ocean_combinations if combo['关键词'] == keyword]
             
             for platform in keyword_platforms:
@@ -192,12 +200,19 @@ class GEOAnalyzer:
                         source_name = source_row['信源平台名称']
                         total_articles = source_row['选用信源文章总数']
                         
+                        # 检查是否为蓝海组合
+                        is_blue_ocean = any(
+                            combo['关键词'] == keyword and combo['AI平台'] == platform 
+                            for combo in blue_ocean_combinations
+                        )
+                        
                         # 表1：优秀信源平台表（只显示基本信息）
                         excellent_sources.append({
                             '关键词': keyword,
                             'AI平台': platform,
                             '信源平台名称': source_name,
-                            '选用信源文章总数': total_articles
+                            '选用信源文章总数': total_articles,
+                            '是否蓝海': is_blue_ocean
                         })
                         
                         # 表2：检查客户在该信源平台的表现
@@ -219,7 +234,8 @@ class GEOAnalyzer:
                             '信源平台名称': source_name,
                             '选用信源文章总数': total_articles,
                             '客户信源文章占比': client_article_ratio,
-                            '是否薄弱信源平台': is_weak_source
+                            '是否薄弱信源平台': is_weak_source,
+                            '是否蓝海': is_blue_ocean
                         })
         
         return excellent_sources, weakness_analysis
@@ -299,6 +315,127 @@ def analysis():
 @app.route('/api/analysis-data')
 def get_analysis_data():
     return jsonify(analysis_results)
+
+@app.route('/export/excel')
+def export_excel():
+    """导出分析结果为Excel文件"""
+    if not analysis_results:
+        return jsonify({'success': False, 'message': '没有可导出的分析结果'})
+    
+    try:
+        # 创建Excel文件在内存中
+        output = io.BytesIO()
+        
+        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+            # 1. 薄弱组合分析表
+            if 'weak_combinations' in analysis_results and analysis_results['weak_combinations']:
+                weak_df = pd.DataFrame(analysis_results['weak_combinations'])
+                weak_df.to_excel(writer, sheet_name='薄弱组合分析', index=False)
+            
+            # 2. 蓝海关键词优先级排序表
+            if 'sorted_keywords' in analysis_results and analysis_results['sorted_keywords']:
+                keywords_data = []
+                for keyword, count in analysis_results['sorted_keywords']:
+                    stats = analysis_results['keyword_stats'][keyword]
+                    keywords_data.append({
+                        '关键词': keyword,
+                        '薄弱AI平台数量': count,
+                        '优先级': '高' if count >= 4 else ('中' if count >= 2 else '低')
+                    })
+                keywords_df = pd.DataFrame(keywords_data)
+                keywords_df.to_excel(writer, sheet_name='蓝海关键词优先级', index=False)
+            
+            # 3. 蓝海关键词组合详情表
+            if 'blue_ocean_combinations' in analysis_results and analysis_results['blue_ocean_combinations']:
+                blue_ocean_df = pd.DataFrame(analysis_results['blue_ocean_combinations'])
+                blue_ocean_df.to_excel(writer, sheet_name='蓝海关键词组合', index=False)
+            
+            # 4. 优秀信源平台表
+            if 'excellent_sources' in analysis_results and analysis_results['excellent_sources']:
+                excellent_df = pd.DataFrame(analysis_results['excellent_sources'])
+                excellent_df.to_excel(writer, sheet_name='优秀信源平台', index=False)
+            
+            # 5. 优秀信源平台与薄弱分析表
+            if 'source_analysis' in analysis_results and analysis_results['source_analysis']:
+                source_df = pd.DataFrame(analysis_results['source_analysis'])
+                source_df.to_excel(writer, sheet_name='信源平台薄弱分析', index=False)
+            
+            # 6. 竞品分析表
+            if 'competitors' in analysis_results and analysis_results['competitors']:
+                competitors_data = []
+                for i, competitor in enumerate(analysis_results['competitors'], 1):
+                    competitors_data.append({
+                        '序号': i,
+                        '竞品名称': competitor,
+                        '类型': '识别竞品'
+                    })
+                competitors_df = pd.DataFrame(competitors_data)
+                competitors_df.to_excel(writer, sheet_name='竞品分析', index=False)
+            
+            # 7. 分析概览表
+            summary_data = [{
+                '分析项目': '客户名称',
+                '结果': analysis_results.get('client_name', '未识别')
+            }, {
+                '分析项目': '竞品总数',
+                '结果': len(analysis_results.get('competitors', []))
+            }, {
+                '分析项目': '薄弱组合数量',
+                '结果': analysis_results.get('weak_combinations_count', 0)
+            }, {
+                '分析项目': '蓝海机会数量',
+                '结果': analysis_results.get('blue_ocean_count', 0)
+            }, {
+                '分析项目': '分析时间',
+                '结果': analysis_results.get('analysis_time', '')
+            }]
+            summary_df = pd.DataFrame(summary_data)
+            summary_df.to_excel(writer, sheet_name='分析概览', index=False)
+        
+        output.seek(0)
+        
+        # 生成文件名
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        client_name = analysis_results.get('client_name', '客户')
+        filename = f'GEO分析报告_{client_name}_{timestamp}.xlsx'
+        
+        return send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'导出失败: {str(e)}'})
+
+@app.route('/export/json')
+def export_json():
+    """导出分析结果为JSON文件"""
+    if not analysis_results:
+        return jsonify({'success': False, 'message': '没有可导出的分析结果'})
+    
+    try:
+        # 创建JSON文件在内存中
+        output = io.BytesIO()
+        json_data = json.dumps(analysis_results, ensure_ascii=False, indent=2)
+        output.write(json_data.encode('utf-8'))
+        output.seek(0)
+        
+        # 生成文件名
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        client_name = analysis_results.get('client_name', '客户')
+        filename = f'GEO分析数据_{client_name}_{timestamp}.json'
+        
+        return send_file(
+            output,
+            mimetype='application/json',
+            as_attachment=True,
+            download_name=filename
+        )
+        
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'导出失败: {str(e)}'})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)

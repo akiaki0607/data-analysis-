@@ -221,12 +221,36 @@
     
     <div class="tab-pane fade" id="report" role="tabpanel">
         <div class="content-section">
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle"></i> 报告生成功能将在深度分析完成后激活
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> 分析完成！现在可以导出分析结果
             </div>
-            <div class="text-center">
-                <button class="btn btn-primary btn-lg" disabled>
-                    <i class="fas fa-download"></i> 生成完整报告
+            <div class="row">
+                <div class="col-md-6 text-center mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5><i class="fas fa-file-excel text-success"></i> Excel格式</h5>
+                            <p class="text-muted">包含所有分析表格，适合查看和编辑</p>
+                            <button class="btn btn-success btn-lg" onclick="window.open('/export/excel', '_blank')">
+                                <i class="fas fa-download"></i> 导出Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5><i class="fas fa-file-code text-info"></i> JSON格式</h5>
+                            <p class="text-muted">原始数据格式，适合程序处理</p>
+                            <button class="btn btn-info btn-lg" onclick="window.open('/export/json', '_blank')">
+                                <i class="fas fa-download"></i> 导出JSON
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-primary btn-lg" onclick="window.open('/analysis', '_blank')">
+                    <i class="fas fa-chart-bar"></i> 查看详细分析
                 </button>
             </div>
         </div>
