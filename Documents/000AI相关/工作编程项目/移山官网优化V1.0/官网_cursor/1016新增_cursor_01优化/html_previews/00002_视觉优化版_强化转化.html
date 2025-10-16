@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移山科技 - 在AI搜索时代,占据首屏答案位</title>
+    <meta name="description" content="由行业标准制定者与专利实力领衔,让模型更愿意引用你、让客户更快找到你。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #F7F8FA;
+            --card-bg: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #334155;
+            --text-muted: #64748B;
+            --primary-color: #1A73E8;
+            --primary-hover: #1558C0;
+            --accent-color: #6A5AE0;
+            --success-color: #10B981;
+            --border-color: #E6E8EC;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* TopBar */
+        .topbar {
+            background: var(--text-primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .header-cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Hero Section - 简化版 */
+        .hero {
+            padding: 120px 0 96px;
+            background: linear-gradient(135deg, #f8f9fc 0%, #ffffff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .hero h2 {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 48px;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            max-width: 900px;
+            margin: 0 auto 48px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .hero-note {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* 独立线索收集区域 */
+        .lead-section {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lead-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .lead-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .lead-title {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 48px;
+            font-weight: 700;
+        }
+
+        .lead-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .lead-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 40px 32px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .lead-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .lead-card-icon {
+            width: 64px;
+            height: 64px;
+            background: white;
+            color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 24px;
+        }
+
+        .lead-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .lead-card p {
+            font-size: 14px;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .qr-code-display {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .form-mini {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            color: var(--text-primary);
+        }
+
+        .form-mini input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .form-mini select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .form-mini button {
+            width: 100%;
+        }
+
+        .phone-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 16px 0;
+            letter-spacing: 2px;
+        }
+
+        .lead-btn-white {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+        }
+
+        .lead-btn-white:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .lead-note {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-bg);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .card li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: 700;
+        }
+
+        /* Services Section with gradient background */
+        .services-section {
+            background: linear-gradient(135deg, #f0f4ff 0%, #fff5f7 100%);
+        }
+
+        /* Metrics Wall */
+        .metrics-wall {
+            background: var(--card-bg);
+            padding: 80px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-item-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .metric-item-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .metric-item-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* System Cards */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        /* Case Studies */
+        .case-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .case-tag {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .case-duration {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .case-section {
+            margin-bottom: 24px;
+        }
+
+        .case-section-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .case-section-content {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .case-result {
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .case-result strong {
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial {
+            background: var(--card-bg);
+            padding: 40px 32px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .quote-mark {
+            font-size: 64px;
+            color: var(--accent-color);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 16px;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Insights */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .insight-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .insight-image {
+            height: 200px;
+            background: var(--gradient-bg);
+        }
+
+        .insight-content {
+            padding: 24px;
+        }
+
+        .insight-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .insight-action {
+            margin-top: 20px;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .faq-answer {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 24px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats,
+            .cards-grid,
+            .metrics-grid,
+            .systems-grid,
+            .testimonials-grid,
+            .insights-grid,
+            .lead-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Urgency Badge */
+        .urgency-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* CTA Link */
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .cta-link:hover {
+            gap: 12px;
+        }
+
+        .cta-link::after {
+            content: '→';
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <!-- TopBar -->
+    <div class="topbar">
+        工作日 9:00–19:00 专属顾问 2 小时内响应
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">移</div>
+                <span>移山科技</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#solutions">解决方案</a></li>
+                    <li><a href="#cases">成功案例</a></li>
+                    <li><a href="#insights">观点洞察</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="header-cta">
+                <a href="#lead-section" class="btn btn-primary">免费咨询</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - 简化版 -->
+    <section class="hero">
+        <div class="container">
+            <div class="fade-in-up">
+                <h1>在 AI 搜索时代<br>占据首屏答案位</h1>
+                <h2>由行业标准制定者与专利实力领衔,让模型更愿意引用你、让客户更快找到你</h2>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">覆盖客户数</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">+300%</span>
+                        <span class="stat-label">曝光度提升</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">72 小时</span>
+                        <span class="stat-label">最快见效时间</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#lead-section" class="btn btn-primary">立即获取免费诊断</a>
+                    <a href="#cases" class="btn btn-outline">查看成功案例</a>
+                </div>
+
+                <p class="hero-note">无需准备复杂资料,先聊 15 分钟给你可执行思路</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section id="problems">
+        <div class="container">
+            <div class="section-title">
+                <h2>如果你正在经历这些问题</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h3>在 AI 搜索里"隐身"</h3>
+                    <p>客户搜得到需求,却搜不到你,品牌第一触点缺席。竞品已经出现在 AI 答案的前三位,而你的品牌完全没有被提及。</p>
+                    <a href="#solutions" class="cta-link">查看如何补位</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>推荐位被竞品占据</h3>
+                    <p>高意图词被对手覆盖,线索与口碑被动流失。用户搜索"行业最佳方案"时,AI 总是推荐你的竞争对手。</p>
+                    <a href="#solutions" class="cta-link">我该怎么追上</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>没有量化口径</h3>
+                    <p>没有 AVS/TopN/权威信源等指标,看不清增长路径。不知道如何衡量在 AI 搜索中的表现和改进方向。</p>
+                    <a href="#lead-section" class="cta-link">获取指标体系</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="solutions" class="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>我们具体为你做什么</h2>
+                <p>系统化的 GEO 服务,让 AI 更愿意推荐你</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>AI 搜索结果优化</h3>
+                    <p><strong>让你的答案更常被引用、更靠前呈现。</strong></p>
+                    <ul>
+                        <li>答案位可见</li>
+                        <li>TopN 推进</li>
+                        <li>多平台适配</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⭐</div>
+                    <h3>品牌评价管理</h3>
+                    <p><strong>用权威信源与结构化证据,提升采信与口碑密度。</strong></p>
+                    <ul>
+                        <li>证据工程</li>
+                        <li>权威来源</li>
+                        <li>负面稀释</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>AI 品牌数据监测</h3>
+                    <p><strong>把变化看在眼里。</strong></p>
+                    <ul>
+                        <li>可视化看板</li>
+                        <li>早期信号预警</li>
+                        <li>周报/月报</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✍️</div>
+                    <h3>AI 生成内容</h3>
+                    <p><strong>多 Agent 生成/发布/监测一体化。</strong></p>
+                    <ul>
+                        <li>平台偏好</li>
+                        <li>模板化</li>
+                        <li>闭环迭代</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="#lead-section" class="cta-link" style="font-size: 18px;">了解更多服务详情</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Section - 独立强化转化区域 -->
+    <section id="lead-section" class="lead-section">
+        <div class="container lead-content">
+            <h2 class="lead-title">现在,就让 AI 搜索更愿意推荐你</h2>
+            
+            <div class="lead-grid">
+                <!-- 微信二维码 -->
+                <div class="lead-card">
+                    <div class="lead-card-icon">📱</div>
+                    <h3>扫码加微信</h3>
+                    <p>添加专属顾问,领取白皮书和案例合辑</p>
+                    <div class="qr-code-display">
+                        <p>微信二维码<br>（200×200）</p>
+                    </div>
+                    <p style="font-size: 12px; opacity: 0.8;">扫码后自动下发资料<br>2小时内响应</p>
+                </div>
+
+                <!-- 快速表单 -->
+                <div class="lead-card">
+                    <div class="lead-card-icon">✍️</div>
+                    <h3>填写表单</h3>
+                    <p>3分钟获取免费诊断报告</p>
+                    <div class="form-mini">
+                        <input type="text" placeholder="您的姓名">
+                        <input type="text" placeholder="手机号/微信号">
+                        <select>
+                            <option>选择您的行业</option>
+                            <option>制造业</option>
+                            <option>教育培训</option>
+                            <option>SaaS软件</option>
+                            <option>专业服务</option>
+                            <option>其他</option>
+                        </select>
+                        <button class="btn btn-primary">获取免费诊断</button>
+                    </div>
+                </div>
+
+                <!-- 电话咨询 -->
+                <div class="lead-card">
+                    <div class="lead-card-icon">📞</div>
+                    <h3>电话咨询</h3>
+                    <p>直接与专家沟通,获得专业建议</p>
+                    <div class="phone-number">400-XXX-XXXX</div>
+                    <a href="tel:400-XXX-XXXX" class="btn lead-btn-white">立即拨打</a>
+                    <p style="font-size: 12px; opacity: 0.8; margin-top: 16px;">工作日 9:00-19:00<br>15分钟给你可执行思路</p>
+                </div>
+            </div>
+
+            <div class="lead-note">
+                <span class="urgency-badge">限时名额</span>
+                <p style="margin-top: 8px;">本月仅限 <strong>100 个</strong>免费诊断名额,先到先得</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Wall -->
+    <section class="metrics-wall">
+        <div class="container">
+            <div class="section-title">
+                <h2>用数据说话:结果可见、口径可验</h2>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="metric-item-number">99%</span>
+                    <div class="metric-item-label">交付成功率</div>
+                    <div class="metric-item-desc">项目达成约定指标</div>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-item-number">100%</span>
+                    <div class="metric-item-label">客户满意度</div>
+                    <div class="metric-item-desc">NPS≥9</div>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-item-number">+300%</span>
+                    <div class="metric-item-label">曝光增长</div>
+                    <div class="metric-item-desc">多行业样本中位</div>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-item-number">+80%</span>
+                    <div class="metric-item-label">线索量</div>
+                    <div class="metric-item-desc">同口径周期对比</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>不是一次性投放,是可复制的系统化方法</h2>
+            </div>
+            
+            <div class="card" style="margin-bottom: 48px;">
+                <h3>🏆 团队专业</h3>
+                <p>前国务院专家/世界 500 强高管创建;核心团队来自百度、滴滴等一线互联网大厂,是国内首批 GEO 专家。</p>
+            </div>
+
+            <div class="systems-grid">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>商业决策引擎</h3>
+                    <ul>
+                        <li>意图图谱</li>
+                        <li>关键词体系</li>
+                        <li>TopN 策略</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>全网数据整合系统</h3>
+                    <ul>
+                        <li>权威信源抓取</li>
+                        <li>清洗/评分</li>
+                        <li>数据去噪</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>AI 知识浇灌系统</h3>
+                    <ul>
+                        <li>结构化事实</li>
+                        <li>证据工程</li>
+                        <li>多平台适配</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="cases">
+        <div class="container">
+            <div class="section-title">
+                <h2>问题清楚,动作到位,结果可验</h2>
+                <p>真实案例,详细拆解</p>
+            </div>
+            <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="case-card">
+                    <div class="case-header">
+                        <span class="case-tag">制造业 · 精密零部件</span>
+                        <span class="case-duration">90 天</span>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">客户背景</div>
+                        <div class="case-section-content">某华东地区精密制造企业(年营收8亿),主营工业机器人零部件。产品技术参数复杂,搜索引擎难以理解。</div>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">核心挑战</div>
+                        <div class="case-section-content">300+专业术语无结构化呈现,AI 搜索无法准确理解产品优势,核心词排名第 8-15 位,技术咨询线索月均仅 12 条。</div>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">解决方案</div>
+                        <div class="case-section-content">建立 300+ 专业术语库 + 发布 50 篇技术白皮书 + 证据工程 + 权威行业媒体背书</div>
+                    </div>
+                    <div class="case-result">
+                        <div class="case-section-title">实施效果</div>
+                        <div class="case-section-content">
+                            <strong>AI 流量 +200%</strong> | 核心产品词 AI 搜索排名从第 8 位提升至前 3<br>
+                            技术咨询线索从月均 12 条增至 42 条 | 高质量线索 +70%
+                        </div>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-header">
+                        <span class="case-tag">教育 · 职业培训</span>
+                        <span class="case-duration">12 周</span>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">客户背景</div>
+                        <div class="case-section-content">某B轮职业教育机构,主营IT技能培训。课程内容优质但同质化竞争激烈,AI 推荐位不稳定。</div>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">核心挑战</div>
+                        <div class="case-section-content">关键搜索词"最佳XX培训"推荐位被竞品长期占据,用户搜索时品牌很少被提及,获客成本居高不下。</div>
+                    </div>
+                    <div class="case-section">
+                        <div class="case-section-title">解决方案</div>
+                        <div class="case-section-content">TopN 调优策略 + 第三方评测机构证据 + 学员真实案例结构化 + 行业认证背书</div>
+                    </div>
+                    <div class="case-result">
+                        <div class="case-section-title">实施效果</div>
+                        <div class="case-section-content">
+                            <strong>转化率 +85%</strong> | 关键词 AI 推荐位稳定进入 Top3<br>
+                            获客成本 -60% | 课程咨询量月增 120+ 条
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="#lead-section" class="btn btn-primary">获取更多案例详情</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="background: linear-gradient(135deg, #fef3f7 0%, #f0f4ff 100%);">
+        <div class="container">
+            <div class="section-title">
+                <h2>来自一线业务负责人的真实反馈</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">说实话,一开始我是半信半疑的。但72小时后我们自己搜索公司名,真的在 AI 答案里看到了,而且还提到了我们的专利技术。团队都很兴奋,两周后核心问法稳定进 Top5,询盘有效率明显提升。</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">张</div>
+                        <div class="author-info">
+                            <h4>张伟(化名)</h4>
+                            <p>某B轮SaaS公司增长负责人</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">最打动我的是他们的专业度。他们把意图—实体—证据讲得很清楚,还有周报口径与时间戳,每一步都可核验。不是那种玄学优化,而是真的能看到数据在变好。</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">李</div>
+                        <div class="author-info">
+                            <h4>李明(化名)</h4>
+                            <p>某制造企业市场负责人</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="quote-mark">"</div>
+                    <p class="testimonial-text">我们之前完全不懂 GEO,团队帮我们从零搭建了整套体系。从写—发—评—优闭环起效后,AI 答案位存在感真正建立起来了。现在每周都能看到新的线索进来。</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">王</div>
+                        <div class="author-info">
+                            <h4>王强(化名)</h4>
+                            <p>某教育机构销售负责人</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights -->
+    <section id="insights">
+        <div class="container">
+            <div class="section-title">
+                <h2>观点洞察</h2>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-image"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">《2025 GEO 优化白皮书:原理、指标、落地与可复制范式》</h3>
+                        <div class="insight-action">
+                            <button class="btn btn-ghost">阅读全文</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">《GEO×SEO 融合全攻略:从页面到语义,从索引到生成》</h3>
+                        <div class="insight-action">
+                            <button class="btn btn-ghost">阅读全文</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-image"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">《GEO 技术深解:意图图谱、实体链接、证据工程与生成控制》</h3>
+                        <div class="insight-action">
+                            <button class="btn btn-ghost">阅读全文</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 48px;">
+                <a href="#lead-section" class="cta-link" style="font-size: 18px;">获取完整资料包</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h2>常见问题</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">多久能看到效果?</div>
+                    <div class="faq-answer">72 小时见早期信号;1–2 周初步提升;3–6 周进入稳态(视词难度与资料质量)。我们会提供周报,让你清楚看到每一步的进展。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">怎么衡量?北极星指标是什么?</div>
+                    <div class="faq-answer">答案位可见度(AVS)、TopN 可见率、权威信源占比、口碑正负向比;AVS 最贴近业务,我们会提供完整的指标口径对照表。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">完整服务流程?</div>
+                    <div class="faq-answer">目标对齐 → 方案与预算 → 准备期(知识库/Agent)→ 执行期(发布/监测/小步快跑)→ 每周复盘与迭代。整个过程透明可追溯。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">是否支持渠道/代理合作?</div>
+                    <div class="faq-answer">支持,提供联合方案与线索分配机制。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 移山科技. 保留所有权利.</p>
+            <p style="margin-top: 8px; font-size: 12px;">Top5 与 72 小时为常见窗口,实际受平台/行业/资料质量影响;以项目报表为准</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Number counting animation
+        window.addEventListener('load', function() {
+            const numbers = document.querySelectorAll('.stat-number, .metric-item-number');
+            numbers.forEach(num => {
+                const finalValue = num.textContent;
+                if (finalValue.match(/\d+/)) {
+                    const numValue = parseInt(finalValue.match(/\d+/)[0]);
+                    let current = 0;
+                    const increment = numValue / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numValue) {
+                            clearInterval(timer);
+                            num.textContent = finalValue;
+                        } else {
+                            num.textContent = Math.floor(current) + finalValue.replace(/\d+/, '');
+                        }
+                    }, 20);
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.form-mini button').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('感谢提交!我们会在2小时内与您联系。\n同时已为您生成基础诊断报告,请查收。');
+        });
+    </script>
+</body>
+</html>
+
