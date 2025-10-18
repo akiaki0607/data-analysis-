@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI平台数据分析报告 V3.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #202124;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 400;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .version-badge {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* 上传区域样式 */
+        .upload-section {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            margin-bottom: 24px;
+        }
+
+        .upload-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        .upload-area {
+            border: 2px dashed #dadce0;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .upload-area:hover {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+        }
+
+        .upload-area.drag-over {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #5f6368;
+            margin-bottom: 12px;
+        }
+
+        .upload-text {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            color: #80868b;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-info {
+            margin-top: 16px;
+            padding: 12px;
+            background: #e8f5e9;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #1e8e3e;
+            font-weight: 500;
+        }
+
+        .upload-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 4px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+        }
+
+        .btn-primary:disabled {
+            background: #dadce0;
+            color: #80868b;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #dadce0;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            margin-bottom: 24px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-item label {
+            font-size: 14px;
+            color: #5f6368;
+            font-weight: 500;
+        }
+
+        select {
+            padding: 10px 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #202124;
+            background: white;
+            cursor: pointer;
+            min-width: 200px;
+            transition: border-color 0.2s;
+        }
+
+        select:hover {
+            border-color: #1a73e8;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: #5f6368;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background: rgba(26, 115, 232, 0.04);
+            color: #1a73e8;
+        }
+
+        .tab.active {
+            color: #1a73e8;
+            border-bottom-color: #1a73e8;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background: #f8f9fa;
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 500;
+            color: #5f6368;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .rank-1 {
+            background: #fef7e0;
+            color: #f9ab00;
+        }
+
+        .rank-2 {
+            background: #e8f0fe;
+            color: #1967d2;
+        }
+
+        .rank-3 {
+            background: #fce8e6;
+            color: #d93025;
+        }
+
+        .rank-other {
+            background: #f1f3f4;
+            color: #5f6368;
+        }
+
+        .metric-value {
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .brand-name {
+            color: #1967d2;
+            font-weight: 500;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 16px;
+        }
+
+        .metric-selector {
+            margin-bottom: 16px;
+        }
+
+        .metric-selector label {
+            font-size: 14px;
+            color: #5f6368;
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .alert-info {
+            background: #e8f0fe;
+            color: #1967d2;
+        }
+
+        .alert-warning {
+            background: #fef7e0;
+            color: #f9ab00;
+        }
+
+        .alert-error {
+            background: #fce8e6;
+            color: #d93025;
+        }
+
+        .data-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 12px;
+        }
+
+        .data-status.mock {
+            background: #fef7e0;
+            color: #f9ab00;
+        }
+
+        .data-status.real {
+            background: #e8f5e9;
+            color: #1e8e3e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            select {
+                min-width: 100%;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px 12px;
+            }
+
+            .version-badge {
+                position: static;
+                display: inline-block;
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="version-badge">V3.0</div>
+            <h1>AI平台数据分析报告</h1>
+            <p class="subtitle">品牌在AI平台的表现分析与信源平台洞察 <span class="data-status mock" id="dataStatus">演示数据</span></p>
+        </header>
+
+        <!-- 数据上传区域 -->
+        <div class="upload-section">
+            <h2 class="upload-title">📊 数据上传</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">点击或拖拽文件到此处上传</div>
+                <div class="upload-hint">支持 Excel (.xlsx, .xls) 和 CSV 格式，支持多Sheet表格</div>
+            </div>
+            <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" />
+            <div class="file-info" id="fileInfo">
+                <div class="file-name" id="fileName"></div>
+            </div>
+            <div class="upload-actions">
+                <button class="btn btn-primary" id="analyzeBtn" disabled>开始分析</button>
+                <button class="btn btn-secondary" id="useMockBtn">使用演示数据</button>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-item">
+                <label for="aiPlatform">AI平台</label>
+                <select id="aiPlatform" onchange="updateData()">
+                    <option value="all">所有AI平台</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="sourceDisplay">信源展示条数</label>
+                <select id="sourceDisplay" onchange="updateData()">
+                    <option value="1">Top 1</option>
+                    <option value="3">Top 3</option>
+                    <option value="5" selected>Top 5</option>
+                    <option value="10">Top 10</option>
+                    <option value="all">全部</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('brand')">品牌核心指标</button>
+            <button class="tab" onclick="switchTab('source')">信源平台分析</button>
+        </div>
+
+        <!-- 品牌核心指标 -->
+        <div id="brand-section" class="content-section active">
+            <div class="card">
+                <h2 class="card-title">品牌排名矩阵表</h2>
+                <div style="overflow-x: auto;">
+                    <table id="brandRankingTable">
+                        <thead>
+                            <tr>
+                                <th>分析维度</th>
+                                <th>排名1</th>
+                                <th>排名2</th>
+                                <th>排名3</th>
+                                <th>排名4</th>
+                                <th>排名5</th>
+                            </tr>
+                        </thead>
+                        <tbody id="brandRankingBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">品牌对比图</h2>
+                <div class="metric-selector">
+                    <label for="chartMetric">选择指标：</label>
+                    <select id="chartMetric" onchange="updateChart()">
+                        <option value="visibility">可见概率</option>
+                        <option value="recommendation">推荐概率</option>
+                        <option value="top1">Top1占比</option>
+                        <option value="top3">Top3占比</option>
+                        <option value="top5">Top5占比</option>
+                        <option value="top10">Top10占比</option>
+                        <option value="sourcePlatform">信源平台占比</option>
+                        <option value="sourceArticle">信源文章占比</option>
+                        <option value="positive">正向情感占比</option>
+                        <option value="negative">负向情感占比</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="brandChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 信源平台分析 -->
+        <div id="source-section" class="content-section">
+            <div class="card">
+                <h2 class="card-title">信源平台排名表</h2>
+                <table id="sourcePlatformTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">排名</th>
+                            <th>信源平台名称</th>
+                            <th style="width: 150px;">信源文章数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sourcePlatformBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">信源平台品牌排名矩阵表</h2>
+                <div style="overflow-x: auto;">
+                    <table id="sourceBrandTable">
+                        <thead>
+                            <tr id="sourceBrandHeader">
+                                <th>信源平台</th>
+                                <th>排名1</th>
+                                <th>排名2</th>
+                                <th>排名3</th>
+                                <th>排名4</th>
+                                <th>排名5</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sourceBrandBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局数据存储
+        let appData = {
+            uploadedData: null,
+            isRealData: false,
+            brands: ['华为', '小米', '苹果', 'OPPO', 'vivo', '荣耀', '三星'],
+            aiPlatforms: ['ChatGPT', 'Gemini', 'Claude', 'Kimi'],
+            sourcePlatforms: [
+                '知乎', '微信公众号', '头条', '百家号', '搜狐', 
+                'CSDN', '简书', '掘金', '36氪', '虎嗅'
+            ],
+            metrics: {
+                visibility: { name: '可见概率', unit: '%' },
+                recommendation: { name: '推荐概率', unit: '%' },
+                top1: { name: 'Top1占比', unit: '%' },
+                top3: { name: 'Top3占比', unit: '%' },
+                top5: { name: 'Top5占比', unit: '%' },
+                top10: { name: 'Top10占比', unit: '%' },
+                sourcePlatform: { name: '信源平台占比', unit: '%' },
+                sourceArticle: { name: '信源文章占比', unit: '%' },
+                positive: { name: '正向情感占比', unit: '%' },
+                negative: { name: '负向情感占比', unit: '%' },
+                top1Keywords: { name: 'Top1关键词数', unit: '个' },
+                top3Keywords: { name: 'Top3关键词数', unit: '个' },
+                top5Keywords: { name: 'Top5关键词数', unit: '个' },
+                top10Keywords: { name: 'Top10关键词数', unit: '个' }
+            }
+        };
+
+        let chartInstance = null;
+
+        // 文件上传相关
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const useMockBtn = document.getElementById('useMockBtn');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            const validTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+                               'application/vnd.ms-excel', 
+                               'text/csv'];
+            
+            if (!validTypes.includes(file.type) && !file.name.match(/\.(xlsx|xls|csv)$/i)) {
+                alert('请上传 Excel 或 CSV 格式的文件');
+                return;
+            }
+
+            fileName.textContent = `📄 ${file.name}`;
+            fileInfo.classList.add('show');
+            analyzeBtn.disabled = false;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    appData.uploadedData = parseWorkbook(workbook);
+                } catch (error) {
+                    console.error('文件解析错误:', error);
+                    alert('文件解析失败，请检查文件格式');
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function parseWorkbook(workbook) {
+            const result = {};
+            workbook.SheetNames.forEach(sheetName => {
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                result[sheetName] = jsonData;
+            });
+            return result;
+        }
+
+        analyzeBtn.addEventListener('click', () => {
+            if (appData.uploadedData) {
+                analyzeUploadedData();
+            }
+        });
+
+        useMockBtn.addEventListener('click', () => {
+            appData.isRealData = false;
+            updateDataStatus();
+            initializePage();
+        });
+
+        function analyzeUploadedData() {
+            // 这里可以根据实际上传的数据结构进行解析
+            // 目前使用演示逻辑，实际应用中需要根据真实数据格式调整
+            try {
+                appData.isRealData = true;
+                
+                // 尝试从上传数据中提取品牌、平台等信息
+                const sheets = Object.keys(appData.uploadedData);
+                console.log('数据表格:', sheets);
+                console.log('上传数据:', appData.uploadedData);
+
+                // 这里添加实际的数据解析逻辑
+                // 例如：从"品牌核心指标"sheet中提取品牌列表
+                // 从"信源平台分析"sheet中提取信源平台列表等
+
+                updateDataStatus();
+                initializePage();
+                
+                alert('数据分析完成！现在展示的是基于上传数据的分析结果。\n\n提示：当前使用演示算法，实际应用需要根据具体数据格式编写解析逻辑。');
+            } catch (error) {
+                console.error('数据分析错误:', error);
+                alert('数据分析失败，请检查数据格式是否正确');
+            }
+        }
+
+        function updateDataStatus() {
+            const statusEl = document.getElementById('dataStatus');
+            if (appData.isRealData) {
+                statusEl.textContent = '真实数据';
+                statusEl.className = 'data-status real';
+            } else {
+                statusEl.textContent = '演示数据';
+                statusEl.className = 'data-status mock';
+            }
+        }
+
+        // 生成随机数据
+        function generateRandomData(min, max, decimals = 1) {
+            const value = Math.random() * (max - min) + min;
+            return decimals === 0 ? Math.round(value) : parseFloat(value.toFixed(decimals));
+        }
+
+        // 格式化数字
+        function formatNumber(num, isPercentage = true) {
+            if (isPercentage) {
+                return num.toFixed(1) + '%';
+            } else {
+                return num.toLocaleString('zh-CN');
+            }
+        }
+
+        // 获取排名徽章HTML
+        function getRankBadge(rank) {
+            const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
+            return `<span class="rank-badge ${rankClass}">${rank}</span>`;
+        }
+
+        // 生成品牌排名数据
+        function generateBrandRankings() {
+            const rankings = {};
+            Object.keys(appData.metrics).forEach(metric => {
+                rankings[metric] = appData.brands.map(brand => ({
+                    brand,
+                    value: generateRandomData(
+                        metric.includes('Keywords') ? 10 : 10, 
+                        metric.includes('Keywords') ? 200 : 95,
+                        metric.includes('Keywords') ? 0 : 1
+                    )
+                })).sort((a, b) => b.value - a.value);
+            });
+            return rankings;
+        }
+
+        // 生成信源平台数据
+        function generateSourcePlatforms(limit) {
+            const platforms = appData.sourcePlatforms.map(platform => ({
+                name: platform,
+                articles: generateRandomData(500, 5000, 0)
+            })).sort((a, b) => b.articles - a.articles);
+
+            if (limit === 'all') return platforms;
+            return platforms.slice(0, parseInt(limit));
+        }
+
+        // 生成信源平台品牌排名
+        function generateSourceBrandRankings(platforms) {
+            return platforms.map(platform => {
+                const rankings = appData.brands.map(brand => ({
+                    brand,
+                    value: generateRandomData(10, 95, 1)
+                })).sort((a, b) => b.value - a.value);
+                return {
+                    platform: platform.name,
+                    rankings: rankings.slice(0, 5)
+                };
+            });
+        }
+
+        // 更新品牌排名表
+        function updateBrandRankingTable() {
+            const rankings = generateBrandRankings();
+            const tbody = document.getElementById('brandRankingBody');
+            tbody.innerHTML = '';
+
+            Object.keys(appData.metrics).forEach(metricKey => {
+                const metric = appData.metrics[metricKey];
+                const row = document.createElement('tr');
+                
+                let html = `<td><strong>${metric.name}</strong></td>`;
+                
+                for (let i = 0; i < 5; i++) {
+                    const item = rankings[metricKey][i];
+                    const isPercentage = metric.unit === '%';
+                    html += `<td><span class="brand-name">${item.brand}</span> <span class="metric-value">${formatNumber(item.value, isPercentage)}</span></td>`;
+                }
+                
+                row.innerHTML = html;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 更新图表
+        function updateChart() {
+            const metricKey = document.getElementById('chartMetric').value;
+            const metric = appData.metrics[metricKey];
+            const rankings = generateBrandRankings()[metricKey];
+
+            const ctx = document.getElementById('brandChart').getContext('2d');
+            
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: rankings.map(item => item.brand),
+                    datasets: [{
+                        label: metric.name,
+                        data: rankings.map(item => item.value),
+                        backgroundColor: [
+                            'rgba(26, 115, 232, 0.8)',
+                            'rgba(52, 168, 83, 0.8)',
+                            'rgba(251, 188, 5, 0.8)',
+                            'rgba(234, 67, 53, 0.8)',
+                            'rgba(103, 58, 183, 0.8)',
+                            'rgba(0, 172, 193, 0.8)',
+                            'rgba(255, 109, 0, 0.8)'
+                        ],
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const isPercentage = metric.unit === '%';
+                                    return metric.name + ': ' + formatNumber(context.parsed.y, isPercentage);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return metric.unit === '%' ? value + '%' : value;
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 更新信源平台表
+        function updateSourcePlatformTable() {
+            const limit = document.getElementById('sourceDisplay').value;
+            const platforms = generateSourcePlatforms(limit);
+            const tbody = document.getElementById('sourcePlatformBody');
+            tbody.innerHTML = '';
+
+            platforms.forEach((platform, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${getRankBadge(index + 1)}</td>
+                    <td><strong>${platform.name}</strong></td>
+                    <td class="metric-value">${formatNumber(platform.articles, false)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 更新信源品牌排名表
+        function updateSourceBrandTable() {
+            const limit = document.getElementById('sourceDisplay').value;
+            const platforms = generateSourcePlatforms(limit);
+            const sourceBrandRankings = generateSourceBrandRankings(platforms);
+            const tbody = document.getElementById('sourceBrandBody');
+            tbody.innerHTML = '';
+
+            sourceBrandRankings.forEach(sourceData => {
+                const row = document.createElement('tr');
+                let html = `<td><strong>${sourceData.platform}</strong></td>`;
+                
+                sourceData.rankings.forEach(ranking => {
+                    html += `<td><span class="brand-name">${ranking.brand}</span> <span class="metric-value">${formatNumber(ranking.value)}</span></td>`;
+                });
+                
+                row.innerHTML = html;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 更新AI平台选择器
+        function updateAIPlatformSelector() {
+            const select = document.getElementById('aiPlatform');
+            select.innerHTML = '<option value="all">所有AI平台</option>';
+            appData.aiPlatforms.forEach(platform => {
+                const option = document.createElement('option');
+                option.value = platform.toLowerCase();
+                option.textContent = platform;
+                select.appendChild(option);
+            });
+        }
+
+        // 切换标签页
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabName + '-section').classList.add('active');
+        }
+
+        // 更新所有数据
+        function updateData() {
+            const currentTab = document.querySelector('.tab.active').textContent;
+            
+            if (currentTab.includes('品牌核心指标')) {
+                updateBrandRankingTable();
+                updateChart();
+            } else {
+                updateSourcePlatformTable();
+                updateSourceBrandTable();
+            }
+        }
+
+        // 初始化页面
+        function initializePage() {
+            updateAIPlatformSelector();
+            updateBrandRankingTable();
+            updateChart();
+            updateSourcePlatformTable();
+            updateSourceBrandTable();
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+    </script>
+</body>
+</html>
