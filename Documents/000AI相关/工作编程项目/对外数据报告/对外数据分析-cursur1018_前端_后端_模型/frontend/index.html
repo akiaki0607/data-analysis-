@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI平台数据分析报告 V3.1</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- 顶部区域 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">AI平台数据分析报告 <span class="version">V3.1</span></h1>
+                <div class="data-badge" id="dataBadge">
+                    <span class="badge demo">演示数据</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 上传区域 -->
+    <section class="upload-section">
+        <div class="container">
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+                <div class="upload-content">
+                    <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48">
+                        <path fill="currentColor" d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                    </svg>
+                    <p class="upload-text">拖拽Excel文件到这里，或点击上传</p>
+                    <p class="upload-hint">支持 .xlsx, .xls, .csv 格式</p>
+                </div>
+            </div>
+            <div class="upload-actions">
+                <button class="btn btn-primary" id="analyzeBtn" disabled>开始分析</button>
+                <button class="btn btn-secondary" id="demoBtn">使用演示数据</button>
+            </div>
+            <div class="upload-status" id="uploadStatus"></div>
+        </div>
+    </section>
+
+    <!-- 数据封面 -->
+    <section class="metadata-section" id="metadataSection" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">数据封面</h2>
+            <div class="metadata-grid" id="metadataGrid"></div>
+        </div>
+    </section>
+
+    <!-- 数据转换预览 -->
+    <section class="transform-section" id="transformSection" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">
+                📋 数据转换预览
+                <span class="transform-badge">宽表→长表</span>
+            </h2>
+            
+            <div class="transform-stats">
+                <div class="stat-item">
+                    <div class="stat-label">原始宽表</div>
+                    <div class="stat-value" id="wideTableDim">-</div>
+                </div>
+                <div class="stat-arrow">→</div>
+                <div class="stat-item">
+                    <div class="stat-label">转换后长表</div>
+                    <div class="stat-value" id="longTableDim">-</div>
+                </div>
+            </div>
+            
+            <div class="transform-actions">
+                <button id="downloadLongTableBtn" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 10V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.66666 6.66666L7.99999 10L11.3333 6.66666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 10V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    下载长表数据
+                </button>
+                <button id="togglePreviewBtn" class="btn-text">
+                    <span id="togglePreviewText">显示详细数据</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="longTablePreview" class="table-preview" style="display: none;"></div>
+        </div>
+    </section>
+
+    <!-- Tab切换 -->
+    <section class="analysis-section" id="analysisSection" style="display: none;">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="brand">品牌核心指标</button>
+                <button class="tab-btn" data-tab="keyword">关键词分析</button>
+            </div>
+
+            <!-- 品牌核心指标Tab -->
+            <div class="tab-content active" id="brandTab">
+                <div class="filter-bar">
+                    <label>AI平台筛选：</label>
+                    <select id="brandPlatformFilter" class="filter-select">
+                        <option value="all">所有AI平台</option>
+                    </select>
+                </div>
+
+                <div class="metrics-container">
+                    <h3 class="subsection-title">品牌排名矩阵表</h3>
+                    <div class="table-container" id="brandMatrixTable"></div>
+
+                    <h3 class="subsection-title">品牌对比图</h3>
+                    <div class="chart-filter">
+                        <label>AI平台：</label>
+                        <select id="brandChartPlatformFilter" class="filter-select">
+                            <option value="all">所有AI平台</option>
+                        </select>
+                        
+                        <label style="margin-left: 20px;">选择指标：</label>
+                        <select id="brandMetricSelect" class="filter-select">
+                            <option value="可见概率">可见概率</option>
+                            <option value="推荐概率">推荐概率</option>
+                            <option value="Top1占比">Top1占比</option>
+                            <option value="Top3占比">Top3占比</option>
+                            <option value="Top5占比">Top5占比</option>
+                            <option value="Top10占比">Top10占比</option>
+                            <option value="Top1关键词数">Top1关键词数</option>
+                            <option value="Top3关键词数">Top3关键词数</option>
+                            <option value="Top5关键词数">Top5关键词数</option>
+                            <option value="Top10关键词数">Top10关键词数</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="brandChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 关键词分析Tab -->
+            <div class="tab-content" id="keywordTab">
+                <div class="filter-bar">
+                    <label>AI平台筛选：</label>
+                    <select id="keywordPlatformFilter" class="filter-select"></select>
+                    
+                    <label style="margin-left: 20px;">分析维度：</label>
+                    <select id="keywordDimensionFilter" class="filter-select">
+                        <option value="可见概率">可见概率</option>
+                        <option value="推荐概率">推荐概率</option>
+                        <option value="Top1占比">Top1占比</option>
+                        <option value="Top3占比">Top3占比</option>
+                        <option value="Top5占比">Top5占比</option>
+                    </select>
+                </div>
+
+                <div class="metrics-container">
+                    <h3 class="subsection-title">关键词排名矩阵表</h3>
+                    <div class="table-container" id="keywordMatrixTable"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

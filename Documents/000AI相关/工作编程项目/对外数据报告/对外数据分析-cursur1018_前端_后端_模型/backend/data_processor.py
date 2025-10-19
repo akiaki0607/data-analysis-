@@ -15,7 +15,7 @@ class ExcelDataProcessor:
         self.data = {}
     
     def process(self) -> Dict[str, Any]:
-        """主处理流程"""
+        """主处理流程（支持宽表转换）"""
         print("开始处理Excel数据...")
         
         try:
@@ -31,8 +31,10 @@ class ExcelDataProcessor:
             self.data['platform_metrics'] = self._extract_platform_metrics()
             print("✓ AI平台指标提取完成")
             
-            # 4. 提取关键词分析数据
-            self.data['keyword_analysis'] = self._extract_keyword_analysis()
+            # 4. 提取关键词分析数据（支持宽表转换）
+            keyword_result = self._extract_keyword_analysis()
+            self.data['keyword_analysis'] = keyword_result.get('keyword_analysis', {})
+            self.data['long_table_preview'] = keyword_result.get('long_table_preview', None)
             print("✓ 关键词分析数据提取完成")
             
             # 5. 数据校验
@@ -113,10 +115,15 @@ class ExcelDataProcessor:
             # 数据清洗
             df = self._clean_dataframe(df)
             
-            # 生成排名数据
+            # 生成排名数据（按用户要求的顺序）
             metrics = {}
-            metric_names = ['可见概率', '推荐概率', 'Top1占比', 'Top3占比', 'Top5占比', 'Top10占比',
-                          'Top1关键词数', 'Top3关键词数', 'Top5关键词数', 'Top10关键词数']
+            metric_names = [
+                '可见概率', '推荐概率',
+                '选用信源平台占比', '选用信源文章占比', 
+                'AI回答总数',
+                'Top1占比', 'Top3占比', 'Top5占比', 'Top10占比',
+                'Top1关键词数', 'Top3关键词数', 'Top5关键词数', 'Top10关键词数'
+            ]
             
             for metric in metric_names:
                 if metric in df.columns and '品牌' in df.columns:
@@ -199,12 +206,51 @@ class ExcelDataProcessor:
             return {}
     
     def _extract_keyword_analysis(self) -> Dict:
-        """提取关键词分析数据"""
+        """提取关键词分析数据（支持宽表转换）"""
+        # 尝试找到关键词Sheet
         for key, sheet_schema in self.schema.items():
-            if key.startswith('sheet_') and sheet_schema.get('type') == 'multi_dimension_table':
+            if key.startswith('sheet_'):
                 sheet_name = key.replace('sheet_', '')
-                return self._extract_keyword_from_sheet(sheet_name, sheet_schema)
-        return {}
+                # 检查是否是关键词相关的Sheet
+                if '关键词' in sheet_name or 'keyword' in sheet_name.lower():
+                    sheet_type = sheet_schema.get('type')
+                    print(f"找到关键词Sheet: {sheet_name}, 类型: {sheet_type}")
+                    
+                    # 检查是否为宽表格式
+                    if sheet_type == 'wide_table':
+                        print("检测到宽表格式，开始转换...")
+                        # 执行宽表→长表转换
+                        df_long = self._transform_wide_to_long(sheet_name, sheet_schema)
+                        
+                        if df_long is not None and not df_long.empty:
+                            # 生成长表预览
+                            long_table_preview = {
+                                'shape': list(df_long.shape),
+                                'columns': list(df_long.columns),
+                                'data': df_long.head(100).to_dict('records')
+                            }
+                            
+                            # 基于长表生成关键词排名
+                            keyword_analysis = self._extract_keyword_ranking_from_long_table(df_long)
+                            
+                            return {
+                                'keyword_analysis': keyword_analysis,
+                                'long_table_preview': long_table_preview
+                            }
+                    
+                    # 标准表格处理
+                    elif sheet_type in ['multi_dimension_table', 'table']:
+                        keyword_data = self._extract_keyword_from_sheet(sheet_name, sheet_schema)
+                        return {
+                            'keyword_analysis': keyword_data,
+                            'long_table_preview': None
+                        }
+        
+        print("未找到关键词Sheet")
+        return {
+            'keyword_analysis': {},
+            'long_table_preview': None
+        }
     
     def _extract_keyword_from_sheet(self, sheet_name: str, sheet_schema: Dict) -> Dict:
         """从Sheet提取关键词数据"""
@@ -219,33 +265,53 @@ class ExcelDataProcessor:
             # 数据清洗
             df = self._clean_dataframe(df)
             
+            print(f"关键词Sheet列名: {list(df.columns)}")
+            
             keyword_data = {}
             
-            required_cols = ['AI平台', '分析维度', '关键词', '排名', '品牌', '数值']
-            if not all(col in df.columns for col in required_cols):
-                print(f"关键词表缺少必要字段，需要: {required_cols}")
+            # 检查必要字段（使用更灵活的匹配）
+            required_fields = {
+                'platform': ['AI平台', '平台', 'platform'],
+                'dimension': ['分析维度', '维度', 'dimension', '指标'],
+                'keyword': ['关键词', 'keyword'],
+                'rank': ['排名', 'rank', 'ranking'],
+                'brand': ['品牌', 'brand'],
+                'value': ['数值', 'value', '值']
+            }
+            
+            # 查找实际列名
+            actual_cols = {}
+            for field, possible_names in required_fields.items():
+                for name in possible_names:
+                    if name in df.columns:
+                        actual_cols[field] = name
+                        break
+            
+            missing_fields = set(required_fields.keys()) - set(actual_cols.keys())
+            if missing_fields:
+                print(f"关键词表缺少必要字段: {missing_fields}, 可用列: {list(df.columns)}")
                 return {}
             
             # 按AI平台和分析维度分组
-            for platform in df['AI平台'].unique():
+            for platform in df[actual_cols['platform']].unique():
                 if pd.isna(platform):
                     continue
                 
-                platform_df = df[df['AI平台'] == platform]
+                platform_df = df[df[actual_cols['platform']] == platform]
                 platform_data = {}
                 
-                for dimension in platform_df['分析维度'].unique():
+                for dimension in platform_df[actual_cols['dimension']].unique():
                     if pd.isna(dimension):
                         continue
                     
-                    dimension_df = platform_df[platform_df['分析维度'] == dimension]
+                    dimension_df = platform_df[platform_df[actual_cols['dimension']] == dimension]
                     matrix = {}
                     
                     for _, row in dimension_df.iterrows():
-                        keyword = str(row['关键词']) if pd.notna(row['关键词']) else ''
-                        ranking = int(row['排名']) if pd.notna(row['排名']) else 0
-                        brand = str(row['品牌']) if pd.notna(row['品牌']) else ''
-                        value = float(row['数值']) if pd.notna(row['数值']) else 0
+                        keyword = str(row[actual_cols['keyword']]) if pd.notna(row[actual_cols['keyword']]) else ''
+                        ranking = int(row[actual_cols['rank']]) if pd.notna(row[actual_cols['rank']]) else 0
+                        brand = str(row[actual_cols['brand']]) if pd.notna(row[actual_cols['brand']]) else ''
+                        value = float(row[actual_cols['value']]) if pd.notna(row[actual_cols['value']]) else 0
                         
                         if keyword and ranking > 0:
                             if keyword not in matrix:
@@ -255,13 +321,18 @@ class ExcelDataProcessor:
                                 '数值': value
                             }
                     
-                    platform_data[str(dimension)] = matrix
+                    if matrix:  # 只添加非空的维度数据
+                        platform_data[str(dimension)] = matrix
                 
-                keyword_data[str(platform)] = platform_data
+                if platform_data:  # 只添加非空的平台数据
+                    keyword_data[str(platform)] = platform_data
             
+            print(f"提取到关键词数据: {len(keyword_data)} 个平台")
             return keyword_data
         except Exception as e:
             print(f"提取关键词数据失败: {e}")
+            import traceback
+            traceback.print_exc()
             return {}
     
     def _clean_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -322,4 +393,240 @@ class ExcelDataProcessor:
         """数据校验"""
         # TODO: 实现数据校验逻辑
         pass
+    
+    def _transform_wide_to_long(self, sheet_name: str, sheet_schema: Dict) -> pd.DataFrame:
+        """
+        宽表转长表核心算法
+        
+        将宽表格式（多品牌列重复）转换为长表格式（标准化列）
+        
+        示例:
+            输入（宽表）:
+            关键词 | AI平台 | 移山科技_可见占比 | 移山科技_推荐占比 | 思迈特_可见占比 | ...
+            
+            输出（长表）:
+            关键词 | AI平台 | 品牌 | 品牌类型 | 可见占比 | 推荐占比 | ...
+        
+        参数:
+            sheet_name: Sheet名称
+            sheet_schema: 包含brand_blocks的Schema
+        
+        返回:
+            pd.DataFrame: 长表格式的DataFrame
+        """
+        try:
+            header_row = sheet_schema.get('header_row', 1) - 1
+            df_wide = pd.read_excel(
+                self.excel_file_path, 
+                sheet_name=sheet_name, 
+                header=header_row
+            )
+            
+            print(f"原始宽表维度: {df_wide.shape}")
+            print(f"宽表列名样例: {list(df_wide.columns[:10])}")
+            
+            # 提取基础列
+            base_columns = sheet_schema.get('base_columns', [])
+            base_col_names = []
+            base_standard_names = []
+            
+            for col in base_columns:
+                excel_name = col.get('excel_name')
+                standard_name = col.get('standard_name')
+                # 查找实际列名（支持模糊匹配）
+                actual_col = self._find_matching_column(df_wide.columns, excel_name)
+                if actual_col:
+                    base_col_names.append(actual_col)
+                    base_standard_names.append(standard_name)
+            
+            if not base_col_names:
+                print("错误：无法找到基础列")
+                return pd.DataFrame()
+            
+            print(f"找到基础列: {base_col_names}")
+            
+            # 准备长表记录列表
+            long_records = []
+            
+            # 遍历每一行
+            for idx, row in df_wide.iterrows():
+                # 提取基础信息
+                base_info = {}
+                for i, col_name in enumerate(base_col_names):
+                    base_info[base_standard_names[i]] = row[col_name]
+                
+                # 遍历每个品牌块
+                brand_blocks = sheet_schema.get('brand_blocks', [])
+                for brand_block in brand_blocks:
+                    record = base_info.copy()
+                    record['品牌'] = brand_block['brand']
+                    record['品牌类型'] = brand_block.get('brand_type', '未知')
+                    
+                    # 提取该品牌的所有指标值
+                    for col_info in brand_block['columns']:
+                        excel_col_name = col_info['excel_name']
+                        standard_name = col_info['standard_name']
+                        
+                        # 查找实际列名
+                        actual_col = self._find_matching_column(df_wide.columns, excel_col_name)
+                        if actual_col:
+                            value = row[actual_col]
+                            record[standard_name] = value
+                        else:
+                            record[standard_name] = None
+                    
+                    long_records.append(record)
+            
+            # 生成长表DataFrame
+            df_long = pd.DataFrame(long_records)
+            
+            # 数据清洗
+            df_long = self._clean_dataframe(df_long)
+            
+            print(f"转换后长表维度: {df_long.shape}")
+            print(f"长表列名: {list(df_long.columns)}")
+            print(f"长表前5行品牌分布: {df_long.head()['品牌'].tolist() if '品牌' in df_long.columns else []}")
+            
+            return df_long
+            
+        except Exception as e:
+            print(f"宽表转长表失败: {e}")
+            import traceback
+            traceback.print_exc()
+            return pd.DataFrame()
+    
+    def _find_matching_column(self, columns: List, target: str) -> str:
+        """
+        查找匹配的列名（支持模糊匹配）
+        """
+        if not target:
+            return None
+        
+        target_lower = str(target).lower().strip()
+        
+        # 精确匹配
+        for col in columns:
+            if str(col).strip() == target:
+                return col
+        
+        # 模糊匹配（包含关系）
+        for col in columns:
+            col_lower = str(col).lower().strip()
+            if target_lower in col_lower or col_lower in target_lower:
+                return col
+        
+        return None
+    
+    def _extract_keyword_ranking_from_long_table(self, df_long: pd.DataFrame) -> Dict:
+        """
+        从长表生成关键词排名矩阵（纯Python操作，不需要LLM）
+        
+        输出结构:
+        {
+            "DeepSeek": {
+                "可见占比": {
+                    "关键词A": {
+                        "排名1": {"品牌": "思迈特", "数值": 70},
+                        "排名2": {"品牌": "移山科技", "数值": 10}
+                    }
+                }
+            }
+        }
+        
+        参数:
+            df_long: 长表格式的DataFrame
+        
+        返回:
+            Dict: 关键词排名矩阵
+        """
+        try:
+            print("开始基于长表生成关键词排名...")
+            
+            keyword_data = {}
+            
+            # 分析维度列表
+            dimensions = [
+                '可见占比', '推荐占比', 
+                '信源平台占比', '信源文章占比',
+                'Top1占比', 'Top3占比', 'Top5占比', 'Top10占比'
+            ]
+            
+            # 检查必要列是否存在
+            required_cols = ['AI平台', '关键词', '品牌']
+            for col in required_cols:
+                if col not in df_long.columns:
+                    print(f"错误：长表缺少必要列 '{col}'")
+                    return {}
+            
+            # 1. 按AI平台分组
+            platforms = df_long['AI平台'].unique()
+            print(f"找到 {len(platforms)} 个AI平台: {list(platforms)}")
+            
+            for platform in platforms:
+                if pd.isna(platform):
+                    continue
+                
+                platform_df = df_long[df_long['AI平台'] == platform].copy()
+                platform_data = {}
+                
+                # 2. 按分析维度分组
+                for dimension in dimensions:
+                    if dimension not in df_long.columns:
+                        continue
+                    
+                    dimension_data = {}
+                    
+                    # 3. 按关键词分组
+                    keywords = platform_df['关键词'].unique()
+                    
+                    for keyword in keywords:
+                        if pd.isna(keyword):
+                            continue
+                        
+                        keyword_df = platform_df[platform_df['关键词'] == keyword].copy()
+                        
+                        # 4. 按当前维度值排序
+                        keyword_df_sorted = keyword_df.sort_values(
+                            by=dimension, 
+                            ascending=False,
+                            na_position='last'
+                        )
+                        
+                        # 5. 生成排名字典
+                        rankings = {}
+                        for rank, (_, row) in enumerate(keyword_df_sorted.iterrows(), 1):
+                            value = row[dimension]
+                            brand = row['品牌']
+                            
+                            # 只添加有效数据
+                            if pd.notna(value) and pd.notna(brand):
+                                # 转换为标准数值类型
+                                try:
+                                    value_float = float(value)
+                                    if value_float != 0:  # 跳过0值
+                                        rankings[f'排名{rank}'] = {
+                                            '品牌': str(brand),
+                                            '数值': value_float
+                                        }
+                                except (ValueError, TypeError):
+                                    pass
+                        
+                        if rankings:  # 只保存非空排名
+                            dimension_data[str(keyword)] = rankings
+                    
+                    if dimension_data:
+                        platform_data[dimension] = dimension_data
+                        print(f"  - {platform} / {dimension}: {len(dimension_data)} 个关键词")
+                
+                if platform_data:
+                    keyword_data[str(platform)] = platform_data
+            
+            print(f"✓ 关键词排名生成完成: {len(keyword_data)} 个平台")
+            return keyword_data
+            
+        except Exception as e:
+            print(f"生成关键词排名失败: {e}")
+            import traceback
+            traceback.print_exc()
+            return {}
 
