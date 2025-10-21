@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思迈特品牌AI数据表现分析报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1a6dbb 0%, #0d4d8c 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #1a6dbb;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+        .summary-box {
+            background: #f0f7ff;
+            border-left: 4px solid #1a6dbb;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .insight-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .insight-card:hover {
+            transform: translateY(-5px);
+        }
+        .insight-card.positive {
+            border-top: 4px solid #2ecc71;
+        }
+        .insight-card.negative {
+            border-top: 4px solid #e74c3c;
+        }
+        .insight-card.neutral {
+            border-top: 4px solid #3498db;
+        }
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f7fa;
+        }
+        .platform-tabs, .metric-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+        .platform-tab, .metric-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .platform-tab.active, .metric-tab.active {
+            border-bottom: 3px solid #1a6dbb;
+            color: #1a6dbb;
+            font-weight: bold;
+        }
+        .platform-content, .metric-content {
+            display: none;
+        }
+        .platform-content.active, .metric-content.active {
+            display: block;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .metric-positive {
+            color: #2ecc71;
+        }
+        .metric-negative {
+            color: #e74c3c;
+        }
+        .metric-neutral {
+            color: #3498db;
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-label {
+            font-weight: bold;
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .insight-grid, .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .chart-container {
+                height: 300px;
+            }
+            .platform-tabs, .metric-tabs {
+                flex-direction: column;
+            }
+            .platform-tab, .metric-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>思迈特品牌AI数据表现分析报告</h1>
+            <p class="subtitle">数据周期：2025-10-05 至 2025-10-19 | 分析范围：思迈特（客户）vs 核心竞品</p>
+        </header>
+
+        <section>
+            <h2>核心发现</h2>
+            <div class="insight-grid">
+                <div class="insight-card positive">
+                    <div class="card-title">📈 思迈特整体表现提升显著</div>
+                    <p>从10月5日到10月19日，思迈特的品牌可见概率从41.79%提升至56.02%，增长14.23个百分点。</p>
+                </div>
+                <div class="insight-card positive">
+                    <div class="card-title">🏆 元宝平台表现突出</div>
+                    <p>思迈特在元宝平台的可见概率从45.61%大幅提升至75%，成为表现最佳的AI平台。</p>
+                </div>
+                <div class="insight-card negative">
+                    <div class="card-title">⚠️ 部分关键词表现薄弱</div>
+                    <p>多个关键词在豆包、Kimi平台上可见概率低于50%，存在优化空间。</p>
+                </div>
+                <div class="insight-card neutral">
+                    <div class="card-title">📊 竞品动态值得关注</div>
+                    <p>瓴羊在Kimi平台增长明显，从9.04%提升至24.57%，需要密切关注其策略。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>数据范围与口径</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>项目</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>数据日期</td>
+                        <td>2025-10-05、2025-10-19</td>
+                    </tr>
+                    <tr>
+                        <td>品牌</td>
+                        <td>思迈特（客户）、帆软、网易数帆、瓴羊（阿里）、火山引擎、观远数据、永洪等</td>
+                    </tr>
+                    <tr>
+                        <td>AI平台</td>
+                        <td>豆包、DeepSeek、元宝、Kimi</td>
+                    </tr>
+                    <tr>
+                        <td>核心指标</td>
+                        <td>可见概率、推荐概率、信源平台占比、信源文章占比、Top1-10占比</td>
+                    </tr>
+                    <tr>
+                        <td>薄弱关键词定义</td>
+                        <td>可见概率 &lt; 50%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>最新日期横截面概览（客户 vs 竞品）</h2>
+            
+            <h3>3.1 整体表现对比</h3>
+            <div class="metric-tabs">
+                <div class="metric-tab active" data-metric="visible">可见概率</div>
+                <div class="metric-tab" data-metric="recommend">推荐概率</div>
+                <div class="metric-tab" data-metric="source-platform">信源平台占比</div>
+                <div class="metric-tab" data-metric="source-article">信源文章占比</div>
+            </div>
+            
+            <div class="metric-content active" id="metric-visible">
+                <div class="chart-container" id="overallComparison"></div>
+            </div>
+            <div class="metric-content" id="metric-recommend">
+                <div class="chart-container" id="recommendComparison"></div>
+            </div>
+            <div class="metric-content" id="metric-source-platform">
+                <div class="chart-container" id="sourcePlatformComparison"></div>
+            </div>
+            <div class="metric-content" id="metric-source-article">
+                <div class="chart-container" id="sourceArticleComparison"></div>
+            </div>
+            
+            <div class="summary-box">
+                <p><strong>文字总结：</strong> 思迈特在10月19日的<strong>可见概率达56.02%</strong>，远超竞品（帆软39.15%，瓴羊20.56%）。<strong>推荐概率43.98%</strong>，同样领先，说明用户对思迈特的认可度高。信源文章占比32.36%，仅次于帆软（23.23%），内容影响力强。</p>
+            </div>
+            
+            <h3>3.2 按AI平台表现对比</h3>
+            <div class="platform-tabs">
+                <div class="platform-tab active" data-platform="all">全部平台</div>
+                <div class="platform-tab" data-platform="yuanbao">元宝</div>
+                <div class="platform-tab" data-platform="deepseek">DeepSeek</div>
+                <div class="platform-tab" data-platform="doubao">豆包</div>
+                <div class="platform-tab" data-platform="kimi">Kimi</div>
+            </div>
+            
+            <div class="platform-content active" id="platform-all">
+                <div class="chart-container" id="platformComparison"></div>
+            </div>
+            <div class="platform-content" id="platform-yuanbao">
+                <div class="chart-container" id="yuanbaoChart"></div>
+            </div>
+            <div class="platform-content" id="platform-deepseek">
+                <div class="chart-container" id="deepseekChart"></div>
+            </div>
+            <div class="platform-content" id="platform-doubao">
+                <div class="chart-container" id="doubaoChart"></div>
+            </div>
+            <div class="platform-content" id="platform-kimi">
+                <div class="chart-container" id="kimiChart"></div>
+            </div>
+            
+            <div class="summary-box">
+                <p><strong>文字总结：</strong></p>
+                <ul>
+                    <li><strong>元宝平台</strong>：思迈特表现最佳（可见概率75%），远超竞品。</li>
+                    <li><strong>DeepSeek</strong>：思迈特与帆软表现接近，但帆软在信源文章占比上略高。</li>
+                    <li><strong>豆包</strong>：思迈特表现中等，瓴羊在豆包上有一定曝光。</li>
+                    <li><strong>Kimi</strong>：思迈特表现一般，瓴羊在Kimi上有明显优势。</li>
+                </ul>
+            </div>
+            
+            <h3>3.3 平台×关键词表现 - 薄弱关键词分析</h3>
+            <div class="filter-section">
+                <div class="filter-label">筛选平台：</div>
+                <select id="keywordPlatformFilter">
+                    <option value="all">全部平台</option>
+                    <option value="豆包">豆包</option>
+                    <option value="DeepSeek">DeepSeek</option>
+                    <option value="元宝">元宝</option>
+                    <option value="Kimi">Kimi</option>
+                </select>
+                <div class="filter-label">排序方式：</div>
+                <select id="keywordSort">
+                    <option value="visible">可见概率(低→高)</option>
+                    <option value="visible-desc">可见概率(高→低)</option>
+                    <option value="keyword">关键词</option>
+                </select>
+            </div>
+            
+            <table id="weakKeywordsTable">
+                <thead>
+                    <tr>
+                        <th>关键词</th>
+                        <th>AI平台</th>
+                        <th>可见概率</th>
+                        <th>推荐概率</th>
+                        <th>信源文章占比</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据将通过JavaScript动态填充 -->
+                </tbody>
+            </table>
+            
+            <h3>3.4 结论小结</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">领先点</div>
+                    <div class="metric-value metric-positive">✓</div>
+                    <div class="metric-desc">元宝平台表现突出</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">领先点</div>
+                    <div class="metric-value metric-positive">✓</div>
+                    <div class="metric-desc">整体可见/推荐率高</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">短板</div>
+                    <div class="metric-value metric-negative">✗</div>
+                    <div class="metric-desc">部分关键词在豆包/Kimi上曝光不足</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">短板</div>
+                    <div class="metric-value metric-negative">✗</div>
+                    <div class="metric-desc">瓴羊在Kimi平台增长快</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>多日期趋势（10.5 vs 10.19）</h2>
+            
+            <h3>4.1 整体趋势</h3>
+            <div class="metric-tabs">
+                <div class="metric-tab active" data-trend-metric="visible">可见概率</div>
+                <div class="metric-tab" data-trend-metric="recommend">推荐概率</div>
+                <div class="metric-tab" data-trend-metric="source-platform">信源平台占比</div>
+                <div class="metric-tab" data-trend-metric="source-article">信源文章占比</div>
+            </div>
+            
+            <div class="metric-content active" id="trend-metric-visible">
+                <div class="chart-container" id="trendOverall"></div>
+            </div>
+            <div class="metric-content" id="trend-metric-recommend">
+                <div class="chart-container" id="trendRecommend"></div>
+            </div>
+            <div class="metric-content" id="trend-metric-source-platform">
+                <div class="chart-container" id="trendSourcePlatform"></div>
+            </div>
+            <div class="metric-content" id="trend-metric-source-article">
+                <div class="chart-container" id="trendSourceArticle"></div>
+            </div>
+            
+            <div class="summary-box">
+                <p><strong>文字总结：</strong> 思迈特从10月5日的<strong>41.79%</strong> 提升至10月19日的<strong>56.02%</strong>，增长显著。竞品中，瓴羊增长明显（10.74% → 20.56%），值得关注。</p>
+            </div>
+            
+            <h3>4.2 平台趋势</h3>
+            <div class="chart-container" id="platformTrend"></div>
+            <div class="summary-box">
+                <p><strong>文字总结：</strong></p>
+                <ul>
+                    <li><strong>元宝</strong>：思迈特从45.61% → 75%，增长最显著。</li>
+                    <li><strong>DeepSeek</strong>：从39.88% → 46.92%，稳步提升。</li>
+                    <li><strong>豆包</strong>：从54.99% → 57.29%，略有增长。</li>
+                    <li><strong>Kimi</strong>：从26.97% → 44.86%，增长明显。</li>
+                </ul>
+            </div>
+            
+            <h3>4.3 平台×关键词趋势 - 薄弱关键词变化分析</h3>
+            <div class="filter-section">
+                <div class="filter-label">筛选平台：</div>
+                <select id="trendPlatformFilter">
+                    <option value="all">全部平台</option>
+                    <option value="豆包">豆包</option>
+                    <option value="DeepSeek">DeepSeek</option>
+                    <option value="元宝">元宝</option>
+                    <option value="Kimi">Kimi</option>
+                </select>
+                <div class="filter-label">关键词状态：</div>
+                <select id="keywordStatusFilter">
+                    <option value="all">全部关键词</option>
+                    <option value="improved">已改善的关键词</option>
+                    <option value="deteriorated">变差的关键词</option>
+                    <option value="still-weak">仍然薄弱的关键词</option>
+                    <option value="new-weak">新薄弱的关键词</option>
+                </select>
+            </div>
+            
+            <table id="keywordTrendTable">
+                <thead>
+                    <tr>
+                        <th>关键词</th>
+                        <th>AI平台</th>
+                        <th>10月5日可见概率</th>
+                        <th>10月19日可见概率</th>
+                        <th>变化</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据将通过JavaScript动态填充 -->
+                </tbody>
+            </table>
+            
+            <h3>4.4 驱动与假设</h3>
+            <div class="insight-grid">
+                <div class="insight-card neutral">
+                    <div class="card-title">📝 内容策略优化</div>
+                    <p>思迈特在10月19日前可能加强了关键词覆盖与内容发布。</p>
+                </div>
+                <div class="insight-card neutral">
+                    <div class="card-title">🔍 平台算法变动</div>
+                    <p>元宝平台可能调整了推荐机制，更偏好思迈特内容。</p>
+                </div>
+                <div class="insight-card neutral">
+                    <div class="card-title">📊 竞品动作</div>
+                    <p>瓴羊在Kimi平台上的增长可能与其投放策略有关。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>关键洞察与可执行建议</h2>
+            
+            <h3>5.1 放大优势</h3>
+            <div class="insight-grid">
+                <div class="insight-card positive">
+                    <div class="card-title">🚀 加大元宝平台投入</div>
+                    <p>巩固在元宝平台的领先地位，加大投放与内容输出。</p>
+                </div>
+                <div class="insight-card positive">
+                    <div class="card-title">📈 复制成功经验</div>
+                    <p>将元宝平台的成功经验复制至DeepSeek与豆包平台，提升整体曝光。</p>
+                </div>
+            </div>
+            
+            <h3>5.2 修复短板</h3>
+            <div class="insight-grid">
+                <div class="insight-card negative">
+                    <div class="card-title">🔧 优化薄弱关键词</div>
+                    <p>提升"aibi软件推荐"、"AIBI哪个受欢迎"等关键词在豆包、Kimi平台的内容质量与曝光。</p>
+                </div>
+                <div class="insight-card negative">
+                    <div class="card-title">👀 监测竞品动态</div>
+                    <p>密切关注瓴羊在Kimi平台的动作，制定针对性内容策略。</p>
+                </div>
+                <div class="insight-card negative">
+                    <div class="card-title">📋 建立表现看板</div>
+                    <p>建立关键词-平台表现看板，定期复盘与优化。</p>
+                </div>
+            </div>
+            
+            <h3>下一步行动建议</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>建议</th>
+                        <th>负责人</th>
+                        <th>完成时间</th>
+                        <th>度量方式</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>优化薄弱关键词在豆包/Kimi平台的内容</td>
+                        <td>内容团队</td>
+                        <td>2025-10-26</td>
+                        <td>可见概率提升至50%+</td>
+                    </tr>
+                    <tr>
+                        <td>加强元宝平台内容输出频率</td>
+                        <td>运营团队</td>
+                        <td>持续</td>
+                        <td>每周新增3篇高质量内容</td>
+                    </tr>
+                    <tr>
+                        <td>竞品内容策略分析（瓴羊-Kimi）</td>
+                        <td>市场分析</td>
+                        <td>2025-10-22</td>
+                        <td>输出竞品分析报告</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>思迈特品牌AI数据表现分析报告 | 生成时间: 2025年10月</p>
+            <p>本报告基于2025年10月5日至10月19日的数据分析生成</p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化所有ECharts实例
+        document.addEventListener('DOMContentLoaded', function() {
+            // 整体品牌对比图表 - 可见概率
+            const overallComparisonChart = echarts.init(document.getElementById('overallComparison'));
+            const overallComparisonOption = {
+                title: {
+                    text: '各品牌可见概率对比（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['可见概率'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)',
+                    max: 60
+                },
+                series: [
+                    {
+                        name: '可见概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [56.02, 39.15, 20.56, 13.23, 8.19, 8.12],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    }
+                ]
+            };
+            overallComparisonChart.setOption(overallComparisonOption);
+
+            // 整体品牌对比图表 - 推荐概率
+            const recommendComparisonChart = echarts.init(document.getElementById('recommendComparison'));
+            const recommendComparisonOption = {
+                title: {
+                    text: '各品牌推荐概率对比（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['推荐概率'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)',
+                    max: 50
+                },
+                series: [
+                    {
+                        name: '推荐概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [43.98, 19.41, 7.79, 4.04, 2.15, 2.61],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    }
+                ]
+            };
+            recommendComparisonChart.setOption(recommendComparisonOption);
+
+            // 整体品牌对比图表 - 信源平台占比
+            const sourcePlatformComparisonChart = echarts.init(document.getElementById('sourcePlatformComparison'));
+            const sourcePlatformComparisonOption = {
+                title: {
+                    text: '各品牌信源平台占比对比（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['信源平台占比'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)',
+                    max: 25
+                },
+                series: [
+                    {
+                        name: '信源平台占比',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [21.76, 12.4, 6.4, 9.59, 3.98, 4.6],
+                        itemStyle: {
+                            color: '#9b59b6'
+                        }
+                    }
+                ]
+            };
+            sourcePlatformComparisonChart.setOption(sourcePlatformComparisonOption);
+
+            // 整体品牌对比图表 - 信源文章占比
+            const sourceArticleComparisonChart = echarts.init(document.getElementById('sourceArticleComparison'));
+            const sourceArticleComparisonOption = {
+                title: {
+                    text: '各品牌信源文章占比对比（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['信源文章占比'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)',
+                    max: 40
+                },
+                series: [
+                    {
+                        name: '信源文章占比',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [32.36, 23.23, 9.1, 8.97, 3.48, 4.54],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    }
+                ]
+            };
+            sourceArticleComparisonChart.setOption(sourceArticleComparisonOption);
+
+            // 平台对比图表
+            const platformComparisonChart = echarts.init(document.getElementById('platformComparison'));
+            const platformComparisonOption = {
+                title: {
+                    text: '各平台品牌可见概率对比（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['元宝', 'DeepSeek', '豆包', 'Kimi']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '可见概率(%)',
+                    max: 80
+                },
+                series: [
+                    {
+                        name: '思迈特',
+                        type: 'bar',
+                        barWidth: '20%',
+                        data: [75.0, 46.92, 57.29, 44.86],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    },
+                    {
+                        name: '帆软',
+                        type: 'bar',
+                        barWidth: '20%',
+                        data: [47.29, 42.04, 18.43, 48.86],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: '瓴羊(阿里)',
+                        type: 'bar',
+                        barWidth: '20%',
+                        data: [20.86, 26.54, 10.29, 24.57],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '火山引擎',
+                        type: 'bar',
+                        barWidth: '20%',
+                        data: [13.71, 15.78, 8.14, 15.29],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            platformComparisonChart.setOption(platformComparisonOption);
+
+            // 各平台单独图表
+            const yuanbaoChart = echarts.init(document.getElementById('yuanbaoChart'));
+            yuanbaoChart.setOption({
+                title: {
+                    text: '元宝平台各品牌表现（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)'
+                },
+                series: [
+                    {
+                        name: '可见概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [75.0, 47.29, 20.86, 13.71, 12.43, 15.71],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    },
+                    {
+                        name: '推荐概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [69.71, 35.0, 14.0, 7.14, 6.57, 9.29],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    }
+                ]
+            });
+
+            const deepseekChart = echarts.init(document.getElementById('deepseekChart'));
+            deepseekChart.setOption({
+                title: {
+                    text: 'DeepSeek平台各品牌表现（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)'
+                },
+                series: [
+                    {
+                        name: '可见概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [46.92, 42.04, 26.54, 15.78, 9.61, 2.87],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    },
+                    {
+                        name: '推荐概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [32.86, 20.23, 12.05, 4.45, 1.0, 0.29],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    }
+                ]
+            });
+
+            const doubaoChart = echarts.init(document.getElementById('doubaoChart'));
+            doubaoChart.setOption({
+                title: {
+                    text: '豆包平台各品牌表现（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)'
+                },
+                series: [
+                    {
+                        name: '可见概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [57.29, 18.43, 10.29, 8.14, 6.29, 5.86],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    },
+                    {
+                        name: '推荐概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [38.86, 5.0, 2.0, 2.14, 0.57, 0.29],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    }
+                ]
+            });
+
+            const kimiChart = echarts.init(document.getElementById('kimiChart'));
+            kimiChart.setOption({
+                title: {
+                    text: 'Kimi平台各品牌表现（10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎', '观远数据', '永洪']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '百分比(%)'
+                },
+                series: [
+                    {
+                        name: '可见概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [44.86, 48.86, 24.57, 15.29, 4.43, 8.0],
+                        itemStyle: {
+                            color: '#3498db'
+                        }
+                    },
+                    {
+                        name: '推荐概率',
+                        type: 'bar',
+                        barWidth: '40%',
+                        data: [34.43, 17.43, 3.14, 2.43, 0.43, 0.57],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    }
+                ]
+            });
+
+            // 整体趋势图表 - 可见概率
+            const trendOverallChart = echarts.init(document.getElementById('trendOverall'));
+            const trendOverallOption = {
+                title: {
+                    text: '品牌可见概率趋势（10月5日 vs 10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['10月5日', '10月19日']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '可见概率(%)'
+                },
+                series: [
+                    {
+                        name: '思迈特',
+                        type: 'line',
+                        data: [41.79, 56.02],
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 3
+                        }
+                    },
+                    {
+                        name: '帆软',
+                        type: 'line',
+                        data: [35.79, 39.15],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: '瓴羊(阿里)',
+                        type: 'line',
+                        data: [10.74, 20.56],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '火山引擎',
+                        type: 'line',
+                        data: [6.36, 13.23],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            trendOverallChart.setOption(trendOverallOption);
+
+            // 整体趋势图表 - 推荐概率
+            const trendRecommendChart = echarts.init(document.getElementById('trendRecommend'));
+            const trendRecommendOption = {
+                title: {
+                    text: '品牌推荐概率趋势（10月5日 vs 10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['10月5日', '10月19日']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '推荐概率(%)'
+                },
+                series: [
+                    {
+                        name: '思迈特',
+                        type: 'line',
+                        data: [31.02, 43.98],
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 3
+                        }
+                    },
+                    {
+                        name: '帆软',
+                        type: 'line',
+                        data: [10.56, 19.41],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: '瓴羊(阿里)',
+                        type: 'line',
+                        data: [0.0, 7.79],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '火山引擎',
+                        type: 'line',
+                        data: [2.13, 4.04],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            trendRecommendChart.setOption(trendRecommendOption);
+
+            // 整体趋势图表 - 信源平台占比
+            const trendSourcePlatformChart = echarts.init(document.getElementById('trendSourcePlatform'));
+            const trendSourcePlatformOption = {
+                title: {
+                    text: '品牌信源平台占比趋势（10月5日 vs 10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['10月5日', '10月19日']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '信源平台占比(%)'
+                },
+                series: [
+                    {
+                        name: '思迈特',
+                        type: 'line',
+                        data: [19.59, 21.76],
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 3
+                        }
+                    },
+                    {
+                        name: '帆软',
+                        type: 'line',
+                        data: [7.07, 12.4],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: '瓴羊(阿里)',
+                        type: 'line',
+                        data: [0.0, 6.4],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '火山引擎',
+                        type: 'line',
+                        data: [4.96, 9.59],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            trendSourcePlatformChart.setOption(trendSourcePlatformOption);
+
+            // 整体趋势图表 - 信源文章占比
+            const trendSourceArticleChart = echarts.init(document.getElementById('trendSourceArticle'));
+            const trendSourceArticleOption = {
+                title: {
+                    text: '品牌信源文章占比趋势（10月5日 vs 10月19日）',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['思迈特', '帆软', '瓴羊(阿里)', '火山引擎'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['10月5日', '10月19日']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '信源文章占比(%)'
+                },
+                series: [
+                    {
+                        name: '思迈特',
+                        type: 'line',
+                        data: [28.18, 32.36],
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 3
+                        }
+                    },
+                    {
+                        name: '帆软',
+                        type: 'line',
+                        data: [17.12, 23.23],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: '瓴羊(阿里)',
+                        type: 'line',
+                        data: [0.0, 9.1],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '火山引擎',
+                        type: 'line',
+                        data: [4.69, 8.97],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            trendSourceArticleChart.setOption(trendSourceArticleOption);
+
+            // 平台趋势图表
+            const platformTrendChart = echarts.init(document.getElementById('platformTrend'));
+            const platformTrendOption = {
+                title: {
+                    text: '思迈特各平台可见概率趋势',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['元宝', 'DeepSeek', '豆包', 'Kimi'],
+                    top: '10%'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    top: '20%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['10月5日', '10月19日']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '可见概率(%)'
+                },
+                series: [
+                    {
+                        name: '元宝',
+                        type: 'line',
+                        data: [45.61, 75.0],
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 3
+                        }
+                    },
+                    {
+                        name: 'DeepSeek',
+                        type: 'line',
+                        data: [39.88, 46.92],
+                        itemStyle: {
+                            color: '#2ecc71'
+                        }
+                    },
+                    {
+                        name: '豆包',
+                        type: 'line',
+                        data: [54.99, 57.29],
+                        itemStyle: {
+                            color: '#e74c3c'
+                        }
+                    },
+                    {
+                        name: 'Kimi',
+                        type: 'line',
+                        data: [26.97, 44.86],
+                        itemStyle: {
+                            color: '#f39c12'
+                        }
+                    }
+                ]
+            };
+            platformTrendChart.setOption(platformTrendOption);
+
+            // 平台标签切换功能
+            const platformTabs = document.querySelectorAll('.platform-tab');
+            platformTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有active类
+                    platformTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.platform-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签和对应内容
+                    this.classList.add('active');
+                    const platform = this.getAttribute('data-platform');
+                    document.getElementById(`platform-${platform}`).classList.add('active');
+                });
+            });
+
+            // 指标标签切换功能 - 最新日期
+            const metricTabs = document.querySelectorAll('.metric-tab');
+            metricTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有active类
+                    metricTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.metric-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签和对应内容
+                    this.classList.add('active');
+                    const metric = this.getAttribute('data-metric');
+                    document.getElementById(`metric-${metric}`).classList.add('active');
+                });
+            });
+
+            // 指标标签切换功能 - 趋势
+            const trendMetricTabs = document.querySelectorAll('[data-trend-metric]');
+            trendMetricTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有active类
+                    trendMetricTabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.metric-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签和对应内容
+                    this.classList.add('active');
+                    const metric = this.getAttribute('data-trend-metric');
+                    document.getElementById(`trend-metric-${metric}`).classList.add('active');
+                });
+            });
+
+            // 模拟薄弱关键词数据
+            const weakKeywordsData = [
+                { keyword: "aibi软件推荐", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个受欢迎", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个受欢迎", platform: "Kimi", visible: 20, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪些更专业", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪些值得选", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi公司推荐", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi公司推荐", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi公司推荐", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "DeepSeek", visible: 20, recommend: 0, sourceArticle: 6.25, status: "❌ 薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 2.5, status: "❌ 薄弱" },
+                { keyword: "AIBI有名的公司", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI有名的公司", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI有名的公司", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI有名的公司", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 9.76, status: "❌ 薄弱" },
+                { keyword: "AIBI前十有哪些", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI前十有哪些", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI前十有哪些", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI前十有哪些", platform: "豆包", visible: 20, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪个强", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪个强", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 5.88, status: "❌ 薄弱" },
+                { keyword: "aibi哪个强", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪个强", platform: "豆包", visible: 20, recommend: 20, sourceArticle: 12.12, status: "❌ 薄弱" },
+                { keyword: "AIBI哪些合适", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪些合适", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 5.88, status: "❌ 薄弱" },
+                { keyword: "AIBI哪些合适", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪些合适", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 2.38, status: "❌ 薄弱" },
+                { keyword: "aibi哪家可信", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家可信", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家可信", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家可信", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 8, status: "❌ 薄弱" },
+                { keyword: "AIBI推荐哪些", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI推荐哪些", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI推荐哪些", platform: "元宝", visible: 20, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI推荐哪些", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi热门推荐", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi热门推荐", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi热门推荐", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi热门推荐", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 4.35, status: "❌ 薄弱" },
+                { keyword: "AIBI选哪个", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI选哪个", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI选哪个", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI选哪个", platform: "豆包", visible: 20, recommend: 0, sourceArticle: 10.53, status: "❌ 薄弱" },
+                { keyword: "aibi哪家好", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家好", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家好", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi哪家好", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个好", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个好", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个好", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "AIBI哪个好", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 2.7, status: "❌ 薄弱" },
+                { keyword: "aibi推荐", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi推荐", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi推荐", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi推荐", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi", platform: "DeepSeek", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi", platform: "Kimi", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi", platform: "元宝", visible: 0, recommend: 0, sourceArticle: 0, status: "❌ 薄弱" },
+                { keyword: "aibi", platform: "豆包", visible: 0, recommend: 0, sourceArticle: 5, status: "❌ 薄弱" }
+            ];
+
+            // 模拟关键词趋势数据
+            const keywordTrendData = [
+                { keyword: "aibi软件推荐", platform: "元宝", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "AIBI哪个受欢迎", platform: "DeepSeek", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "AIBI哪个受欢迎", platform: "Kimi", visible1: 0, visible2: 20, change: "↑ 提升", status: "已改善" },
+                { keyword: "aibi哪些更专业", platform: "元宝", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "AIBI哪些值得选", platform: "元宝", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi公司推荐", platform: "DeepSeek", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi公司推荐", platform: "Kimi", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi公司推荐", platform: "元宝", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "DeepSeek", visible1: 20, visible2: 20, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "元宝", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi靠谱的公司", platform: "豆包", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "数据分析ai哪些更专业", platform: "豆包", visible1: 75, visible2: 100, change: "↑ 提升", status: "已改善" },
+                { keyword: "智能体BI哪个受欢迎", platform: "元宝", visible1: 100, visible2: 100, change: "→ 保持优秀", status: "保持优秀" },
+                { keyword: "AIBI选哪个", platform: "豆包", visible1: 20, visible2: 20, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "aibi", platform: "豆包", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "数据分析ai", platform: "DeepSeek", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "数据分析ai", platform: "豆包", visible1: 20, visible2: 0, change: "↓ 下降", status: "变差" },
+                { keyword: "AI数据可视化", platform: "DeepSeek", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "AI数据可视化", platform: "豆包", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "ai数据分析洞察", platform: "DeepSeek", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" },
+                { keyword: "ai数据分析洞察", platform: "豆包", visible1: 0, visible2: 0, change: "→ 无变化", status: "仍然薄弱" }
+            ];
+
+            // 填充薄弱关键词表格
+            function populateWeakKeywordsTable(platformFilter = 'all', sortBy = 'visible') {
+                const tableBody = document.querySelector('#weakKeywordsTable tbody');
+                tableBody.innerHTML = '';
+                
+                let filteredData = [...weakKeywordsData];
+                
+                // 按平台筛选
+                if (platformFilter !== 'all') {
+                    filteredData = filteredData.filter(item => item.platform === platformFilter);
+                }
+                
+                // 排序
+                if (sortBy === 'visible') {
+                    filteredData.sort((a, b) => a.visible - b.visible);
+                } else if (sortBy === 'visible-desc') {
+                    filteredData.sort((a, b) => b.visible - a.visible);
+                } else if (sortBy === 'keyword') {
+                    filteredData.sort((a, b) => a.keyword.localeCompare(b.keyword));
+                }
+                
+                // 填充表格
+                filteredData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.keyword}</td>
+                        <td>${item.platform}</td>
+                        <td>${item.visible}%</td>
+                        <td>${item.recommend}%</td>
+                        <td>${item.sourceArticle}%</td>
+                        <td>${item.status}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // 填充关键词趋势表格
+            function populateKeywordTrendTable(platformFilter = 'all', statusFilter = 'all') {
+                const tableBody = document.querySelector('#keywordTrendTable tbody');
+                tableBody.innerHTML = '';
+                
+                let filteredData = [...keywordTrendData];
+                
+                // 按平台筛选
+                if (platformFilter !== 'all') {
+                    filteredData = filteredData.filter(item => item.platform === platformFilter);
+                }
+                
+                // 按状态筛选
+                if (statusFilter !== 'all') {
+                    if (statusFilter === 'improved') {
+                        filteredData = filteredData.filter(item => item.status === '已改善');
+                    } else if (statusFilter === 'deteriorated') {
+                        filteredData = filteredData.filter(item => item.status === '变差');
+                    } else if (statusFilter === 'still-weak') {
+                        filteredData = filteredData.filter(item => item.status === '仍然薄弱');
+                    } else if (statusFilter === 'new-weak') {
+                        filteredData = filteredData.filter(item => item.status === '新薄弱');
+                    }
+                }
+                
+                // 填充表格
+                filteredData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.keyword}</td>
+                        <td>${item.platform}</td>
+                        <td>${item.visible1}%</td>
+                        <td>${item.visible2}%</td>
+                        <td>${item.change}</td>
+                        <td>${item.status}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+            
+            // 初始化表格
+            populateWeakKeywordsTable();
+            populateKeywordTrendTable();
+            
+            // 添加筛选器事件监听
+            document.getElementById('keywordPlatformFilter').addEventListener('change', function() {
+                const sortBy = document.getElementById('keywordSort').value;
+                populateWeakKeywordsTable(this.value, sortBy);
+            });
+            
+            document.getElementById('keywordSort').addEventListener('change', function() {
+                const platformFilter = document.getElementById('keywordPlatformFilter').value;
+                populateWeakKeywordsTable(platformFilter, this.value);
+            });
+            
+            document.getElementById('trendPlatformFilter').addEventListener('change', function() {
+                const statusFilter = document.getElementById('keywordStatusFilter').value;
+                populateKeywordTrendTable(this.value, statusFilter);
+            });
+            
+            document.getElementById('keywordStatusFilter').addEventListener('change', function() {
+                const platformFilter = document.getElementById('trendPlatformFilter').value;
+                populateKeywordTrendTable(platformFilter, this.value);
+            });
+
+            // 窗口大小变化时重置图表大小
+            window.addEventListener('resize', function() {
+                overallComparisonChart.resize();
+                recommendComparisonChart.resize();
+                sourcePlatformComparisonChart.resize();
+                sourceArticleComparisonChart.resize();
+                platformComparisonChart.resize();
+                yuanbaoChart.resize();
+                deepseekChart.resize();
+                doubaoChart.resize();
+                kimiChart.resize();
+                trendOverallChart.resize();
+                trendRecommendChart.resize();
+                trendSourcePlatformChart.resize();
+                trendSourceArticleChart.resize();
+                platformTrendChart.resize();
+            });
+        });
+    </script>
+</body>
+</html>
