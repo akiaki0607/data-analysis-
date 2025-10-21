@@ -1,0 +1,39 @@
+# 小红书联想词采集配置文件
+xiaohongshu:
+  base_url: "https://www.xiaohongshu.com/explore"
+  search_url: "https://www.xiaohongshu.com/search_result?keyword="
+  
+  # 页面元素选择器
+  selectors:
+    search_input: 'input[placeholder*="搜索"], input[class*="search"], input[data-testid*="search"]'
+    search_button: 'button[class*="search"], .search-icon, [data-testid*="search-button"]'
+    suggest_container: '.search-suggest, .auto-complete, .dropdown-menu, .suggestions'
+    suggest_items: '.search-suggest .suggest-item, .auto-complete-item, .suggestion-item'
+    suggest_text: '.suggest-text, .item-text, span'
+  
+  # 等待时间配置（毫秒）
+  timeouts:
+    page_load: 120000    # 2分钟页面加载
+    search_input: 30000  # 30秒搜索框等待
+    suggestions: 15000   # 15秒联想词等待
+    screenshot: 10000    # 10秒截图等待
+  
+  # 重试配置
+  retry:
+    max_attempts: 3      # 重试次数
+    delay: 3000         # 重试间隔
+
+# OCR配置
+ocr:
+  enabled: true
+  language: 'chi_sim+eng'
+  
+# 截图配置
+screenshot:
+  quality: 90
+  full_page: false
+  
+# 日志配置
+logging:
+  level: 'INFO'
+  format: '%(asctime)s - %(levelname)s - %(message)s'
