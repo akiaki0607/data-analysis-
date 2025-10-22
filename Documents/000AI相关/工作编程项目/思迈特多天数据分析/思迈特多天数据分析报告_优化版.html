@@ -550,6 +550,8 @@
             <div class="summary-box">
                 <p><strong>薄弱关键词定义：</strong>可见概率 < 50% 的关键词组合</p>
                 <p><strong>变化分析：</strong>对比10月5日与10月19日的数据，分析薄弱关键词的改善情况</p>
+                <p><strong>数据统计：</strong>思迈特公司共分析 <strong>361个薄弱关键词组合</strong>，其中 <strong>160个有提升</strong>，<strong>128个持平</strong>，<strong>73个有下降</strong></p>
+                <p><strong>平台分布：</strong>Kimi平台108个，DeepSeek平台102个，元宝平台81个，豆包平台70个</p>
             </div>
             
             <div class="filter-section">
@@ -1071,51 +1073,46 @@
                 return data;
             }
 
-            // 生成关键词趋势数据（可见概率 < 50%）
+            // 生成关键词趋势数据（基于真实数据）
             generateKeywordTrendData() {
-                const data = [];
-                const totalCount = 50; // 示例数据量
+                // 真实数据 - 思迈特公司10月5日-10月19日薄弱关键词变化分析
+                const realData = [
+                    { keyword: "智能问数哪个服务好", platform: "DeepSeek", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "AIBI选哪个", platform: "DeepSeek", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "ai数据分析洞察选哪个", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "人工智能数据分析", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "aibi哪个强", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "ai数据洞察平台", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "aibi软件推荐", platform: "DeepSeek", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "aibi哪些更专业", platform: "DeepSeek", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "AIBI服务专业公司推荐", platform: "DeepSeek", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "ai+数据分析平台", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "AI数据可视化哪些值得选", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "aibi系统推荐", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "智能问数哪个好", platform: "元宝", visible1: 0, visible2: 100, changeAmount: 100, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "ai数据分析平台哪个有名", platform: "Kimi", visible1: 0, visible2: 80, changeAmount: 80, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "数据分析agent", platform: "元宝", visible1: 20, visible2: 40, changeAmount: 20, changeTrend: "有提升", status: "仍然薄弱" },
+                    { keyword: "aibi公司推荐", platform: "元宝", visible1: 0, visible2: 40, changeAmount: 40, changeTrend: "有提升", status: "仍然薄弱" },
+                    { keyword: "智能问数哪个服务好", platform: "豆包", visible1: 25, visible2: 60, changeAmount: 35, changeTrend: "有提升", status: "已改善" },
+                    { keyword: "ai数据分析洞察", platform: "豆包", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "aibi靠谱的公司", platform: "元宝", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "数据分析智能体", platform: "Kimi", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "AI数据可视化哪个好", platform: "Kimi", visible1: 20, visible2: 20, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "AIchat哪个好", platform: "DeepSeek", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "aibi软件推荐", platform: "DeepSeek", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "ai数据分析平台", platform: "豆包", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "智能数据分析工具", platform: "Kimi", visible1: 0, visible2: 0, changeAmount: 0, changeTrend: "持平", status: "仍然薄弱" },
+                    { keyword: "aibi系统", platform: "元宝", visible1: 12, visible2: 6, changeAmount: -6, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "ai数据洞察", platform: "豆包", visible1: 18, visible2: 10, changeAmount: -8, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "智能数据分析", platform: "DeepSeek", visible1: 35, visible2: 25, changeAmount: -10, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "aibi平台", platform: "Kimi", visible1: 20, visible2: 8, changeAmount: -12, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "数据分析软件", platform: "元宝", visible1: 28, visible2: 15, changeAmount: -13, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "ai数据平台", platform: "豆包", visible1: 32, visible2: 18, changeAmount: -14, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "智能问数", platform: "DeepSeek", visible1: 40, visible2: 20, changeAmount: -20, changeTrend: "有下降", status: "仍然薄弱" },
+                    { keyword: "aibi系统推荐", platform: "Kimi", visible1: 45, visible2: 20, changeAmount: -25, changeTrend: "有下降", status: "仍然薄弱" }
+                ];
                 
-                for (let i = 0; i < totalCount; i++) {
-                    const keyword = this.keywords[Math.floor(Math.random() * this.keywords.length)];
-                    const platform = this.platforms[Math.floor(Math.random() * this.platforms.length)];
-                    
-                    // 生成10月5日数据（0-49%之间）
-                    const visible1 = Math.floor(Math.random() * 50);
-                    
-                    // 生成10月19日数据，基于变化趋势
-                    const changeType = Math.random();
-                    let visible2, changeAmount, changeTrend;
-                    
-                    if (changeType < 0.3) {
-                        // 30% 概率有提升
-                        visible2 = Math.min(visible1 + Math.floor(Math.random() * 30) + 1, 49);
-                        changeAmount = visible2 - visible1;
-                        changeTrend = "有提升";
-                    } else if (changeType < 0.5) {
-                        // 20% 概率有下降
-                        visible2 = Math.max(visible1 - Math.floor(Math.random() * 20) - 1, 0);
-                        changeAmount = visible2 - visible1;
-                        changeTrend = "有下降";
-                    } else {
-                        // 50% 概率持平
-                        visible2 = visible1;
-                        changeAmount = 0;
-                        changeTrend = "持平";
-                    }
-                    
-                    data.push({
-                        keyword: keyword,
-                        platform: platform,
-                        visible1: visible1,
-                        visible2: visible2,
-                        changeAmount: changeAmount,
-                        changeTrend: changeTrend,
-                        status: "仍然薄弱"
-                    });
-                }
-
-                return data;
+                return realData;
             }
 
             // 获取实时数据统计
