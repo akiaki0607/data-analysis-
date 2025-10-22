@@ -257,6 +257,23 @@
             border-radius: 4px;
             background-color: white;
         }
+        .confirm-btn {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .confirm-btn:hover {
+            background: #0056b3;
+        }
+        .confirm-btn:active {
+            background: #004085;
+        }
         footer {
             text-align: center;
             padding: 20px;
@@ -347,8 +364,16 @@
                         <td>2025-10-05、2025-10-19</td>
                     </tr>
                     <tr>
-                        <td>品牌</td>
-                        <td>思迈特（客户）、帆软、网易数帆、瓴羊（阿里）、火山引擎、观远数据、永洪等</td>
+                        <td>客户名称</td>
+                        <td>思迈特</td>
+                    </tr>
+                    <tr>
+                        <td>核心竞品</td>
+                        <td>帆软、网易数帆、硅智信息、大应、亿信华辰、瓴羊（阿里）、数势科技、火山引擎、观远数据、永洪</td>
+                    </tr>
+                    <tr>
+                        <td>其他竞品</td>
+                        <td>无</td>
                     </tr>
                     <tr>
                         <td>AI平台</td>
@@ -462,6 +487,16 @@
                     <option value="visible-desc">可见概率(高→低)</option>
                     <option value="keyword">关键词</option>
                 </select>
+                <div class="filter-label">显示条数：</div>
+                <select id="weakLimitFilter">
+                    <option value="10">10条</option>
+                    <option value="20" selected>20条</option>
+                    <option value="30">30条</option>
+                    <option value="40">40条</option>
+                    <option value="50">50条</option>
+                    <option value="all">全部</option>
+                </select>
+                <button id="weakConfirmBtn" class="confirm-btn">确认筛选</button>
             </div>
             
             <table id="weakKeywordsTable">
@@ -472,7 +507,6 @@
                         <th>日期</th>
                         <th>可见概率</th>
                         <th>推荐概率</th>
-                        <th>信源文章占比</th>
                         <th>状态</th>
                     </tr>
                 </thead>
@@ -570,6 +604,16 @@
                     <option value="declined">有下降</option>
                     <option value="unchanged">持平</option>
                 </select>
+                <div class="filter-label">显示条数：</div>
+                <select id="trendLimitFilter">
+                    <option value="10">10条</option>
+                    <option value="20" selected>20条</option>
+                    <option value="30">30条</option>
+                    <option value="40">40条</option>
+                    <option value="50">50条</option>
+                    <option value="all">全部</option>
+                </select>
+                <button id="trendConfirmBtn" class="confirm-btn">确认筛选</button>
             </div>
             
             <table id="keywordTrendTable">
@@ -1319,7 +1363,7 @@
         const aiDataManager = new AIDataManager();
 
         // 填充薄弱关键词表格
-        function populateWeakKeywordsTable(platformFilter = 'all', sortBy = 'visible') {
+        function populateWeakKeywordsTable(platformFilter = 'all', sortBy = 'visible', limit = 20) {
             const tableBody = document.querySelector('#weakKeywordsTable tbody');
             tableBody.innerHTML = '';
             
@@ -1339,6 +1383,11 @@
                 filteredData.sort((a, b) => a.keyword.localeCompare(b.keyword));
             }
             
+            // 限制显示条数
+            if (limit !== 'all') {
+                filteredData = filteredData.slice(0, parseInt(limit));
+            }
+            
             // 填充表格
             filteredData.forEach(item => {
                 const row = document.createElement('tr');
@@ -1348,7 +1397,6 @@
                     <td>${item.date}</td>
                     <td>${item.visible}%</td>
                     <td>${item.recommend}%</td>
-                    <td>${item.sourceArticle}%</td>
                     <td>${item.status}</td>
                 `;
                 tableBody.appendChild(row);
@@ -1356,7 +1404,7 @@
         }
         
         // 填充关键词趋势表格
-        function populateKeywordTrendTable(platformFilter = 'all', changeFilter = 'all') {
+        function populateKeywordTrendTable(platformFilter = 'all', changeFilter = 'all', limit = 20) {
             const tableBody = document.querySelector('#keywordTrendTable tbody');
             tableBody.innerHTML = '';
             
@@ -1378,11 +1426,16 @@
                 }
             }
             
+            // 限制显示条数
+            if (limit !== 'all') {
+                filteredData = filteredData.slice(0, parseInt(limit));
+            }
+            
             // 填充表格
             filteredData.forEach(item => {
                 const row = document.createElement('tr');
                 const changeAmountText = item.changeAmount > 0 ? `+${item.changeAmount}%` : 
-                                       item.changeAmount < 0 ? `${item.changeAmount}%` : '0%';
+                                         item.changeAmount < 0 ? `${item.changeAmount}%` : '0%';
                 
                 row.innerHTML = `
                     <td>${item.keyword}</td>
@@ -1403,8 +1456,8 @@
             initializeCharts();
             
             // 初始化表格
-            populateWeakKeywordsTable();
-            populateKeywordTrendTable();
+            populateWeakKeywordsTable('all', 'visible', 20);
+            populateKeywordTrendTable('all', 'all', 20);
             
             // 初始化AI数据统计
             aiDataManager.updateDataStats();
@@ -1474,23 +1527,41 @@
             
             // 添加筛选器事件监听
             document.getElementById('keywordPlatformFilter').addEventListener('change', function() {
-                const sortBy = document.getElementById('keywordSort').value;
-                populateWeakKeywordsTable(this.value, sortBy);
+                // 不自动更新，等待确认按钮
             });
             
             document.getElementById('keywordSort').addEventListener('change', function() {
+                // 不自动更新，等待确认按钮
+            });
+            
+            document.getElementById('weakLimitFilter').addEventListener('change', function() {
+                // 不自动更新，等待确认按钮
+            });
+            
+            document.getElementById('weakConfirmBtn').addEventListener('click', function() {
                 const platformFilter = document.getElementById('keywordPlatformFilter').value;
-                populateWeakKeywordsTable(platformFilter, this.value);
+                const sortBy = document.getElementById('keywordSort').value;
+                const limit = document.getElementById('weakLimitFilter').value;
+                populateWeakKeywordsTable(platformFilter, sortBy, limit);
             });
             
             document.getElementById('trendPlatformFilter').addEventListener('change', function() {
-                const changeFilter = document.getElementById('trendChangeFilter').value;
-                populateKeywordTrendTable(this.value, changeFilter);
+                // 不自动更新，等待确认按钮
             });
             
             document.getElementById('trendChangeFilter').addEventListener('change', function() {
+                // 不自动更新，等待确认按钮
+            });
+            
+            document.getElementById('trendLimitFilter').addEventListener('change', function() {
+                // 不自动更新，等待确认按钮
+            });
+            
+            document.getElementById('trendConfirmBtn').addEventListener('click', function() {
                 const platformFilter = document.getElementById('trendPlatformFilter').value;
-                populateKeywordTrendTable(platformFilter, this.value);
+                const changeFilter = document.getElementById('trendChangeFilter').value;
+                const limit = document.getElementById('trendLimitFilter').value;
+                populateKeywordTrendTable(platformFilter, changeFilter, limit);
             });
 
             // AI控制面板事件监听
