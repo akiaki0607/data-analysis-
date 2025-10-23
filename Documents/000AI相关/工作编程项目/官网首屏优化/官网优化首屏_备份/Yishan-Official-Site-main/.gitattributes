@@ -1,0 +1,22 @@
+# Git Attributes - 标记仅开发用文件
+# 服务器部署时会自动删除标记为 export-ignore 的文件
+
+# 开发文档
+AI开发指南.md export-ignore
+配置指南.md export-ignore
+README.md export-ignore
+DEPLOYMENT.md export-ignore
+OPTIMIZATION_SUMMARY.md export-ignore
+卡片全局对齐修复总结.md export-ignore
+----------.plan.md export-ignore
+scripts/README.md export-ignore
+
+# 开发配置
+.cursorrules export-ignore
+commit-message.txt export-ignore
+install-node.bat export-ignore
+install-node.ps1 export-ignore
+环境变量模板.env export-ignore
+
+# 注意：content/blog/*.md 是博客内容，必须保留，不要添加 export-ignore
+

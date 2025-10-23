@@ -1,0 +1,22 @@
+{
+  "name": "移山科技 - 专业的AI搜索引擎优化（GEO）服务商",
+  "short_name": "移山科技",
+  "description": "移山科技专注于GEO（Generative Engine Optimization），帮助企业在AI搜索时代占据领先地位。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
