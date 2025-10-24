@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优贝GEO引擎诊断报告 - 优化前后对比分析</title>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .header .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f7fafc;
+            padding: 25px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .section-content {
+            padding: 25px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #3182ce;
+            transition: transform 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .metric-card.positive {
+            border-left-color: #38a169;
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+        }
+
+        .metric-card.negative {
+            border-left-color: #e53e3e;
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+        }
+
+        .metric-card h3 {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .metric-change.positive {
+            background: #c6f6d5;
+            color: #276749;
+        }
+
+        .metric-change.negative {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .comparison-section {
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-card.before {
+            border-left: 4px solid #e53e3e;
+        }
+
+        .comparison-card.after {
+            border-left: 4px solid #38a169;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table th {
+            background-color: #f7fafc;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .data-table tr:hover {
+            background-color: #f7fafc;
+        }
+
+        .highlight-row {
+            background-color: #edf2f7 !important;
+            font-weight: 600;
+        }
+
+        .competitor-highlight {
+            background-color: #fff5f5 !important;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .platform-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .platform-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border: 1px solid #38a169;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .summary-box h3 {
+            color: #276749;
+            margin-bottom: 10px;
+        }
+
+        .summary-box ul {
+            margin-left: 20px;
+        }
+
+        .summary-box li {
+            margin: 5px 0;
+            color: #2f855a;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fffbf0 0%, #fed7aa 100%);
+            border: 1px solid #ed8936;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            color: #c05621;
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            background: white;
+            padding: 15px 0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header .meta-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navigation">
+            <div class="nav-links">
+                <a href="#overview">概述</a>
+                <a href="#data-comparison">数据对比</a>
+                <a href="#competitor-analysis">竞品分析</a>
+                <a href="#platform-analysis">平台分析</a>
+                <a href="#source-analysis">信源分析</a>
+                <a href="#recommendations">策略建议</a>
+            </div>
+        </nav>
+
+        <!-- 报告头部 -->
+        <header class="header">
+            <h1>优贝GEO引擎诊断报告</h1>
+            <p class="subtitle">基于多平台AI搜索引擎的品牌表现分析 - 优化前后对比</p>
+            <div class="meta-info">
+                <span>📊 诊断机构：移山科技GEO策略中心</span>
+                <span>📅 报告日期：2025年10月23日</span>
+                <span>⏰ 分析周期：2025-10-14 至 2025-10-22</span>
+            </div>
+        </header>
+
+        <!-- 概述部分 -->
+        <section id="overview" class="section">
+            <div class="section-header">
+                <h2>📋 分析说明与数据概述</h2>
+                <p>本报告基于优化前后的数据对比，全面分析优贝品牌在AI搜索引擎中的表现变化</p>
+            </div>
+            <div class="section-content">
+                <div class="comparison-section">
+                    <h3>🔄 优化前后数据概况对比</h3>
+                    <div class="comparison-grid">
+                        <div class="comparison-card before">
+                            <h4>优化前（2025-10-14）</h4>
+                            <ul>
+                                <li>采集关键词数量：218个</li>
+                                <li>AI回答条数：1,742条</li>
+                                <li>信源平台总数：661个</li>
+                                <li>信源文章总数：9,214篇</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card after">
+                            <h4>优化后（2025-10-22）</h4>
+                            <ul>
+                                <li>采集关键词数量：210个</li>
+                                <li>AI回答条数：1,614条</li>
+                                <li>信源平台总数：644个</li>
+                                <li>信源文章总数：9,421篇</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🤖 覆盖AI搜索平台</h3>
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <div class="platform-icon">豆</div>
+                        <h4>豆包</h4>
+                        <p>字节跳动AI平台</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="platform-icon">K</div>
+                        <h4>Kimi</h4>
+                        <p>月之暗面AI助手</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="platform-icon">元</div>
+                        <h4>元宝</h4>
+                        <p>字节跳动AI平台</p>
+                    </div>
+                    <div class="platform-card">
+                        <div class="platform-icon">D</div>
+                        <h4>DeepSeek</h4>
+                        <p>深度求索AI平台</p>
+                    </div>
+                </div>
+
+                <h3>🏆 核心竞品范围（18个品牌）</h3>
+                <p style="background: #f7fafc; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <strong>重点关注竞品：</strong>迪卡侬、永久、凤凰、喜德盛、捷安特、酷骑、美利达、飞鸽、好孩子、萌兽、那贝斯、途锐达、萌大圣、小龙哈、KinderKraft、可莱茵、纳豆、迈多米
+                </p>
+                <p style="background: #fff5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #e53e3e;">
+                    <strong>核心对标：</strong>迪卡侬作为行业领导品牌，在优化前排名第1，本报告重点分析优贝相对于迪卡侬的竞争地位变化。
+                </p>
+            </div>
+        </section>
+
+        <!-- 数据对比部分 -->
+        <section id="data-comparison" class="section">
+            <div class="section-header">
+                <h2>📊 核心指标优化前后对比</h2>
+                <p>通过6+1核心指标体系全面评估优化效果</p>
+            </div>
+            <div class="section-content">
+                <div class="metrics-grid">
+                    <div class="metric-card positive">
+                        <h3>可见度</h3>
+                        <div class="metric-value" style="color: #38a169;">68.4%</div>
+                        <div class="metric-change positive">+15.36% ↗</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：53.04% → 优化后：68.4%
+                        </p>
+                    </div>
+                    
+                    <div class="metric-card positive">
+                        <h3>推荐度</h3>
+                        <div class="metric-value" style="color: #38a169;">40.02%</div>
+                        <div class="metric-change positive">+8.22% ↗</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：31.8% → 优化后：40.02%
+                        </p>
+                    </div>
+
+                    <div class="metric-card positive">
+                        <h3>Top1占比</h3>
+                        <div class="metric-value" style="color: #38a169;">27.2%</div>
+                        <div class="metric-change positive">+8.72% ↗</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：18.48% → 优化后：27.2%
+                        </p>
+                    </div>
+
+                    <div class="metric-card positive">
+                        <h3>Top3占比</h3>
+                        <div class="metric-value" style="color: #38a169;">41.26%</div>
+                        <div class="metric-change positive">+10.72% ↗</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：30.54% → 优化后：41.26%
+                        </p>
+                    </div>
+
+                    <div class="metric-card positive">
+                        <h3>Top5占比</h3>
+                        <div class="metric-value" style="color: #38a169;">60.84%</div>
+                        <div class="metric-change positive">+17.38% ↗</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：43.46% → 优化后：60.84%
+                        </p>
+                    </div>
+
+                    <div class="metric-card negative">
+                        <h3>信源占比</h3>
+                        <div class="metric-value" style="color: #e53e3e;">26.55%</div>
+                        <div class="metric-change negative">-2.5% ↘</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：29.05% → 优化后：26.55%
+                        </p>
+                    </div>
+
+                    <div class="metric-card negative">
+                        <h3>AI回答数</h3>
+                        <div class="metric-value" style="color: #e53e3e;">1,614</div>
+                        <div class="metric-change negative">-128 ↘</div>
+                        <p style="font-size: 0.8rem; color: #718096; margin-top: 8px;">
+                            优化前：1,742 → 优化后：1,614
+                        </p>
+                    </div>
+
+                    <div class="metric-card positive" style="grid-column: 1 / -1; text-align: center; background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);">
+                        <h3>综合表现评估</h3>
+                        <div class="metric-value" style="color: #38a169; font-size: 1.5rem;">显著提升</div>
+                        <div class="metric-change positive">6个核心指标中5个实现正增长</div>
+                        <p style="font-size: 0.9rem; color: #276749; margin-top: 10px;">
+                            🎉 成功挤下迪卡侬，夺得行业第一地位！
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 图表区域 -->
+                <div class="chart-container">
+                    <div class="chart-title">核心指标优化前后对比雷达图</div>
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">Top排名占比变化趋势</div>
+                    <div class="chart-wrapper">
+                        <canvas id="rankingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 竞品分析部分 -->
+        <section id="competitor-analysis" class="section">
+            <div class="section-header">
+                <h2>🏆 竞品分析：优贝vs迪卡侬竞争地位逆转</h2>
+                <p>深度分析优贝相对于核心竞品迪卡侬的竞争地位变化</p>
+            </div>
+            <div class="section-content">
+                <div class="summary-box">
+                    <h3>🎉 竞争地位逆转成果</h3>
+                    <ul>
+                        <li><strong>可见度逆转：</strong>从落后迪卡侬11.83%到领先0.18%，总共提升12.01个百分点</li>
+                        <li><strong>Top1占比绝对领先：</strong>优贝27.2% vs 迪卡侬13.82%，领先优势达13.38%</li>
+                        <li><strong>推荐度优势扩大：</strong>从领先4.48%扩大到领先9.78%</li>
+                        <li><strong>Top3和Top5占比成功反超：</strong>全面建立竞争优势</li>
+                    </ul>
+                </div>
+
+                <h3>📊 优贝vs迪卡侬全指标详细对比</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>优化前-优贝</th>
+                            <th>优化前-迪卡侬</th>
+                            <th>优化前差距</th>
+                            <th>优化后-优贝</th>
+                            <th>优化后-迪卡侬</th>
+                            <th>优化后差距</th>
+                            <th>变化结果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td><strong>可见度</strong></td>
+                            <td>53.04%</td>
+                            <td style="color: #e53e3e; font-weight: 600;">64.87%</td>
+                            <td style="color: #e53e3e;">-11.83%</td>
+                            <td style="color: #38a169; font-weight: 600;">68.4%</td>
+                            <td>68.22%</td>
+                            <td style="color: #38a169;">+0.18%</td>
+                            <td style="color: #38a169; font-weight: 600;">✅ 反超</td>
+                        </tr>
+                        <tr>
+                            <td><strong>推荐度</strong></td>
+                            <td style="color: #38a169;">31.8%</td>
+                            <td>27.32%</td>
+                            <td style="color: #38a169;">+4.48%</td>
+                            <td style="color: #38a169;">40.02%</td>
+                            <td>30.24%</td>
+                            <td style="color: #38a169;">+9.78%</td>
+                            <td style="color: #38a169; font-weight: 600;">📈 优势扩大</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Top1占比</strong></td>
+                            <td style="color: #38a169;">18.48%</td>
+                            <td>13.49%</td>
+                            <td style="color: #38a169;">+4.99%</td>
+                            <td style="color: #38a169;">27.2%</td>
+                            <td>13.82%</td>
+                            <td style="color: #38a169;">+13.38%</td>
+                            <td style="color: #38a169; font-weight: 600;">🏆 绝对领先</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Top3占比</strong></td>
+                            <td>30.54%</td>
+                            <td style="color: #e53e3e;">37.72%</td>
+                            <td style="color: #e53e3e;">-7.18%</td>
+                            <td style="color: #38a169;">41.26%</td>
+                            <td>39.96%</td>
+                            <td style="color: #38a169;">+1.3%</td>
+                            <td style="color: #38a169; font-weight: 600;">✅ 成功反超</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Top5占比</strong></td>
+                            <td>43.46%</td>
+                            <td style="color: #e53e3e;">54.88%</td>
+                            <td style="color: #e53e3e;">-11.42%</td>
+                            <td style="color: #38a169;">60.84%</td>
+                            <td>57.81%</td>
+                            <td style="color: #38a169;">+3.03%</td>
+                            <td style="color: #38a169; font-weight: 600;">✅ 成功反超</td>
+                        </tr>
+                        <tr>
+                            <td><strong>信源占比</strong></td>
+                            <td style="color: #38a169;">29.05%</td>
+                            <td>22.54%</td>
+                            <td style="color: #38a169;">+6.51%</td>
+                            <td style="color: #38a169;">26.55%</td>
+                            <td>18.17%</td>
+                            <td style="color: #38a169;">+8.38%</td>
+                            <td style="color: #38a169; font-weight: 600;">💪 保持领先</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="chart-container">
+                    <div class="chart-title">优贝vs迪卡侬竞争力对比</div>
+                    <div class="chart-wrapper">
+                        <canvas id="competitorChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 平台分析部分 -->
+        <section id="platform-analysis" class="section">
+            <div class="section-header">
+                <h2>📱 各AI平台表现分析</h2>
+                <p>分析优贝在不同AI搜索平台的表现变化</p>
+            </div>
+            <div class="section-content">
+                <div class="metrics-grid">
+                    <div class="metric-card positive">
+                        <h3>豆包平台表现</h3>
+                        <div style="text-align: left; font-size: 0.9rem;">
+                            <p>可见度：52.64% → <strong style="color: #38a169;">63.1%</strong> (+10.46%)</p>
+                            <p>推荐度：19.31% → <strong style="color: #38a169;">29.05%</strong> (+9.74%)</p>
+                            <p>Top1占比：14.48% → <strong style="color: #38a169;">29.29%</strong> (+14.81%)</p>
+                        </div>
+                    </div>
+
+                    <div class="metric-card positive">
+                        <h3>Kimi平台表现</h3>
+                        <div style="text-align: left; font-size: 0.9rem;">
+                            <p>可见度：63.76% → <strong style="color: #38a169;">69.49%</strong> (+5.73%)</p>
+                            <p>推荐度：35.78% → <strong style="color: #38a169;">38.98%</strong> (+3.2%)</p>
+                            <p>Top1占比：31.19% → <strong style="color: #38a169;">36.44%</strong> (+5.25%)</p>
+                        </div>
+                    </div>
+
+                    <div class="metric-card positive">
+                        <h3>元宝平台表现</h3>
+                        <div style="text-align: left; font-size: 0.9rem;">
+                            <p>可见度：70.41% → <strong style="color: #38a169;">87.38%</strong> (+16.97%)</p>
+                            <p>推荐度：55.28% → <strong style="color: #38a169;">73.81%</strong> (+18.53%)</p>
+                            <p>Top1占比：16.28% → <strong style="color: #38a169;">33.33%</strong> (+17.05%)</p>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <h3>DeepSeek平台表现</h3>
+                        <div style="text-align: left; font-size: 0.9rem;">
+                            <p>可见度：25.29% → <strong style="color: #38a169;">53.81%</strong> (+28.52%)</p>
+                            <p>推荐度：16.78% → <strong style="color: #38a169;">18.1%</strong> (+1.32%)</p>
+                            <p>Top1占比：11.95% → <strong style="color: #e53e3e;">11.19%</strong> (-0.76%)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>🌟 平台表现亮点</h3>
+                    <ul>
+                        <li><strong>元宝平台</strong>：全面领先，可见度87.38%，推荐度73.81%</li>
+                        <li><strong>DeepSeek平台</strong>：可见度提升最大，增长28.52%</li>
+                        <li><strong>豆包平台</strong>：Top1占比提升显著，增长14.81%</li>
+                        <li><strong>Kimi平台</strong>：整体表现稳健，各指标均有提升</li>
+                    </ul>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-title">各AI平台核心指标表现</div>
+                    <div class="chart-wrapper">
+                        <canvas id="platformChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 信源分析部分 -->
+        <section id="source-analysis" class="section">
+            <div class="section-header">
+                <h2>🔗 信源平台布局分析</h2>
+                <p>分析优贝在各信源平台的占比变化和布局优化效果</p>
+            </div>
+            <div class="section-content">
+                <h3>📄 主要信源平台优贝占比变化</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>信源平台</th>
+                            <th>优化前占比</th>
+                            <th>优化后占比</th>
+                            <th>变化幅度</th>
+                            <th>平台类型</th>
+                            <th>优化效果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>什么值得买</strong></td>
+                            <td>32.51%</td>
+                            <td>31.14%</td>
+                            <td style="color: #e53e3e;">-1.37%</td>
+                            <td>购物推荐类</td>
+                            <td>基本稳定</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong>搜狐网</strong></td>
+                            <td>47.59%</td>
+                            <td style="color: #38a169; font-weight: 600;">74.65%</td>
+                            <td style="color: #38a169; font-weight: 600;">+27.06%</td>
+                            <td>综合门户类</td>
+                            <td style="color: #38a169;">显著提升</td>
+                        </tr>
+                        <tr>
+                            <td><strong>京东</strong></td>
+                            <td>40.64%</td>
+                            <td>32.98%</td>
+                            <td style="color: #e53e3e;">-7.66%</td>
+                            <td>电商平台类</td>
+                            <td>需要关注</td>
+                        </tr>
+                        <tr>
+                            <td><strong>买购网</strong></td>
+                            <td>35.11%</td>
+                            <td style="color: #38a169;">40.25%</td>
+                            <td style="color: #38a169;">+5.14%</td>
+                            <td>购物指南类</td>
+                            <td style="color: #38a169;">稳步提升</td>
+                        </tr>
+                        <tr>
+                            <td><strong>排行榜123网</strong></td>
+                            <td>68.55%</td>
+                            <td>47.37%</td>
+                            <td style="color: #e53e3e;">-21.18%</td>
+                            <td>排行榜类</td>
+                            <td>大幅下降</td>
+                        </tr>
+                        <tr>
+                            <td><strong>抖音</strong></td>
+                            <td>65.12%</td>
+                            <td>36.46%</td>
+                            <td style="color: #e53e3e;">-28.66%</td>
+                            <td>短视频平台</td>
+                            <td>急需优化</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h3>⚠️ 信源布局优化建议</h3>
+                    <ul>
+                        <li><strong>短视频平台：</strong>抖音占比下降28.66%，需要加强内容布局</li>
+                        <li><strong>电商平台：</strong>京东占比下降7.66%，需要深化合作</li>
+                        <li><strong>排行榜平台：</strong>排行榜123网占比大幅下降，需要重新评估策略</li>
+                    </ul>
+                </div>
+
+                <div class="summary-box">
+                    <h3>✅ 信源布局成功案例</h3>
+                    <ul>
+                        <li><strong>搜狐网：</strong>占比提升27.06%，成为重要信源平台</li>
+                        <li><strong>买购网：</strong>占比稳步提升5.14%，保持良好合作关系</li>
+                        <li><strong>什么值得买：</strong>占比基本稳定，保持核心信源地位</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 策略建议部分 -->
+        <section id="recommendations" class="section">
+            <div class="section-header">
+                <h2>🚀 策略建议与下阶段规划</h2>
+                <p>基于优化效果制定下一阶段的GEO策略</p>
+            </div>
+            <div class="section-content">
+                <div class="summary-box" style="background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%); border-color: #4a5568;">
+                    <h3 style="color: #2d3748;">🎉 本次优化效果总结</h3>
+                    <ul style="color: #4a5568;">
+                        <li><strong>核心成就：</strong>成功挤下迪卡侬，夺得行业第一地位</li>
+                        <li><strong>量化成果：</strong>可见度从53.04%提升至68.4%，Top1占比提升47.2%</li>
+                        <li><strong>竞争优势：</strong>在6个核心指标中5个实现正增长</li>
+                        <li><strong>战略意义：</strong>建立了全面的竞争优势，为进一步扩大领先奠定基础</li>
+                    </ul>
+                </div>
+
+                <h3>📋 下一阶段策略规划</h3>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4 style="color: #e53e3e;">🎯 短期策略（1-3个月）</h4>
+                        <ul>
+                            <li><strong>巩固领先优势：</strong>继续扩大与迪卡侬的领先差距</li>
+                            <li><strong>信源布局优化：</strong>重点加强抖音等短视频平台</li>
+                            <li><strong>平台深耕：</strong>深化在元宝、Kimi等优势平台的表现</li>
+                            <li><strong>内容质量提升：</strong>提高推荐度和用户满意度</li>
+                        </ul>
+                    </div>
+
+                    <div class="comparison-card">
+                        <h4 style="color: #38a169;">🚀 中长期策略（3-12个月）</h4>
+                        <ul>
+                            <li><strong>市场扩张：</strong>向更多细分市场和关键词扩展</li>
+                            <li><strong>技术升级：</strong>优化AI搜索算法适配性</li>
+                            <li><strong>生态建设：</strong>构建更完整的信源生态体系</li>
+                            <li><strong>品牌建设：</strong>提升品牌知名度和用户认知</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🎯 重点优化方向</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card" style="border-left-color: #e53e3e;">
+                        <h3>信源占比提升</h3>
+                        <p>当前：26.55%</p>
+                        <p>目标：30%+</p>
+                        <div style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
+                            重点加强短视频平台和电商平台布局
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="border-left-color: #38a169;">
+                        <h3>可见度持续提升</h3>
+                        <p>当前：68.4%</p>
+                        <p>目标：75%+</p>
+                        <div style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
+                            扩大与竞品的领先优势
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="border-left-color: #3182ce;">
+                        <h3>Top1占比巩固</h3>
+                        <p>当前：27.2%</p>
+                        <p>目标：30%+</p>
+                        <div style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
+                            保持行业第一地位
+                        </div>
+                    </div>
+
+                    <div class="metric-card" style="border-left-color: #805ad5;">
+                        <h3>平台覆盖扩展</h3>
+                        <p>当前：4个平台</p>
+                        <p>目标：6+平台</p>
+                        <div style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
+                            布局更多新兴AI搜索平台
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <h3>💡 关键成功因素</h3>
+                    <ul>
+                        <li><strong>持续监测：</strong>建立实时监测体系，及时发现和应对竞品动态</li>
+                        <li><strong>内容优化：</strong>持续优化内容质量，提升用户体验和AI推荐权重</li>
+                        <li><strong>平台协同：</strong>加强各平台间的协同效应，形成整体竞争优势</li>
+                        <li><strong>数据驱动：</strong>基于数据分析持续优化策略，确保ROI最大化</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            // 雷达图
+            const radarCtx = document.getElementById('radarChart');
+            if (radarCtx) {
+                new Chart(radarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['可见度', '推荐度', 'Top1占比', 'Top3占比', 'Top5占比', '信源占比'],
+                        datasets: [{
+                            label: '优化前',
+                            data: [53.04, 31.8, 18.48, 30.54, 43.46, 29.05],
+                            borderColor: '#e53e3e',
+                            backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                            pointBackgroundColor: '#e53e3e',
+                            pointBorderColor: '#e53e3e',
+                            pointRadius: 5
+                        }, {
+                            label: '优化后',
+                            data: [68.4, 40.02, 27.2, 41.26, 60.84, 26.55],
+                            borderColor: '#38a169',
+                            backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                            pointBackgroundColor: '#38a169',
+                            pointBorderColor: '#38a169',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 80,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Top排名占比图
+            const rankingCtx = document.getElementById('rankingChart');
+            if (rankingCtx) {
+                new Chart(rankingCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Top1占比', 'Top3占比', 'Top5占比'],
+                        datasets: [{
+                            label: '优化前',
+                            data: [18.48, 30.54, 43.46],
+                            backgroundColor: '#fed7d7',
+                            borderColor: '#e53e3e',
+                            borderWidth: 2
+                        }, {
+                            label: '优化后',
+                            data: [27.2, 41.26, 60.84],
+                            backgroundColor: '#c6f6d5',
+                            borderColor: '#38a169',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 70,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 竞品对比图
+            const competitorCtx = document.getElementById('competitorChart');
+            if (competitorCtx) {
+                new Chart(competitorCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['可见度', '推荐度', 'Top1占比', 'Top3占比', 'Top5占比', '信源占比'],
+                        datasets: [{
+                            label: '优贝-优化前',
+                            data: [53.04, 31.8, 18.48, 30.54, 43.46, 29.05],
+                            borderColor: '#fbb6ce',
+                            backgroundColor: 'rgba(251, 182, 206, 0.1)',
+                            pointBackgroundColor: '#fbb6ce',
+                            tension: 0.4
+                        }, {
+                            label: '优贝-优化后',
+                            data: [68.4, 40.02, 27.2, 41.26, 60.84, 26.55],
+                            borderColor: '#38a169',
+                            backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                            pointBackgroundColor: '#38a169',
+                            tension: 0.4
+                        }, {
+                            label: '迪卡侬-优化前',
+                            data: [64.87, 27.32, 13.49, 37.72, 54.88, 22.54],
+                            borderColor: '#e53e3e',
+                            backgroundColor: 'rgba(229, 62, 62, 0.1)',
+                            pointBackgroundColor: '#e53e3e',
+                            tension: 0.4
+                        }, {
+                            label: '迪卡侬-优化后',
+                            data: [68.22, 30.24, 13.82, 39.96, 57.81, 18.17],
+                            borderColor: '#f56565',
+                            backgroundColor: 'rgba(245, 101, 101, 0.1)',
+                            pointBackgroundColor: '#f56565',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 80,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 平台表现图
+            const platformCtx = document.getElementById('platformChart');
+            if (platformCtx) {
+                new Chart(platformCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['豆包', 'Kimi', '元宝', 'DeepSeek'],
+                        datasets: [{
+                            label: '可见度-优化前',
+                            data: [52.64, 63.76, 70.41, 25.29],
+                            backgroundColor: '#fed7d7',
+                            borderColor: '#e53e3e',
+                            borderWidth: 1
+                        }, {
+                            label: '可见度-优化后',
+                            data: [63.1, 69.49, 87.38, 53.81],
+                            backgroundColor: '#c6f6d5',
+                            borderColor: '#38a169',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
