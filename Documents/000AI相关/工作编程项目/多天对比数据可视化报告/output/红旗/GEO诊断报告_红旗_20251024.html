@@ -12,6 +12,8 @@
             background-color: #FFFFFF !important;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
+
+        /* 🔥 关键：图表容器样式，防止无限加高 */
         .chart-container {
             background-color: #FFFFFF !important;
             min-height: 300px;
@@ -23,12 +25,16 @@
             border: 1px solid #dadce0;
             padding: 16px;
         }
+
+        /* 🔥 关键：Canvas元素样式，确保正确渲染 */
         .chart-container canvas {
             max-height: 100% !important;
             width: 100% !important;
             height: 100% !important;
             display: block;
         }
+
+        /* 🔥 移动端优化 */
         @media (max-width: 768px) {
             .chart-container {
                 min-height: 250px;
@@ -37,56 +43,134 @@
                 padding: 12px;
             }
         }
+
+        /* 🔥 图表加载状态样式 */
+        .chart-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        /* 🔥 图表错误状态样式 */
+        .chart-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #d93025;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .improvement-positive {
+            color: #137333;
+            background-color: #e6f4ea;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .improvement-negative {
+            color: #d93025;
+            background-color: #fce8e6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .module-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-white">
     <!-- 顶部固定导航栏 -->
-    <nav id="stickyNavbar" class="bg-white border-b border-gray-200 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <h1 class="text-xl font-bold text-gray-900">红旗GEO诊断报告</h1>
-                <button onclick="location.reload()" class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600">
-                    🔄 重新加载
-                </button>
+    <nav class="sticky-nav">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-xl font-bold text-gray-900">红旗GEO诊断报告</h1>
+                    <button onclick="location.reload()" class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
+                        🔄 重新加载
+                    </button>
+                </div>
+                
+                <!-- 桌面端导航 -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600 transition-colors">分析说明</a>
+                    <a href="#data-overview" class="text-gray-600 hover:text-blue-600 transition-colors">数据总览</a>
+                    <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600 transition-colors">竞品分析</a>
+                    <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600 transition-colors">平台分析</a>
+                    <a href="#source-analysis" class="text-gray-600 hover:text-blue-600 transition-colors">信源分析</a>
+                    <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600 transition-colors">策略建议</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600">分析说明</a>
-                <a href="#data-overview" class="text-gray-600 hover:text-blue-600">数据总览</a>
-                <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600">竞品分析</a>
-                <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600">平台分析</a>
-                <a href="#source-analysis" class="text-gray-600 hover:text-blue-600">信源分析</a>
-                <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600">策略建议</a>
-            </div>
-            <div class="md:hidden">
-                <button id="mobileMenuBtn" class="p-2 rounded-md text-gray-600 hover:text-gray-900">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
-            <div class="flex flex-col space-y-2">
-                <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600 py-2">分析说明</a>
-                <a href="#data-overview" class="text-gray-600 hover:text-blue-600 py-2">数据总览</a>
-                <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600 py-2">竞品分析</a>
-                <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600 py-2">平台分析</a>
-                <a href="#source-analysis" class="text-gray-600 hover:text-blue-600 py-2">信源分析</a>
-                <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600 py-2">策略建议</a>
+            
+            <!-- 移动端菜单 -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200">
+                <div class="flex flex-col space-y-2 pt-4">
+                    <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">分析说明</a>
+                    <a href="#data-overview" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">数据总览</a>
+                    <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">竞品分析</a>
+                    <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">平台分析</a>
+                    <a href="#source-analysis" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">信源分析</a>
+                    <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600 py-2 transition-colors">策略建议</a>
+                </div>
             </div>
         </div>
     </nav>
 
+    <!-- 报告头部信息 -->
+    <header class="bg-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">红旗GEO引擎诊断报告</h1>
+            <p class="text-xl text-gray-600 mb-4">基于多平台AI搜索引擎的品牌表现分析</p>
+            <div class="flex items-center justify-center space-x-4 text-sm text-gray-500">
+                <span>移山科技GEO策略中心</span>
+                <span>•</span>
+                <span>2025年10月24日</span>
+                <span>•</span>
+                <span>数据采集时间：16:02:28 - 16:14:10</span>
+            </div>
+        </div>
+    </header>
+
     <main class="container mx-auto px-4 py-8">
-        <!-- 报告头部信息 -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">红旗GEO引擎诊断报告</h1>
-            <p class="text-xl text-gray-600 mb-2">基于多平台AI搜索引擎的品牌表现分析</p>
-            <p class="text-lg text-gray-500">移山科技GEO策略中心 | 2025年10月24日</p>
-        </header>
 
         <!-- 模块1：分析说明 -->
         <section id="analysis-overview" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📋 分析说明</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-blue-600">1</div>
+                    <h2 class="text-2xl font-bold text-gray-900">分析说明</h2>
+                </div>
                 
                 <!-- 报告模块导航 -->
                 <div class="mb-8">
@@ -256,83 +340,217 @@
         <!-- 模块2：数据总览 -->
         <section id="data-overview" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📊 数据总览</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-green-600">2</div>
+                    <h2 class="text-2xl font-bold text-gray-900">数据总览</h2>
+                </div>
                 
-                <!-- 7大核心指标卡片 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-blue-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-blue-900 mb-2">可见度</h3>
-                        <p class="text-3xl font-bold text-blue-600 mb-1">25.35%</p>
-                        <p class="text-sm text-blue-700">品牌出现频率</p>
+                <!-- 核心指标对比卡片 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🎯 红旗核心指标表现</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- 可见度 -->
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-blue-900">可见度</h4>
+                                <i data-lucide="eye" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-blue-700">行业平均：52.87%</div>
+                                <div class="text-lg font-bold text-blue-900">25.35%</div>
+                                <div class="text-xs improvement-negative">-27.52%</div>
+                            </div>
+                        </div>
+
+                        <!-- 推荐度 -->
+                        <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-green-900">推荐度</h4>
+                                <i data-lucide="thumbs-up" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-green-700">行业平均：16.32%</div>
+                                <div class="text-lg font-bold text-green-900">5.63%</div>
+                                <div class="text-xs improvement-negative">-10.69%</div>
+                            </div>
+                        </div>
+
+                        <!-- Top1占比 -->
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-purple-900">Top1占比</h4>
+                                <i data-lucide="trophy" class="w-4 h-4 text-purple-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-purple-700">行业平均：5.42%</div>
+                                <div class="text-lg font-bold text-purple-900">1.13%</div>
+                                <div class="text-xs improvement-negative">-4.29%</div>
+                            </div>
+                        </div>
+
+                        <!-- Top3占比 -->
+                        <div class="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-orange-900">Top3占比</h4>
+                                <i data-lucide="medal" class="w-4 h-4 text-orange-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-orange-700">行业平均：20.67%</div>
+                                <div class="text-lg font-bold text-orange-900">4.51%</div>
+                                <div class="text-xs improvement-negative">-16.16%</div>
+                            </div>
+                        </div>
+
+                        <!-- Top5占比 -->
+                        <div class="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-red-900">Top5占比</h4>
+                                <i data-lucide="award" class="w-4 h-4 text-red-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-red-700">行业平均：31.45%</div>
+                                <div class="text-lg font-bold text-red-900">12.39%</div>
+                                <div class="text-xs improvement-negative">-19.06%</div>
+                            </div>
+                        </div>
+
+                        <!-- 信源占比 -->
+                        <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-indigo-900">信源占比</h4>
+                                <i data-lucide="database" class="w-4 h-4 text-indigo-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-indigo-700">行业平均：44.21%</div>
+                                <div class="text-lg font-bold text-indigo-900">26.89%</div>
+                                <div class="text-xs improvement-negative">-17.32%</div>
+                            </div>
+                        </div>
+
+                        <!-- AI回答数 -->
+                        <div class="bg-gradient-to-r from-pink-50 to-pink-100 p-4 rounded-lg border">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="text-sm font-medium text-pink-900">AI回答数</h4>
+                                <i data-lucide="message-circle" class="w-4 h-4 text-pink-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-xs text-pink-700">总回答数量</div>
+                                <div class="text-lg font-bold text-pink-900">355</div>
+                                <div class="text-xs text-pink-700">4个平台</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-green-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-green-900 mb-2">推荐度</h3>
-                        <p class="text-3xl font-bold text-green-600 mb-1">5.63%</p>
-                        <p class="text-sm text-green-700">AI推荐比例</p>
-                    </div>
-                    <div class="bg-purple-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-purple-900 mb-2">信源占比</h3>
-                        <p class="text-3xl font-bold text-purple-600 mb-1">26.89%</p>
-                        <p class="text-sm text-purple-700">信源平台占比</p>
-                    </div>
-                    <div class="bg-orange-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-orange-900 mb-2">AI回答数</h3>
-                        <p class="text-3xl font-bold text-orange-600 mb-1">355</p>
-                        <p class="text-sm text-orange-700">总回答数量</p>
-                    </div>
-                    <div class="bg-red-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-red-900 mb-2">Top1占比</h3>
-                        <p class="text-3xl font-bold text-red-600 mb-1">1.13%</p>
-                        <p class="text-sm text-red-700">排名第一占比</p>
-                    </div>
-                    <div class="bg-indigo-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-indigo-900 mb-2">Top3占比</h3>
-                        <p class="text-3xl font-bold text-indigo-600 mb-1">4.51%</p>
-                        <p class="text-sm text-indigo-700">排名前三占比</p>
-                    </div>
-                    <div class="bg-pink-50 p-6 rounded-lg text-center">
-                        <h3 class="text-lg font-semibold text-pink-900 mb-2">Top5占比</h3>
-                        <p class="text-3xl font-bold text-pink-600 mb-1">12.39%</p>
-                        <p class="text-sm text-pink-700">排名前五占比</p>
+                </div>
+
+                <!-- 优化效果总结 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📈 核心问题诊断</h3>
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-red-900 mb-2">需要重点提升的核心指标</h4>
+                                <ul class="text-red-800 space-y-1 text-sm">
+                                    <li>• <strong>可见度严重不足</strong>：25.35% vs 行业平均52.87%，差距达27.52%</li>
+                                    <li>• <strong>推荐度偏低</strong>：5.63% vs 行业平均16.32%，AI推荐意愿较低</li>
+                                    <li>• <strong>排名表现不佳</strong>：Top1占比仅1.13%，Top3占比4.51%，远低于行业水平</li>
+                                    <li>• <strong>信源影响力有限</strong>：26.89% vs 行业平均44.21%，信源平台覆盖不足</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 图表区域 -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">6大核心指标竞争力雷达图</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="coreMetricsRadar"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表1：红旗核心指标雷达图</h4>
+                        <div class="chart-loading" id="coreMetricsRadar-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="coreMetricsRadar"></canvas>
+                        <div class="chart-error" id="coreMetricsRadar-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('coreMetricsRadar')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">AI平台数据量分布</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="platformDataChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表2：AI平台数据量分布</h4>
+                        <div class="chart-loading" id="platformDataChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="platformDataChart"></canvas>
+                        <div class="chart-error" id="platformDataChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('platformDataChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Top排名分布</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="topRankingChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表3：Top排名分布</h4>
+                        <div class="chart-loading" id="topRankingChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="topRankingChart"></canvas>
+                        <div class="chart-error" id="topRankingChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('topRankingChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">可见度vs推荐度</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="visibilityRecommendationChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表4：可见度vs推荐度</h4>
+                        <div class="chart-loading" id="visibilityRecommendationChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="visibilityRecommendationChart"></canvas>
+                        <div class="chart-error" id="visibilityRecommendationChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('visibilityRecommendationChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">覆盖率分析</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="coverageGaugeChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表5：覆盖率分析</h4>
+                        <div class="chart-loading" id="coverageGaugeChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="coverageGaugeChart"></canvas>
+                        <div class="chart-error" id="coverageGaugeChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('coverageGaugeChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">趋势分析图</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="trendAnalysisChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表6：趋势分析图</h4>
+                        <div class="chart-loading" id="trendAnalysisChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="trendAnalysisChart"></canvas>
+                        <div class="chart-error" id="trendAnalysisChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('trendAnalysisChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -342,103 +560,106 @@
         <!-- 模块3：竞品分析 -->
         <section id="competitor-analysis" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">🏆 竞品分析</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-purple-600">3</div>
+                    <h2 class="text-2xl font-bold text-gray-900">竞品分析</h2>
+                </div>
                 
                 <!-- 竞品对比表格 -->
                 <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">目标品牌与竞品核心指标对比</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🏆 目标品牌与竞品核心指标对比</h3>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white border border-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">品牌名称</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">类型</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">可见度</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">推荐度</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">信源占比</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">AI回答数</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top1占比</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top3占比</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top5占比</th>
+                        <table class="min-w-full bg-white border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="border border-gray-300 px-3 py-2 text-left text-sm font-medium text-gray-700">品牌名称</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">类型</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">可见度</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">推荐度</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">信源占比</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">AI回答数</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">Top1占比</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">Top3占比</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center text-sm font-medium text-gray-700">Top5占比</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
+                            <tbody>
                                 <tr class="bg-blue-50">
-                                    <td class="px-4 py-3 text-sm font-bold text-blue-900">中国第一汽车集团有限公司</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">客户</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">25.35%</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">5.63%</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">26.89%</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">1.13%</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">4.51%</td>
-                                    <td class="px-4 py-3 text-sm text-blue-700">12.39%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-bold text-blue-900">中国第一汽车集团有限公司</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">客户</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">25.35%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">5.63%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">26.89%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">1.13%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">4.51%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-blue-700">12.39%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">奔驰</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">74.08%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">26.76%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">57.98%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">7.32%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">36.34%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">51.27%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">奔驰</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">74.08%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">26.76%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">57.98%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">7.32%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">36.34%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">51.27%</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">宝马</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">70.99%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">25.07%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">61.34%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">6.76%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">28.17%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">44.79%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">宝马</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">70.99%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">25.07%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">61.34%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">6.76%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">28.17%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">44.79%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">奥迪</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">68.73%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">30.70%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">57.14%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">9.30%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">35.77%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">50.70%</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">凯迪拉克</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">33.24%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">7.89%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">32.77%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">5.35%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">12.68%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">23.66%</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">奥迪</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">68.73%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">30.70%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">57.14%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">9.30%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">35.77%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">50.70%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">雷克萨斯</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">23.10%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">5.35%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">36.13%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">2.82%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">5.63%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">13.52%</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">凯迪拉克</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">33.24%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">7.89%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">32.77%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">12.68%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">23.66%</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">雷克萨斯</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">23.10%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">36.13%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">2.82%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">5.63%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">13.52%</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">蔚来</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">16.06%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">2.25%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">19.33%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">1.97%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">8.17%</td>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900">蔚来</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">核心竞品</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">16.06%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">2.25%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">19.33%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">355</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">1.97%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">5.35%</td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center text-sm text-gray-700">8.17%</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -447,40 +668,94 @@
 
                 <!-- 竞品分析图表 -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品对比雷达图</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorRadarChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表7：竞品对比雷达图</h4>
+                        <div class="chart-loading" id="competitorRadarChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorRadarChart"></canvas>
+                        <div class="chart-error" id="competitorRadarChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorRadarChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品散点分析</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorScatterChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表8：竞品散点分析</h4>
+                        <div class="chart-loading" id="competitorScatterChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorScatterChart"></canvas>
+                        <div class="chart-error" id="competitorScatterChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorScatterChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品排名对比</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorRankingChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表9：竞品排名对比</h4>
+                        <div class="chart-loading" id="competitorRankingChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorRankingChart"></canvas>
+                        <div class="chart-error" id="competitorRankingChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorRankingChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞争矩阵分析</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorMatrixChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表10：竞争矩阵分析</h4>
+                        <div class="chart-loading" id="competitorMatrixChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorMatrixChart"></canvas>
+                        <div class="chart-error" id="competitorMatrixChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorMatrixChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞争优势分析</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorAdvantageChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表11：竞争优势分析</h4>
+                        <div class="chart-loading" id="competitorAdvantageChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorAdvantageChart"></canvas>
+                        <div class="chart-error" id="competitorAdvantageChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorAdvantageChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg border p-4 chart-container">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">市场份额分布</h4>
-                        <div class="relative w-full h-full">
-                            <canvas id="competitorShareChart"></canvas>
+                    <div class="chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">📊 图表12：市场份额分布</h4>
+                        <div class="chart-loading" id="competitorShareChart-loading" style="display: none;">
+                            <i data-lucide="loader" class="w-5 h-5 animate-spin mr-2"></i>
+                            正在加载图表...
+                        </div>
+                        <canvas id="competitorShareChart"></canvas>
+                        <div class="chart-error" id="competitorShareChart-error" style="display: none;">
+                            <i data-lucide="alert-circle" class="w-6 h-6 mb-2"></i>
+                            <span>图表加载失败</span>
+                            <button onclick="retryChart('competitorShareChart')" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">
+                                重试
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -490,7 +765,10 @@
         <!-- 模块4：平台分析 -->
         <section id="platform-analysis" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">💻 平台分析</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-orange-600">4</div>
+                    <h2 class="text-2xl font-bold text-gray-900">平台分析</h2>
+                </div>
                 
                 <!-- AI平台表现卡片 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -577,7 +855,10 @@
         <!-- 模块5：信源分析 -->
         <section id="source-analysis" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📚 信源分析</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-red-600">5</div>
+                    <h2 class="text-2xl font-bold text-gray-900">信源分析</h2>
+                </div>
                 
                 <!-- Top 10信源平台表格 -->
                 <div class="mb-8">
@@ -725,7 +1006,10 @@
         <!-- 模块6：策略建议 -->
         <section id="strategy-recommendations" class="mb-12">
             <div class="bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-2xl font-semibold text-gray-900 mb-6">💡 策略建议</h2>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="module-number bg-yellow-600">6</div>
+                    <h2 class="text-2xl font-bold text-gray-900">策略建议</h2>
+                </div>
                 
                 <!-- 核心问题诊断 -->
                 <div class="mb-8">
@@ -1460,6 +1744,12 @@
                 }
             }
         };
+
+        // 图表重试函数
+        function retryChart(chartId) {
+            console.log(`🔄 重试图表: ${chartId}`);
+            renderChartWithRetry(chartId);
+        }
 
         // 移动端优化的图表渲染函数
         function renderChartWithRetry(chartId, maxRetries = 5) {
