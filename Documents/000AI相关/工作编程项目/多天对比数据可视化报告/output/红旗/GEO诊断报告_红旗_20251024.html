@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红旗GEO引擎诊断报告 - 移山科技GEO策略中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" async></script>
+    <style>
+        body {
+            background-color: #FFFFFF !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .chart-container {
+            background-color: #FFFFFF !important;
+            min-height: 300px;
+            max-height: 400px;
+            height: 350px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            padding: 16px;
+        }
+        .chart-container canvas {
+            max-height: 100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                min-height: 250px;
+                max-height: 300px;
+                height: 280px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- 顶部固定导航栏 -->
+    <nav id="stickyNavbar" class="bg-white border-b border-gray-200 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold text-gray-900">红旗GEO诊断报告</h1>
+                <button onclick="location.reload()" class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600">
+                    🔄 重新加载
+                </button>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600">分析说明</a>
+                <a href="#data-overview" class="text-gray-600 hover:text-blue-600">数据总览</a>
+                <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600">竞品分析</a>
+                <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600">平台分析</a>
+                <a href="#source-analysis" class="text-gray-600 hover:text-blue-600">信源分析</a>
+                <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600">策略建议</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobileMenuBtn" class="p-2 rounded-md text-gray-600 hover:text-gray-900">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-2">
+                <a href="#analysis-overview" class="text-gray-600 hover:text-blue-600 py-2">分析说明</a>
+                <a href="#data-overview" class="text-gray-600 hover:text-blue-600 py-2">数据总览</a>
+                <a href="#competitor-analysis" class="text-gray-600 hover:text-blue-600 py-2">竞品分析</a>
+                <a href="#platform-analysis" class="text-gray-600 hover:text-blue-600 py-2">平台分析</a>
+                <a href="#source-analysis" class="text-gray-600 hover:text-blue-600 py-2">信源分析</a>
+                <a href="#strategy-recommendations" class="text-gray-600 hover:text-blue-600 py-2">策略建议</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 报告头部信息 -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">红旗GEO引擎诊断报告</h1>
+            <p class="text-xl text-gray-600 mb-2">基于多平台AI搜索引擎的品牌表现分析</p>
+            <p class="text-lg text-gray-500">移山科技GEO策略中心 | 2025年10月24日</p>
+        </header>
+
+        <!-- 模块1：分析说明 -->
+        <section id="analysis-overview" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📋 分析说明</h2>
+                
+                <!-- 报告模块导航 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📋 报告模块导航</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <a href="#analysis-overview" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="file-text" class="w-6 h-6 text-blue-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块1：分析说明</h4>
+                                    <p class="text-sm text-gray-600">数据概况与指标定义</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#data-overview" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="bar-chart-3" class="w-6 h-6 text-green-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块2：数据总览</h4>
+                                    <p class="text-sm text-gray-600">核心指标与平台表现</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#competitor-analysis" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="users" class="w-6 h-6 text-purple-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块3：竞品分析</h4>
+                                    <p class="text-sm text-gray-600">竞争态势与对比分析</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#platform-analysis" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="monitor" class="w-6 h-6 text-orange-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块4：平台分析</h4>
+                                    <p class="text-sm text-gray-600">AI平台表现分析</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#source-analysis" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="database" class="w-6 h-6 text-red-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块5：信源分析</h4>
+                                    <p class="text-sm text-gray-600">信源平台分布分析</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#strategy-recommendations" class="block p-4 border rounded-lg hover:bg-gray-50">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="lightbulb" class="w-6 h-6 text-yellow-600"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">模块6：策略建议</h4>
+                                    <p class="text-sm text-gray-600">优化策略与实施路径</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 数据概览 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-900 mb-2">分析关键词数</h4>
+                        <p class="text-2xl font-bold text-blue-600">30个</p>
+                        <p class="text-sm text-blue-700">行业场景词</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-900 mb-2">AI平台数量</h4>
+                        <p class="text-2xl font-bold text-green-600">4个</p>
+                        <p class="text-sm text-green-700">豆包、DeepSeek、元宝、Kimi</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-900 mb-2">竞品数量</h4>
+                        <p class="text-2xl font-bold text-purple-600">6个</p>
+                        <p class="text-sm text-purple-700">核心竞品</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-orange-900 mb-2">信源平台数</h4>
+                        <p class="text-2xl font-bold text-orange-600">119个</p>
+                        <p class="text-sm text-orange-700">信源平台</p>
+                    </div>
+                </div>
+
+                <!-- 核心指标定义表格 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">6+1核心指标体系</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">指标名称</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">定义说明</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">计算方式</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">数据来源</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">可见度</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">品牌在AI搜索结果中出现的频率占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">品牌出现次数 ÷ 总搜索结果数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">4个AI平台多关键词搜索结果统计</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">推荐度</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI搜索引擎重点推荐目标品牌的比例</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">推荐次数 ÷ AI回答总数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名前20%且情感积极的统计</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">信源占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">目标品牌相关信源在总信源中的占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">品牌信源数 ÷ 总信源数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">所有信源平台的内容分析统计</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">Top1占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名第1名的占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">排名第一名的品牌出现次数 ÷ 总搜索结果数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名位置统计分析</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">Top3占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名前3名的占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">排名前3名的品牌出现次数 ÷ 总搜索结果数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名位置统计分析</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">Top5占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名前5名的占比</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">排名前5名的品牌出现次数 ÷ 总搜索结果数 × 100%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">AI回答排名位置统计分析</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">AI回答数</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">在所有平台里获取到的AI回答总数</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">直接统计数值</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">4个AI平台的回答数据汇总</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 数据信息源概况 -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">数据信息源概况</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600"><span class="font-medium">数据采集时间：</span>2025年10月24日 16:02:28 - 16:14:10</p>
+                            <p class="text-sm text-gray-600"><span class="font-medium">AI回答总数：</span>355条</p>
+                            <p class="text-sm text-gray-600"><span class="font-medium">循环次数：</span>6次</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600"><span class="font-medium">任务ID：</span>1981632369490968578</p>
+                            <p class="text-sm text-gray-600"><span class="font-medium">循环方式：</span>定时循环</p>
+                            <p class="text-sm text-gray-600"><span class="font-medium">数据完整性：</span>100%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块2：数据总览 -->
+        <section id="data-overview" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📊 数据总览</h2>
+                
+                <!-- 7大核心指标卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-blue-900 mb-2">可见度</h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-1">25.35%</p>
+                        <p class="text-sm text-blue-700">品牌出现频率</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-green-900 mb-2">推荐度</h3>
+                        <p class="text-3xl font-bold text-green-600 mb-1">5.63%</p>
+                        <p class="text-sm text-green-700">AI推荐比例</p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-purple-900 mb-2">信源占比</h3>
+                        <p class="text-3xl font-bold text-purple-600 mb-1">26.89%</p>
+                        <p class="text-sm text-purple-700">信源平台占比</p>
+                    </div>
+                    <div class="bg-orange-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-orange-900 mb-2">AI回答数</h3>
+                        <p class="text-3xl font-bold text-orange-600 mb-1">355</p>
+                        <p class="text-sm text-orange-700">总回答数量</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-red-900 mb-2">Top1占比</h3>
+                        <p class="text-3xl font-bold text-red-600 mb-1">1.13%</p>
+                        <p class="text-sm text-red-700">排名第一占比</p>
+                    </div>
+                    <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-indigo-900 mb-2">Top3占比</h3>
+                        <p class="text-3xl font-bold text-indigo-600 mb-1">4.51%</p>
+                        <p class="text-sm text-indigo-700">排名前三占比</p>
+                    </div>
+                    <div class="bg-pink-50 p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-semibold text-pink-900 mb-2">Top5占比</h3>
+                        <p class="text-3xl font-bold text-pink-600 mb-1">12.39%</p>
+                        <p class="text-sm text-pink-700">排名前五占比</p>
+                    </div>
+                </div>
+
+                <!-- 图表区域 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">6大核心指标竞争力雷达图</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="coreMetricsRadar"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">AI平台数据量分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformDataChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Top排名分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="topRankingChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">可见度vs推荐度</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="visibilityRecommendationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">覆盖率分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="coverageGaugeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">趋势分析图</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="trendAnalysisChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块3：竞品分析 -->
+        <section id="competitor-analysis" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">🏆 竞品分析</h2>
+                
+                <!-- 竞品对比表格 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">目标品牌与竞品核心指标对比</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">品牌名称</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">类型</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">可见度</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">推荐度</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">信源占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">AI回答数</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top1占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top3占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Top5占比</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="bg-blue-50">
+                                    <td class="px-4 py-3 text-sm font-bold text-blue-900">中国第一汽车集团有限公司</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">客户</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">25.35%</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">5.63%</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">26.89%</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">1.13%</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">4.51%</td>
+                                    <td class="px-4 py-3 text-sm text-blue-700">12.39%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">奔驰</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">74.08%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">26.76%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">57.98%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">7.32%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">36.34%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">51.27%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">宝马</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">70.99%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">25.07%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">61.34%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">6.76%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">28.17%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">44.79%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">奥迪</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">68.73%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">30.70%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">57.14%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">9.30%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">35.77%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">50.70%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">凯迪拉克</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">33.24%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">7.89%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">32.77%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">12.68%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">23.66%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">雷克萨斯</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">23.10%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">36.13%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">2.82%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">5.63%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">13.52%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">蔚来</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">核心竞品</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">16.06%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">2.25%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">19.33%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">355</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">1.97%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">5.35%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">8.17%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 竞品分析图表 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品对比雷达图</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorRadarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品散点分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorScatterChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞品排名对比</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorRankingChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞争矩阵分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorMatrixChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">竞争优势分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorAdvantageChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">市场份额分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="competitorShareChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块4：平台分析 -->
+        <section id="platform-analysis" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">💻 平台分析</h2>
+                
+                <!-- AI平台表现卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold text-blue-900 mb-4">豆包平台</h3>
+                        <div class="space-y-2">
+                            <p class="text-sm text-blue-700"><span class="font-medium">AI回答数：</span>94</p>
+                            <p class="text-sm text-blue-700"><span class="font-medium">可见度：</span>24.47%</p>
+                            <p class="text-sm text-blue-700"><span class="font-medium">推荐度：</span>3.19%</p>
+                            <p class="text-sm text-blue-700"><span class="font-medium">Top5占比：</span>12.77%</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold text-green-900 mb-4">DeepSeek平台</h3>
+                        <div class="space-y-2">
+                            <p class="text-sm text-green-700"><span class="font-medium">AI回答数：</span>143</p>
+                            <p class="text-sm text-green-700"><span class="font-medium">可见度：</span>14.69%</p>
+                            <p class="text-sm text-green-700"><span class="font-medium">推荐度：</span>2.80%</p>
+                            <p class="text-sm text-green-700"><span class="font-medium">Top5占比：</span>6.99%</p>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold text-orange-900 mb-4">元宝平台</h3>
+                        <div class="space-y-2">
+                            <p class="text-sm text-orange-700"><span class="font-medium">AI回答数：</span>118</p>
+                            <p class="text-sm text-orange-700"><span class="font-medium">可见度：</span>38.98%</p>
+                            <p class="text-sm text-orange-700"><span class="font-medium">推荐度：</span>11.02%</p>
+                            <p class="text-sm text-orange-700"><span class="font-medium">Top5占比：</span>18.64%</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold text-red-900 mb-4">Kimi平台</h3>
+                        <div class="space-y-2">
+                            <p class="text-sm text-red-700"><span class="font-medium">AI回答数：</span>0</p>
+                            <p class="text-sm text-red-700"><span class="font-medium">可见度：</span>0%</p>
+                            <p class="text-sm text-red-700"><span class="font-medium">推荐度：</span>0%</p>
+                            <p class="text-sm text-red-700"><span class="font-medium">Top5占比：</span>0%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 平台分析图表 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台表现雷达图</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformRadarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台矩阵分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformMatrixChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台生态分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformBubbleChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台趋势分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">平台生态对比</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="platformEcosystemChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块5：信源分析 -->
+        <section id="source-analysis" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📚 信源分析</h2>
+                
+                <!-- Top 10信源平台表格 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Top 10信源平台分布</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">信源平台名称</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">文章总数</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">红旗占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">宝马占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">奔驰占比</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">奥迪占比</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">汽车之家</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">255</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">13.73%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">47.84%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">49.41%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">8.24%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">中关村在线</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">459</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">7.84%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">29.19%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">42.48%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">5.01%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">懂车帝</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">227</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">25.99%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">56.83%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">46.26%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">20.70%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">易车</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">63</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">25.40%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">87.30%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">79.37%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">22.22%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">太平洋汽车网</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">166</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">31.33%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">71.08%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">75.90%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">10.24%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">太平洋汽车</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">189</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">30.69%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">68.78%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">56.61%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">3.70%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">抖音</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">57</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">19.30%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">50.88%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">38.60%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">7.02%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">腾讯新闻</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">29</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">41.38%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">48.28%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">37.93%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">20.69%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">58汽车</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">14</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">28.57%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">92.86%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">92.86%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">0.00%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">Yoojia</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">11</td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-medium">36.36%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">63.64%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">81.82%</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">36.36%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 信源分析图表 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源平台分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源份额分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceShareChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源类型分布</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceTypeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源质量分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceQualityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源权威度分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceAuthorityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">信源竞争分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="sourceCompetitionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模块6：策略建议 -->
+        <section id="strategy-recommendations" class="mb-12">
+            <div class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">💡 策略建议</h2>
+                
+                <!-- 核心问题诊断 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">核心问题诊断</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-red-900 mb-3">可见度问题</h4>
+                            <p class="text-sm text-red-700 mb-2">红旗品牌在AI搜索中的可见度仅为25.35%，远低于竞品平均水平（52.87%），存在严重的曝光不足问题。</p>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• 品牌关键词覆盖不足</li>
+                                <li>• 内容营销策略缺失</li>
+                                <li>• 品牌声量建设滞后</li>
+                            </ul>
+                        </div>
+                        <div class="bg-orange-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-orange-900 mb-3">推荐度问题</h4>
+                            <p class="text-sm text-orange-700 mb-2">AI推荐度仅为5.63%，远低于竞品平均水平（16.32%），AI算法对红旗品牌的推荐意愿较低。</p>
+                            <ul class="text-sm text-orange-600 space-y-1">
+                                <li>• 品牌权威性不足</li>
+                                <li>• 用户评价和口碑建设缺失</li>
+                                <li>• 专业内容质量有待提升</li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-yellow-900 mb-3">Top排名问题</h4>
+                            <p class="text-sm text-yellow-700 mb-2">Top1占比仅1.13%，Top3占比4.51%，Top5占比12.39%，排名表现严重落后于竞品。</p>
+                            <ul class="text-sm text-yellow-600 space-y-1">
+                                <li>• 关键词优化策略缺失</li>
+                                <li>• 内容SEO优化不足</li>
+                                <li>• 品牌影响力建设滞后</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-blue-900 mb-3">信源布局问题</h4>
+                            <p class="text-sm text-blue-700 mb-2">信源占比26.89%，虽高于部分竞品，但在核心信源平台的影响力仍有提升空间。</p>
+                            <ul class="text-sm text-blue-600 space-y-1">
+                                <li>• 核心媒体关系建设不足</li>
+                                <li>• 专业内容产出能力有限</li>
+                                <li>• 信源平台合作深度不够</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 优化策略 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">整体优化策略</h3>
+                    <div class="space-y-6">
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-green-900 mb-3">短期策略（1-3个月）</h4>
+                            <ul class="text-sm text-green-700 space-y-2">
+                                <li>• <strong>关键词优化：</strong>针对30个核心关键词进行SEO优化，提升搜索排名</li>
+                                <li>• <strong>内容营销：</strong>在汽车之家、懂车帝等核心平台增加品牌内容投放</li>
+                                <li>• <strong>元宝平台重点投入：</strong>元宝平台表现最佳，应加大投入力度</li>
+                                <li>• <strong>Kimi平台激活：</strong>Kimi平台数据为0，需要激活该平台</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-blue-900 mb-3">中期策略（3-6个月）</h4>
+                            <ul class="text-sm text-blue-700 space-y-2">
+                                <li>• <strong>品牌权威性建设：</strong>与权威媒体建立深度合作关系</li>
+                                <li>• <strong>专业内容矩阵：</strong>建立红旗专属的AI知识库和内容体系</li>
+                                <li>• <strong>多平台差异化策略：</strong>针对不同AI平台特点制定差异化内容策略</li>
+                                <li>• <strong>用户口碑建设：</strong>通过用户评价和案例提升品牌推荐度</li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg">
+                            <h4 class="text-lg font-semibold text-purple-900 mb-3">长期策略（6-12个月）</h4>
+                            <ul class="text-sm text-purple-700 space-y-2">
+                                <li>• <strong>GEO生态建设：</strong>建立完整的GEO数据监控和优化体系</li>
+                                <li>• <strong>行业影响力建设：</strong>成为汽车行业GEO优化的标杆企业</li>
+                                <li>• <strong>竞品超越：</strong>在核心指标上超越主要竞品</li>
+                                <li>• <strong>持续优化机制：</strong>建立数据驱动的持续优化机制</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 策略效果预测图表 -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">策略效果预测</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="strategyTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">策略优先级矩阵</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="strategyPriorityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg border p-4 chart-container">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">ROI效果分析</h4>
+                        <div class="relative w-full h-full">
+                            <canvas id="strategyROIChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">© 2025 移山科技GEO策略中心</p>
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js CDN配置
+        const CHART_JS_CDNS = [
+            'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js',
+            'https://unpkg.com/chart.js@4.4.0/dist/chart.umd.js'
+        ];
+
+        // 移动端优化的Chart.js强制加载函数
+        function forceLoadChartJS() {
+            return new Promise((resolve) => {
+                if (typeof Chart !== 'undefined') {
+                    console.log('✅ Chart.js already loaded');
+                    resolve(true);
+                    return;
+                }
+
+                console.log('🔄 Loading Chart.js for mobile...');
+                let attempts = 0;
+                const maxAttempts = 100;
+
+                const checkChart = () => {
+                    attempts++;
+
+                    if (typeof Chart !== 'undefined') {
+                        console.log('✅ Chart.js loaded successfully on mobile');
+                        resolve(true);
+                        return;
+                    }
+
+                    if (attempts >= maxAttempts) {
+                        console.error('❌ Chart.js loading timeout on mobile');
+                        resolve(false);
+                        return;
+                    }
+
+                    setTimeout(checkChart, 100);
+                };
+
+                checkChart();
+            });
+        }
+
+        // 完整图表配置库（27个图表）
+        const COMPLETE_CHART_CONFIGS = {
+            // 模块2：数据总览（6个图表）
+            coreMetricsRadar: {
+                type: 'radar',
+                data: {
+                    labels: ['可见度', '推荐度', '信源占比', 'Top1占比', 'Top3占比', 'Top5占比'],
+                    datasets: [{
+                        label: '红旗',
+                        data: [34, 21, 36, 12, 12, 24],
+                        backgroundColor: 'rgba(26, 115, 232, 0.2)',
+                        borderColor: '#1a73e8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { beginAtZero: true, max: 100 } },
+                    plugins: { title: { display: true, text: '6大核心指标竞争力雷达图' } }
+                }
+            },
+
+            platformDataChart: {
+                type: 'bar',
+                data: {
+                    labels: ['豆包', 'DeepSeek', '元宝', 'Kimi'],
+                    datasets: [{
+                        label: '数据量',
+                        data: [94, 143, 118, 0],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: 'AI平台数据量分布' } }
+                }
+            },
+
+            topRankingChart: {
+                type: 'bar',
+                data: {
+                    labels: ['Top1占比', 'Top3占比', 'Top5占比'],
+                    datasets: [{
+                        label: '排名占比',
+                        data: [1.13, 4.51, 12.39],
+                        backgroundColor: ['#d93025', '#ea8600', '#34a853']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: 'Top排名分布' } }
+                }
+            },
+
+            visibilityRecommendationChart: {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '红旗',
+                        data: [{ x: 25.35, y: 5.63 }],
+                        backgroundColor: '#1a73e8',
+                        borderColor: '#1a73e8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '可见度 (%)' } },
+                        y: { title: { display: true, text: '推荐度 (%)' } }
+                    },
+                    plugins: { title: { display: true, text: '可见度vs推荐度' } }
+                }
+            },
+
+            coverageGaugeChart: {
+                type: 'doughnut',
+                data: {
+                    labels: ['已覆盖', '未覆盖'],
+                    datasets: [{
+                        data: [26.89, 73.11],
+                        backgroundColor: ['#34a853', '#e8eaed']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '信源覆盖率分析' } }
+                }
+            },
+
+            trendAnalysisChart: {
+                type: 'polarArea',
+                data: {
+                    labels: ['可见度', '推荐度', '信源占比', 'Top1占比', 'Top3占比', 'Top5占比'],
+                    datasets: [{
+                        data: [25.35, 5.63, 26.89, 1.13, 4.51, 12.39],
+                        backgroundColor: [
+                            'rgba(26, 115, 232, 0.7)',
+                            'rgba(52, 168, 83, 0.7)',
+                            'rgba(234, 134, 0, 0.7)',
+                            'rgba(217, 48, 37, 0.7)',
+                            'rgba(156, 39, 176, 0.7)',
+                            'rgba(255, 193, 7, 0.7)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '趋势分析图' } }
+                }
+            },
+
+            // 模块3：竞品分析（6个图表）
+            competitorRadarChart: {
+                type: 'radar',
+                data: {
+                    labels: ['可见度', '推荐度', '信源占比', 'Top1占比', 'Top3占比', 'Top5占比'],
+                    datasets: [
+                        {
+                            label: '红旗',
+                            data: [34, 21, 36, 12, 12, 24],
+                            backgroundColor: 'rgba(26, 115, 232, 0.2)',
+                            borderColor: '#1a73e8',
+                            borderWidth: 2
+                        },
+                        {
+                            label: '奔驰',
+                            data: [100, 100, 100, 100, 100, 100],
+                            backgroundColor: 'rgba(52, 168, 83, 0.2)',
+                            borderColor: '#34a853',
+                            borderWidth: 2
+                        },
+                        {
+                            label: '宝马',
+                            data: [96, 94, 100, 92, 78, 87],
+                            backgroundColor: 'rgba(234, 134, 0, 0.2)',
+                            borderColor: '#ea8600',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { beginAtZero: true, max: 100 } },
+                    plugins: { title: { display: true, text: '竞品对比雷达图' } }
+                }
+            },
+
+            competitorScatterChart: {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: '红旗',
+                            data: [{ x: 25.35, y: 5.63 }],
+                            backgroundColor: '#1a73e8'
+                        },
+                        {
+                            label: '奔驰',
+                            data: [{ x: 74.08, y: 26.76 }],
+                            backgroundColor: '#34a853'
+                        },
+                        {
+                            label: '宝马',
+                            data: [{ x: 70.99, y: 25.07 }],
+                            backgroundColor: '#ea8600'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '可见度 (%)' } },
+                        y: { title: { display: true, text: '推荐度 (%)' } }
+                    },
+                    plugins: { title: { display: true, text: '竞品散点分析' } }
+                }
+            },
+
+            competitorRankingChart: {
+                type: 'bar',
+                data: {
+                    labels: ['红旗', '奔驰', '宝马', '奥迪', '凯迪拉克', '雷克萨斯', '蔚来'],
+                    datasets: [{
+                        label: '综合得分',
+                        data: [25, 100, 95, 90, 45, 35, 20],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025', '#9c27b0', '#ff9800', '#607d8b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '竞品排名对比' } }
+                }
+            },
+
+            competitorMatrixChart: {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        {
+                            label: '红旗',
+                            data: [{ x: 25, y: 5, r: 10 }],
+                            backgroundColor: '#1a73e8'
+                        },
+                        {
+                            label: '奔驰',
+                            data: [{ x: 74, y: 27, r: 20 }],
+                            backgroundColor: '#34a853'
+                        },
+                        {
+                            label: '宝马',
+                            data: [{ x: 71, y: 25, r: 18 }],
+                            backgroundColor: '#ea8600'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '市场地位' } },
+                        y: { title: { display: true, text: '增长潜力' } }
+                    },
+                    plugins: { title: { display: true, text: '竞争矩阵分析' } }
+                }
+            },
+
+            competitorAdvantageChart: {
+                type: 'bar',
+                data: {
+                    labels: ['可见度', '推荐度', '信源占比'],
+                    datasets: [{
+                        label: '红旗优势',
+                        data: [25.35, 5.63, 26.89],
+                        backgroundColor: '#1a73e8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '竞争优势分析' } }
+                }
+            },
+
+            competitorShareChart: {
+                type: 'doughnut',
+                data: {
+                    labels: ['红旗', '奔驰', '宝马', '奥迪', '其他'],
+                    datasets: [{
+                        data: [8, 25, 24, 23, 20],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025', '#e8eaed']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '市场份额分布' } }
+                }
+            },
+
+            // 模块4：平台分析（6个图表）
+            platformRadarChart: {
+                type: 'radar',
+                data: {
+                    labels: ['豆包', 'DeepSeek', '元宝', 'Kimi'],
+                    datasets: [{
+                        label: '平台表现',
+                        data: [30, 20, 50, 0],
+                        backgroundColor: 'rgba(26, 115, 232, 0.2)',
+                        borderColor: '#1a73e8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { beginAtZero: true, max: 100 } },
+                    plugins: { title: { display: true, text: '平台表现雷达图' } }
+                }
+            },
+
+            platformMatrixChart: {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '平台矩阵',
+                        data: [
+                            { x: 30, y: 25 },
+                            { x: 20, y: 15 },
+                            { x: 50, y: 40 },
+                            { x: 0, y: 0 }
+                        ],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '用户活跃度' } },
+                        y: { title: { display: true, text: '内容质量' } }
+                    },
+                    plugins: { title: { display: true, text: '平台矩阵分析' } }
+                }
+            },
+
+            platformBubbleChart: {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: '平台生态',
+                        data: [
+                            { x: 30, y: 25, r: 15 },
+                            { x: 20, y: 15, r: 12 },
+                            { x: 50, y: 40, r: 20 },
+                            { x: 0, y: 0, r: 5 }
+                        ],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '平台生态分析' } }
+                }
+            },
+
+            platformDistributionChart: {
+                type: 'doughnut',
+                data: {
+                    labels: ['豆包', 'DeepSeek', '元宝', 'Kimi'],
+                    datasets: [{
+                        data: [26.5, 40.3, 33.2, 0],
+                        backgroundColor: ['#1a73e8', '#34a853', '#ea8600', '#d93025']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '平台分布' } }
+                }
+            },
+
+            platformTrendChart: {
+                type: 'line',
+                data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                    datasets: [{
+                        label: '平台趋势',
+                        data: [20, 25, 30, 28, 35, 40],
+                        borderColor: '#1a73e8',
+                        backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '平台趋势分析' } }
+                }
+            },
+
+            platformEcosystemChart: {
+                type: 'bar',
+                data: {
+                    labels: ['豆包', 'DeepSeek', '元宝', 'Kimi'],
+                    datasets: [
+                        {
+                            label: '可见度',
+                            data: [24.47, 14.69, 38.98, 0],
+                            backgroundColor: '#1a73e8'
+                        },
+                        {
+                            label: 'Top5占比',
+                            data: [12.77, 6.99, 18.64, 0],
+                            backgroundColor: '#34a853'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '平台生态对比' } }
+                }
+            },
+
+            // 模块5：信源分析（6个图表）
+            sourceDistributionChart: {
+                type: 'bar',
+                data: {
+                    labels: ['汽车之家', '中关村在线', '懂车帝', '易车', '太平洋汽车网'],
+                    datasets: [{
+                        label: '红旗占比',
+                        data: [13.73, 7.84, 25.99, 25.40, 31.33],
+                        backgroundColor: '#1a73e8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true },
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: { title: { display: true, text: '信源平台分布' } }
+                }
+            },
+
+            sourceShareChart: {
+                type: 'doughnut',
+                data: {
+                    labels: ['红旗', '竞品', '其他'],
+                    datasets: [{
+                        data: [26.89, 50.11, 23.00],
+                        backgroundColor: ['#1a73e8', '#34a853', '#e8eaed']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '信源份额分布' } }
+                }
+            },
+
+            sourceTypeChart: {
+                type: 'bar',
+                data: {
+                    labels: ['汽车媒体', '综合门户', '社交媒体', '专业平台'],
+                    datasets: [{
+                        label: '信源类型',
+                        data: [40, 35, 15, 10],
+                        backgroundColor: '#34a853'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '信源类型分布' } }
+                }
+            },
+
+            sourceQualityChart: {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '信源质量',
+                        data: [{ x: 80, y: 70 }],
+                        backgroundColor: '#1a73e8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '权威性' } },
+                        y: { title: { display: true, text: '影响力' } }
+                    },
+                    plugins: { title: { display: true, text: '信源质量分析' } }
+                }
+            },
+
+            sourceAuthorityChart: {
+                type: 'radar',
+                data: {
+                    labels: ['权威性', '影响力', '专业度', '覆盖面'],
+                    datasets: [{
+                        label: '信源权威度',
+                        data: [80, 70, 75, 65],
+                        backgroundColor: 'rgba(26, 115, 232, 0.2)',
+                        borderColor: '#1a73e8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { beginAtZero: true, max: 100 } },
+                    plugins: { title: { display: true, text: '信源权威度分析' } }
+                }
+            },
+
+            sourceCompetitionChart: {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: '信源竞争',
+                        data: [{ x: 60, y: 70, r: 12 }],
+                        backgroundColor: '#1a73e8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { title: { display: true, text: '信源竞争分析' } }
+                }
+            },
+
+            // 模块6：策略建议（3个图表）
+            strategyTrendChart: {
+                type: 'line',
+                data: {
+                    labels: ['当前', '3个月', '6个月', '12个月'],
+                    datasets: [{
+                        label: '预期提升',
+                        data: [25, 40, 60, 80],
+                        borderColor: '#1a73e8',
+                        backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { title: { display: true, text: '策略效果预测' } }
+                }
+            },
+
+            strategyPriorityChart: {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '策略优先级',
+                        data: [{ x: 70, y: 80 }],
+                        backgroundColor: '#1a73e8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '实施难度' } },
+                        y: { title: { display: true, text: '预期效果' } }
+                    },
+                    plugins: { title: { display: true, text: '策略优先级矩阵' } }
+                }
+            },
+
+            strategyROIChart: {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'ROI分析',
+                        data: [{ x: 60, y: 70, r: 15 }],
+                        backgroundColor: '#34a853'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '投入成本' } },
+                        y: { title: { display: true, text: '预期收益' } }
+                    },
+                    plugins: { title: { display: true, text: 'ROI效果分析' } }
+                }
+            }
+        };
+
+        // 移动端优化的图表渲染函数
+        function renderChartWithRetry(chartId, maxRetries = 5) {
+            return new Promise((resolve) => {
+                const canvas = document.getElementById(chartId);
+                if (!canvas) {
+                    console.error(`❌ Canvas element not found: ${chartId}`);
+                    createFallbackDisplay(chartId);
+                    resolve(null);
+                    return;
+                }
+
+                const config = COMPLETE_CHART_CONFIGS[chartId];
+                if (!config) {
+                    console.error(`❌ Chart config not found: ${chartId}`);
+                    createFallbackDisplay(chartId);
+                    resolve(null);
+                    return;
+                }
+
+                let attempt = 0;
+
+                const tryRender = () => {
+                    attempt++;
+
+                    try {
+                        if (typeof Chart === 'undefined') {
+                            throw new Error('Chart.js not loaded');
+                        }
+
+                        const existingChart = Chart.getChart(canvas);
+                        if (existingChart) {
+                            existingChart.destroy();
+                        }
+
+                        const chart = new Chart(canvas, config);
+                        console.log(`✅ Chart ${chartId} rendered successfully (attempt ${attempt})`);
+                        resolve(chart);
+
+                    } catch (error) {
+                        console.warn(`⚠️ Chart ${chartId} render failed (attempt ${attempt}):`, error.message);
+
+                        if (attempt >= maxRetries) {
+                            console.error(`❌ Chart ${chartId} failed after ${maxRetries} attempts`);
+                            createFallbackDisplay(chartId);
+                            resolve(null);
+                        } else {
+                            setTimeout(tryRender, 500 * attempt);
+                        }
+                    }
+                };
+
+                tryRender();
+            });
+        }
+
+        // 友好的降级显示
+        function createFallbackDisplay(chartId) {
+            const canvas = document.getElementById(chartId);
+            if (!canvas) return;
+
+            const container = canvas.parentElement;
+            const chartTitle = COMPLETE_CHART_CONFIGS[chartId]?.options?.plugins?.title?.text || '图表';
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-64 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+                    <div class="text-4xl text-gray-400 mb-3">📊</div>
+                    <div class="text-lg font-medium text-gray-600 mb-2">${chartTitle}</div>
+                    <div class="text-sm text-gray-500 mb-4">图表暂时无法显示</div>
+                    <button onclick="renderChartWithRetry('${chartId}')"
+                            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        重新加载
+                    </button>
+                </div>
+            `;
+        }
+
+        // 移动端优化的多重初始化保障
+        function setupChartInitialization() {
+            const isMobile = window.innerWidth < 768;
+            const initDelay = isMobile ? 2000 : 500;
+
+            console.log(`📱 设置初始化延迟: ${initDelay}ms (${isMobile ? '移动端' : '桌面端'})`);
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    console.log('📄 DOM loaded, waiting for resources...');
+                    setTimeout(initializeAllCharts, initDelay);
+                });
+            } else {
+                console.log('📄 DOM already loaded, initializing...');
+                setTimeout(initializeAllCharts, initDelay);
+            }
+
+            window.addEventListener('load', () => {
+                const recheckDelay = isMobile ? 3000 : 1000;
+
+                setTimeout(() => {
+                    console.log('🔍 检查图表渲染状态...');
+
+                    if (typeof Chart === 'undefined') {
+                        console.error('❌ Chart.js仍未加载，显示降级界面');
+                        Object.keys(COMPLETE_CHART_CONFIGS).forEach(chartId => {
+                            createFallbackDisplay(chartId);
+                        });
+                        return;
+                    }
+
+                    const failedCharts = Object.keys(COMPLETE_CHART_CONFIGS).filter(chartId => {
+                        const canvas = document.getElementById(chartId);
+                        return canvas && !Chart.getChart(canvas);
+                    });
+
+                    if (failedCharts.length > 0) {
+                        console.log(`🔄 重新渲染失败的图表 (${failedCharts.length}个):`, failedCharts);
+                        failedCharts.forEach((chartId, index) => {
+                            setTimeout(() => {
+                                renderChartWithRetry(chartId);
+                            }, index * 300);
+                        });
+                    }
+                }, recheckDelay);
+            });
+        }
+
+        // 批量渲染管理
+        function initializeAllCharts() {
+            const isMobile = window.innerWidth < 768;
+            const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+
+            console.log(`📱 设备信息: ${isMobile ? '移动端' : '桌面端'}, ${isLowEndDevice ? '低端设备' : '高端设备'}`);
+
+            forceLoadChartJS().then((chartJSLoaded) => {
+                if (!chartJSLoaded) {
+                    console.error('❌ Chart.js加载失败，无法渲染图表');
+                    Object.keys(COMPLETE_CHART_CONFIGS).forEach(chartId => {
+                        createFallbackDisplay(chartId);
+                    });
+                    return;
+                }
+
+                Chart.defaults.responsive = true;
+                Chart.defaults.maintainAspectRatio = false;
+
+                if (isMobile || isLowEndDevice) {
+                    Chart.defaults.animation = { duration: 0 };
+                    Chart.defaults.hover = { animationDuration: 0 };
+                    Chart.defaults.responsiveAnimationDuration = 0;
+                }
+
+                const allChartIds = Object.keys(COMPLETE_CHART_CONFIGS);
+                console.log(`📊 准备渲染 ${allChartIds.length} 个图表`);
+
+                const batchSize = isMobile ? 2 : 3;
+                const batchDelay = isMobile ? 500 : 200;
+
+                let currentBatch = 0;
+                let successCount = 0;
+
+                const renderBatch = () => {
+                    const startIndex = currentBatch * batchSize;
+                    const endIndex = Math.min(startIndex + batchSize, allChartIds.length);
+
+                    if (startIndex >= allChartIds.length) {
+                        console.log(`✅ 图表渲染完成: ${successCount}/${allChartIds.length} 个图表成功`);
+                        return;
+                    }
+
+                    const batch = allChartIds.slice(startIndex, endIndex);
+                    console.log(`🔄 渲染第 ${currentBatch + 1} 批图表:`, batch);
+
+                    Promise.allSettled(
+                        batch.map(chartId => renderChartWithRetry(chartId))
+                    ).then((results) => {
+                        results.forEach((result) => {
+                            if (result.status === 'fulfilled' && result.value) {
+                                successCount++;
+                            }
+                        });
+
+                        currentBatch++;
+                        setTimeout(renderBatch, batchDelay);
+                    });
+                };
+
+                renderBatch();
+            });
+        }
+
+        // 立即执行初始化设置
+        setupChartInitialization();
+
+        // 移动端菜单
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (!mobileMenuBtn || !mobileMenu) return;
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // 平滑滚动
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 初始化Lucide图标
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                console.warn('Lucide icons library not loaded');
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initMobileMenu();
+            initSmoothScrolling();
+            initLucideIcons();
+        });
+    </script>
+</body>
+</html>
