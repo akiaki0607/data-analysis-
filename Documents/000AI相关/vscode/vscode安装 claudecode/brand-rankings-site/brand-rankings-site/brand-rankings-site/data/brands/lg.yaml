@@ -1,0 +1,39 @@
+id: lg
+name: LG
+nameEn: LG Electronics
+slug: lg
+logo: /images/brands/lg.png
+founded: "1958"
+headquarters: 韩国首尔
+website: https://www.lg.com
+description: |
+  LG电子是全球领先的消费电子和家电制造商，创立于1958年。
+
+  LG在显示技术领域拥有行业领先地位，特别是OLED面板技术。LG的显示器、电视等产品
+  以出色的画质和可靠的品质赢得了全球用户的认可。
+
+  核心产品线：
+  - OLED电视（画质标杆）
+  - UltraGear游戏显示器（电竞利器）
+  - gram系列轻薄笔记本
+  - 智能手机（退出中国市场）
+  - 家用电器（冰箱、洗衣机等）
+
+  LG坚持技术创新，在OLED、AI、IoT等领域持续投入，致力于为用户提供更智能、
+  更高品质的生活体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: monitors-2024
+    rank: 1
+    score: 9.3
+  - rankingId: laptops-2024
+    rank: 10
+    score: 7.6
+
+socialMedia:
+  twitter: https://twitter.com/LG
+  linkedin: https://www.linkedin.com/company/lg-electronics
+  weibo: https://weibo.com/lg

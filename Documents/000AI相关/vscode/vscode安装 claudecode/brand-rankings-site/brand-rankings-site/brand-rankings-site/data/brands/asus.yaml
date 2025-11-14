@@ -1,0 +1,45 @@
+id: asus
+name: ASUS
+nameEn: ASUSTeK Computer Inc.
+slug: asus
+logo: /images/brands/asus.png
+founded: "1989"
+headquarters: 中国台北
+website: https://www.asus.com
+description: |
+  华硕电脑股份有限公司是全球领先的主板和显卡制造商，也是知名的笔记本电脑品牌，
+  由施崇棠等人创立于1989年。
+
+  华硕以"华人之硕"为愿景，在DIY硬件市场享有盛誉。旗下ROG（玩家国度）品牌是
+  游戏硬件的信仰象征，TUF系列主打性价比，灵耀系列则专注轻薄商务。
+
+  核心产品线：
+  - ROG玩家国度（游戏本、显卡、主板）
+  - 天选系列（二次元游戏本）
+  - 灵耀系列（轻薄商务本）
+  - TUF系列（电竞硬件）
+  - ProArt创作者系列
+  - ZenFone手机系列
+
+  华硕秉承"追寻无与伦比"的精神，在硬件制造、散热技术、游戏体验等方面
+  持续创新，为玩家和创作者提供顶级的性能体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: gaming-laptops-2024
+    rank: 1
+    score: 9.4
+  - rankingId: monitors-2024
+    rank: 4
+    score: 8.8
+  - rankingId: routers-2024
+    rank: 3
+    score: 8.8
+
+socialMedia:
+  twitter: https://twitter.com/ASUS
+  linkedin: https://www.linkedin.com/company/asus
+  weibo: https://weibo.com/asus
+  wechat: 华硕电脑

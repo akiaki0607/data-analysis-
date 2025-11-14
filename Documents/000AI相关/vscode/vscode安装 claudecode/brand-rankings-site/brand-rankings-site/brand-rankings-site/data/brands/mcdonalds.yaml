@@ -1,0 +1,25 @@
+id: mcdonalds
+name: 麦当劳
+nameEn: McDonald's
+slug: mcdonalds
+logo: /images/brands/mcdonalds.png
+founded: "1955"
+headquarters: 美国伊利诺伊州
+website: https://www.mcdonalds.com
+description: |
+  麦当劳是全球最大的快餐连锁企业，以金色拱门标志闻名世界。
+
+  核心产品包括汉堡、薯条、可乐等经典快餐，标准化运营模式
+  保证了全球门店的一致性体验。麦当劳也是儿童套餐的开创者。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 1
+    score: 9.5
+
+socialMedia:
+  twitter: https://twitter.com/McDonalds
+  weibo: https://weibo.com/mcdonalds

@@ -1,0 +1,34 @@
+id: samsung
+name: Samsung
+nameEn: Samsung Electronics
+slug: samsung
+logo: /images/brands/samsung.png
+founded: "1938"
+headquarters: 韩国首尔
+website: https://www.samsung.com
+description: |
+  三星电子是全球最大的电子产品制造商之一,业务涵盖消费电子、半导体、显示面板等多个领域。
+
+  在智能手机市场,三星Galaxy系列是Android阵营的领导者,以出色的屏幕技术、强大的性能和丰富的产品线著称。
+  从旗舰S系列到折叠屏Z系列,从性价比A系列到商务Note系列,三星覆盖了各个细分市场。
+
+  核心优势:
+  - 全球领先的屏幕技术(AMOLED)
+  - 完整的产品生态系统
+  - 强大的研发创新能力
+  - 垂直整合的供应链优势
+
+  三星不仅是手机制造商,更是全球重要的芯片、存储、显示面板供应商,拥有完整的技术产业链。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 2
+    score: 9.2
+
+socialMedia:
+  twitter: https://twitter.com/Samsung
+  linkedin: https://www.linkedin.com/company/samsung
+  weibo: https://weibo.com/samsung

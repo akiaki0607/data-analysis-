@@ -1,0 +1,19 @@
+id: manner-coffee
+name: Manner咖啡
+nameEn: Manner Coffee
+slug: manner-coffee
+logo: /images/brands/manner-coffee.png
+founded: "2015"
+headquarters: 中国上海
+website: https://www.mannercoffee.com
+description: |
+  Manner咖啡是上海精品咖啡新星，以极简主义设计和高性价比著称。
+  坚持精品咖啡定位，门店设计简约时尚，深受年轻人喜爱。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 5
+    score: 8.3

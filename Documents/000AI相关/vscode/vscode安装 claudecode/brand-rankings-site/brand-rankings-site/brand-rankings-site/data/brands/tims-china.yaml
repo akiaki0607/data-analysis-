@@ -1,0 +1,19 @@
+id: tims-china
+name: Tims咖啡
+nameEn: Tims China
+slug: tims-china
+logo: /images/brands/tims-china.png
+founded: "2019"
+headquarters: 中国上海
+website: https://www.timschina.com
+description: |
+  Tims咖啡是Tim Hortons在中国的合资品牌。
+  本土化创新能力强，甜品品类丰富，会员活动多，性价比好。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 9
+    score: 7.5

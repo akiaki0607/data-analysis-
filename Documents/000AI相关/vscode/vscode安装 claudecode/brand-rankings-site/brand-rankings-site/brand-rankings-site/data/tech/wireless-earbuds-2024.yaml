@@ -1,0 +1,200 @@
+id: wireless-earbuds-2024
+title: 2024年无线耳机排行榜
+slug: wireless-earbuds-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最值得购买的真无线蓝牙耳机推荐，从音质、降噪、续航、佩戴舒适度等多方面评测，
+  帮您选择最适合的耳机。
+
+methodology: |
+  评分标准：音质表现(30%)、降噪效果(25%)、续航能力(20%)、佩戴舒适度(15%)、性价比(10%)。
+
+viewCount: 52300
+
+brands:
+  - rank: 1
+    brandId: apple
+    name: AirPods Pro 2
+    logo: /images/brands/apple.png
+    score: 9.4
+    description: |
+      H2芯片加持，主动降噪提升2倍，空间音频支持，
+      与Apple生态无缝衔接，iPhone用户必备。
+    metrics:
+      driver: 定制驱动单元
+      anc: 主动降噪
+      battery: 6小时(降噪)
+      price: ¥1899
+    tags:
+      - 降噪
+      - iOS
+      - 空间音频
+
+  - rank: 2
+    brandId: sony
+    name: Sony WF-1000XM5
+    logo: /images/brands/sony.png
+    score: 9.3
+    description: |
+      业界顶级降噪，LDAC高音质传输，8小时超长续航，
+      音质和降噪双强，发烧友首选。
+    metrics:
+      driver: 8.4mm动圈
+      anc: 行业领先降噪
+      battery: 8小时
+      price: ¥1999
+    tags:
+      - 顶级音质
+      - 降噪王者
+      - LDAC
+
+  - rank: 3
+    brandId: samsung
+    name: Galaxy Buds2 Pro
+    logo: /images/brands/samsung.png
+    score: 8.9
+    description: |
+      360度音频，智能降噪，IPX7防水，
+      三星手机最佳拍档，多设备切换流畅。
+    metrics:
+      driver: 10mm+5.3mm双单元
+      anc: 智能降噪
+      battery: 5小时
+      price: ¥1299
+    tags:
+      - 三星生态
+      - 防水
+      - 双单元
+
+  - rank: 4
+    brandId: xiaomi
+    name: 小米 Buds 4 Pro
+    logo: /images/brands/xiaomi.png
+    score: 8.6
+    description: |
+      48dB深度降噪，LHDC 5.0高清音质，空间音频，
+      千元价位的全能选手。
+    metrics:
+      driver: 11mm动圈
+      anc: 48dB降噪
+      battery: 9小时
+      price: ¥899
+    tags:
+      - 性价比
+      - 降噪
+      - 长续航
+
+  - rank: 5
+    brandId: huawei
+    name: 华为 FreeBuds Pro 3
+    logo: /images/brands/huawei.png
+    score: 8.5
+    description: |
+      纯净降噪3.0，超感知音质，鸿蒙无缝连接，
+      支持有线和无线充电。
+    metrics:
+      driver: 11mm四磁单元
+      anc: 纯净降噪3.0
+      battery: 6.5小时
+      price: ¥1199
+    tags:
+      - 鸿蒙
+      - 降噪
+      - HiFi
+
+  - rank: 6
+    brandId: bose
+    name: Bose QuietComfort Earbuds II
+    logo: /images/brands/bose.png
+    score: 8.4
+    description: |
+      个性化降噪技术，沉浸式音效，舒适佩戴，
+      降噪耳机领域标杆。
+    metrics:
+      driver: 定制驱动
+      anc: 个性化降噪
+      battery: 6小时
+      price: ¥2299
+    tags:
+      - 降噪王者
+      - 音质
+      - 舒适
+
+  - rank: 7
+    brandId: beats
+    name: Beats Fit Pro
+    logo: /images/brands/beats.png
+    score: 8.2
+    description: |
+      H1芯片，主动降噪，运动防脱落设计，
+      Apple生态另一选择。
+    metrics:
+      driver: 定制驱动
+      anc: 主动降噪
+      battery: 6小时
+      price: ¥1599
+    tags:
+      - 运动
+      - iOS
+      - 时尚
+
+  - rank: 8
+    brandId: oppo
+    name: OPPO Enco X2
+    logo: /images/brands/oppo.png
+    score: 8.0
+    description: |
+      双芯降噪，LHDC 4.0，丹拿联合调音，
+      音质出色的国产精品。
+    metrics:
+      driver: 11mm动圈
+      anc: 双芯降噪
+      battery: 7小时
+      price: ¥999
+    tags:
+      - 音质
+      - 降噪
+      - HiFi
+
+  - rank: 9
+    brandId: vivo
+    name: vivo TWS 3 Pro
+    logo: /images/brands/vivo.png
+    score: 7.8
+    description: |
+      12.2mm超大单元，49dB深度降噪，支持空间音频，
+      影音娱乐新选择。
+    metrics:
+      driver: 12.2mm动圈
+      anc: 49dB降噪
+      battery: 6小时
+      price: ¥799
+    tags:
+      - 降噪
+      - 大单元
+      - 性价比
+
+  - rank: 10
+    brandId: edifier
+    name: 漫步者 NeoBuds Pro 2
+    logo: /images/brands/edifier.png
+    score: 7.6
+    description: |
+      LDAC高清音质，Hi-Res认证，主动降噪，
+      国产音频品牌力作。
+    metrics:
+      driver: 10mm动圈
+      anc: 主动降噪
+      battery: 5.5小时
+      price: ¥599
+    tags:
+      - 音质
+      - 超值
+      - Hi-Res
+
+tags:
+  - 无线耳机
+  - 降噪
+  - 音质
+  - TWS

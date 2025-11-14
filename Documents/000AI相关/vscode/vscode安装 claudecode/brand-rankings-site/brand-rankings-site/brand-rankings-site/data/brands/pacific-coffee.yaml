@@ -1,0 +1,19 @@
+id: pacific-coffee
+name: 太平洋咖啡
+nameEn: Pacific Coffee
+slug: pacific-coffee
+logo: /images/brands/pacific-coffee.png
+founded: "1992"
+headquarters: 中国香港
+website: https://www.pacificcoffee.com
+description: |
+  太平洋咖啡是香港本土咖啡品牌，现为华润集团旗下。
+  融合港式咖啡文化，门店环境优雅，甜品品质高，是商务人士首选。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 4
+    score: 8.5

@@ -1,0 +1,14 @@
+id: tesla
+name: 特斯拉
+slug: tesla
+logo: /images/brands/tesla.png
+founded: "2000"
+headquarters: 中国
+website: https://www.tesla.com
+description: 特斯拉汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 2
+    score: 92.8

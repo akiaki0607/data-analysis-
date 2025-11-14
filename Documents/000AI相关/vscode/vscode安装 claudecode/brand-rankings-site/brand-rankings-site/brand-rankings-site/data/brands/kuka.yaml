@@ -1,0 +1,14 @@
+id: kuka
+name: 顾家家居
+slug: kuka
+logo: /images/brands/kuka.png
+founded: "2000"
+headquarters: 中国
+website: https://www.kuka.com
+description: 顾家家居是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 2
+    score: 96.8

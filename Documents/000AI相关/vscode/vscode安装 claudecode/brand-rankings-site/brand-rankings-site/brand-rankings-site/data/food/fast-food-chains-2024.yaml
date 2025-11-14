@@ -1,0 +1,147 @@
+id: fast-food-chains-2024
+title: 2024年快餐连锁品牌排行榜
+slug: fast-food-chains-2024
+description: 基于品牌影响力、门店数量、食品质量和顾客满意度的综合评分
+industry: food
+category: food
+publishDate: '2024-01-15'
+updateDate: '2024-01-15'
+viewCount: 15234
+author: 品牌研究院
+tags:
+  - 快餐
+  - 连锁餐饮
+  - 美食
+
+intro: |
+  本排行榜综合考量了各大快餐连锁品牌的市场份额、门店规模、产品质量、
+  服务水平和顾客满意度等多个维度，为消费者提供权威的品牌参考。
+
+methodology: |
+  评分标准：
+  - 品牌影响力（30%）：品牌知名度、市场占有率
+  - 门店规模（25%）：门店数量、覆盖范围
+  - 食品质量（25%）：食材品质、口味评价
+  - 服务水平（15%）：服务效率、顾客体验
+  - 创新能力（5%）：新品开发、数字化创新
+
+brands:
+  - rank: 1
+    name: 麦当劳
+    brandId: mcdonalds
+    score: 9.5
+    logo: /images/brands/mcdonalds.png
+    description: 全球快餐巨头，金色拱门标志深入人心
+    highlights:
+      - 全球门店超40000家
+      - 标准化运营典范
+      - 儿童套餐开创者
+      - 24小时营业服务
+
+  - rank: 2
+    name: 肯德基
+    brandId: kfc
+    score: 9.3
+    logo: /images/brands/kfc.png
+    description: 炸鸡专家，中国市场快餐领导品牌
+    highlights:
+      - 中国门店超9000家
+      - 本土化产品创新
+      - 早餐市场领先
+      - 数字化点餐先锋
+
+  - rank: 3
+    name: 汉堡王
+    brandId: burger-king
+    score: 8.7
+    logo: /images/brands/burger-king.png
+    description: 火烤风味汉堡专家，美式快餐代表
+    highlights:
+      - 火烤工艺独特
+      - 汉堡尺寸大
+      - 套餐性价比高
+      - 全球18000+门店
+
+  - rank: 4
+    name: 德克士
+    brandId: dicos
+    score: 8.5
+    logo: /images/brands/dicos.png
+    description: 中国本土炸鸡品牌，三四线城市布局广
+    highlights:
+      - 中国门店2500+
+      - 性价比优势明显
+      - 下沉市场领先
+      - 中式快餐融合
+
+  - rank: 5
+    name: 必胜客
+    brandId: pizza-hut
+    score: 8.3
+    logo: /images/brands/pizza-hut.png
+    description: 休闲披萨餐厅，西式正餐快餐化
+    highlights:
+      - 披萨品类丰富
+      - 就餐环境舒适
+      - 沙拉吧特色
+      - 家庭聚餐首选
+
+  - rank: 6
+    name: 赛百味
+    brandId: subway
+    score: 8.1
+    logo: /images/brands/subway.png
+    description: 健康快餐代表，三明治定制专家
+    highlights:
+      - 新鲜食材现做
+      - 低脂健康选择
+      - 全球门店最多
+      - DIY定制体验
+
+  - rank: 7
+    name: 华莱士
+    brandId: wallace
+    score: 7.9
+    logo: /images/brands/wallace.png
+    description: 中国本土快餐品牌，性价比之王
+    highlights:
+      - 门店超18000家
+      - 超高性价比
+      - 加盟模式成功
+      - 下沉市场霸主
+
+  - rank: 8
+    name: 吉野家
+    brandId: yoshinoya
+    score: 7.7
+    logo: /images/brands/yoshinoya.png
+    description: 日式快餐代表，牛肉饭专家
+    highlights:
+      - 日式口味正宗
+      - 出餐速度快
+      - 商务午餐首选
+      - 全球1900+门店
+
+  - rank: 9
+    name: 真功夫
+    brandId: kungfu
+    score: 7.5
+    logo: /images/brands/kungfu.png
+    description: 中式快餐领导品牌，蒸品特色
+    highlights:
+      - 中式蒸品特色
+      - 营养健康理念
+      - 门店600+
+      - 李小龙形象
+
+  - rank: 10
+    name: 永和大王
+    brandId: yonghe
+    score: 7.3
+    logo: /images/brands/yonghe.png
+    description: 台式快餐品牌，豆浆油条专家
+    highlights:
+      - 台式早餐特色
+      - 24小时营业
+      - 豆浆油条招牌
+      - 中式快餐代表

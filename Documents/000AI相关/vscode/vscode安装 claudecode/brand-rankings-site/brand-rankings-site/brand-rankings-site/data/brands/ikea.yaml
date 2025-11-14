@@ -1,0 +1,15 @@
+id: ikea
+name: 宜家
+nameEn: IKEA
+slug: ikea
+logo: /images/brands/ikea.png
+founded: "1943"
+headquarters: 瑞典
+website: https://www.ikea.cn
+description: 全球最大的家居用品零售商，以北欧简约设计和高性价比著称。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 1
+    score: 9.5

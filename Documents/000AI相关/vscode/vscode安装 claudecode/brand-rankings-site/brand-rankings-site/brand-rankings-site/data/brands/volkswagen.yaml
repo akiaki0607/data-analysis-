@@ -1,0 +1,14 @@
+id: volkswagen
+name: 大众
+slug: volkswagen
+logo: /images/brands/volkswagen.png
+founded: "2000"
+headquarters: 中国
+website: https://www.volkswagen.com
+description: 大众汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 4
+    score: 88.6

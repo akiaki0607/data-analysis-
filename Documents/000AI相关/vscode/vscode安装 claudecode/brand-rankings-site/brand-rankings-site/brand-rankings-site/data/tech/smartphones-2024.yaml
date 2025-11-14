@@ -1,0 +1,173 @@
+id: smartphones-2024
+title: 2024年智能手机品牌排行榜
+slug: smartphones-2024
+category: tech
+updateDate: "2024-11-14"
+description: 基于市场份额、用户评价、技术创新等多维度综合评分
+methodology: 本排行榜综合考量了市场占有率(30%)、用户满意度(25%)、技术创新能力(25%)、产品性价比(20%)等多个维度,通过加权计算得出综合评分。
+viewCount: 125000
+tags:
+  - 智能手机
+  - 科技数码
+  - 年度榜单
+
+brands:
+  - rank: 1
+    name: Apple
+    brandId: apple
+    score: 9.5
+    logo: /images/brands/apple.png
+    description: 全球领先的智能手机制造商,以iPhone系列闻名,创新设计与强大生态系统
+    metrics:
+      marketShare: "23%"
+      userRating: 4.8
+      innovation: "A+"
+      priceValue: "A"
+    tags:
+      - 市场领导者
+      - 最受欢迎
+      - 高端定位
+
+  - rank: 2
+    name: Samsung
+    brandId: samsung
+    score: 9.2
+    logo: /images/brands/samsung.png
+    description: 全球最大的智能手机制造商之一,Galaxy系列覆盖高中低端市场
+    metrics:
+      marketShare: "21%"
+      userRating: 4.6
+      innovation: "A"
+      priceValue: "A"
+    tags:
+      - 创新先锋
+      - 产品线丰富
+      - 屏幕技术领先
+
+  - rank: 3
+    name: Huawei
+    brandId: huawei
+    score: 9.0
+    logo: /images/brands/huawei.png
+    description: 中国领先的通信设备和智能手机制造商,Mate和P系列备受好评
+    metrics:
+      marketShare: "15%"
+      userRating: 4.5
+      innovation: "A"
+      priceValue: "A+"
+    tags:
+      - 技术领先
+      - 拍照专家
+      - 国产之光
+
+  - rank: 4
+    name: Xiaomi
+    brandId: xiaomi
+    score: 8.8
+    logo: /images/brands/xiaomi.png
+    description: 性价比之王,全球出货量Top 3,互联网手机开创者
+    metrics:
+      marketShare: "13%"
+      userRating: 4.4
+      innovation: "B+"
+      priceValue: "A+"
+    tags:
+      - 性价比之王
+      - 年轻人首选
+      - 快速充电
+
+  - rank: 5
+    name: OPPO
+    brandId: oppo
+    score: 8.6
+    logo: /images/brands/oppo.png
+    description: 主打拍照和快充技术,Find和Reno系列深受年轻用户喜爱
+    metrics:
+      marketShare: "10%"
+      userRating: 4.3
+      innovation: "B+"
+      priceValue: "A"
+    tags:
+      - 拍照专家
+      - 设计出色
+      - 充电快
+
+  - rank: 6
+    name: vivo
+    brandId: vivo
+    score: 8.5
+    logo: /images/brands/vivo.png
+    description: 影像旗舰,X系列和S系列主打年轻时尚市场
+    metrics:
+      marketShare: "9%"
+      userRating: 4.3
+      innovation: "B+"
+      priceValue: "A"
+    tags:
+      - 影像旗舰
+      - 创新设计
+      - 音质出色
+
+  - rank: 7
+    name: OnePlus
+    brandId: oneplus
+    score: 8.3
+    logo: /images/brands/oneplus.png
+    description: 不将就的旗舰杀手,主打流畅体验和快充技术
+    metrics:
+      marketShare: "3%"
+      userRating: 4.5
+      innovation: "B+"
+      priceValue: "A"
+    tags:
+      - 流畅体验
+      - 旗舰杀手
+      - 氢OS
+
+  - rank: 8
+    name: Realme
+    brandId: realme
+    score: 8.0
+    logo: /images/brands/realme.png
+    description: 年轻人的潮流科技品牌,主打高性价比
+    metrics:
+      marketShare: "4%"
+      userRating: 4.2
+      innovation: "B"
+      priceValue: "A+"
+    tags:
+      - 年轻潮流
+      - 高性价比
+      - 快速成长
+
+  - rank: 9
+    name: Honor
+    brandId: honor
+    score: 7.8
+    logo: /images/brands/honor.png
+    description: 从华为独立的年轻品牌,Magic系列展现强大实力
+    metrics:
+      marketShare: "5%"
+      userRating: 4.2
+      innovation: "B"
+      priceValue: "A"
+    tags:
+      - 独立品牌
+      - 年轻时尚
+      - 技术传承
+
+  - rank: 10
+    name: Google
+    brandId: google
+    score: 7.5
+    logo: /images/brands/google.png
+    description: Pixel系列展示原生Android体验和AI摄影能力
+    metrics:
+      marketShare: "1%"
+      userRating: 4.4
+      innovation: "A"
+      priceValue: "B+"
+    tags:
+      - 原生Android
+      - AI摄影
+      - 软硬件结合

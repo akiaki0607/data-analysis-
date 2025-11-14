@@ -1,0 +1,19 @@
+id: kungfu
+name: 真功夫
+nameEn: Kungfu
+slug: kungfu
+logo: /images/brands/kungfu.png
+founded: "1990"
+headquarters: 中国广东
+website: https://www.zkungfu.com
+description: |
+  真功夫是中国本土中式快餐领导品牌，以蒸品特色著称。
+  强调营养健康理念，李小龙形象深入人心，门店遍布全国。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 9
+    score: 7.5

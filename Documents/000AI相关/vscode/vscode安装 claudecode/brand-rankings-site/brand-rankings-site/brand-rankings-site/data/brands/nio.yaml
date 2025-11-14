@@ -1,0 +1,14 @@
+id: nio
+name: 蔚来
+slug: nio
+logo: /images/brands/nio.png
+founded: "2000"
+headquarters: 中国
+website: https://www.nio.com
+description: 蔚来汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 8
+    score: 80.2

@@ -1,0 +1,14 @@
+id: byd
+name: 比亚迪
+slug: byd
+logo: /images/brands/byd.png
+founded: "2000"
+headquarters: 中国
+website: https://www.byd.com
+description: 比亚迪汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 1
+    score: 94.9

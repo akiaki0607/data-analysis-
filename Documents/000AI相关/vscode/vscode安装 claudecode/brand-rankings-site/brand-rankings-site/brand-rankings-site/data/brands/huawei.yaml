@@ -1,0 +1,51 @@
+id: huawei
+name: Huawei
+nameEn: Huawei Technologies
+slug: huawei
+logo: /images/brands/huawei.png
+founded: "1987"
+headquarters: 中国深圳
+website: https://www.huawei.com
+description: |
+  华为技术有限公司是全球领先的ICT（信息与通信）基础设施和智能终端提供商，由任正非创立于1987年。
+
+  华为致力于把数字世界带入每个人、每个家庭、每个组织，构建万物互联的智能世界。在智能手机领域，
+  华为凭借强大的研发能力和创新精神，推出了Mate系列、P系列等高端旗舰机型，在影像、性能、设计等
+  方面持续引领行业发展。
+
+  核心产品线：
+  - Mate系列旗舰手机
+  - P系列影像旗舰
+  - nova系列年轻潮流机型
+  - MatePad系列平板电脑
+  - WATCH系列智能手表
+  - FreeBuds系列无线耳机
+
+  华为坚持自主创新，在5G、芯片、操作系统等核心技术领域持续投入，推出了鸿蒙OS（HarmonyOS）
+  操作系统，打造全场景智慧生态。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 3
+    score: 9.0
+  - rankingId: tablets-2024
+    rank: 4
+    score: 8.7
+  - rankingId: smartwatches-2024
+    rank: 3
+    score: 8.8
+  - rankingId: wireless-earbuds-2024
+    rank: 5
+    score: 8.5
+  - rankingId: routers-2024
+    rank: 1
+    score: 9.2
+
+socialMedia:
+  weibo: https://weibo.com/huawei
+  wechat: 华为终端
+  twitter: https://twitter.com/Huawei
+  linkedin: https://www.linkedin.com/company/huawei

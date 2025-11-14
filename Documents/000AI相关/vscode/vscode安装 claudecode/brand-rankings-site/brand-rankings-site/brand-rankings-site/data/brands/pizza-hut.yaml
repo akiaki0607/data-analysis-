@@ -1,0 +1,20 @@
+id: pizza-hut
+name: 必胜客
+nameEn: Pizza Hut
+slug: pizza-hut
+logo: /images/brands/pizza-hut.png
+founded: "1958"
+headquarters: 美国德克萨斯州
+website: https://www.pizzahut.com
+description: |
+  必胜客是全球知名的比萨专门店连锁企业。
+  提供多种口味比萨、意面和沙拉，就餐环境舒适，
+  是家庭聚餐的热门选择。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 5
+    score: 8.3

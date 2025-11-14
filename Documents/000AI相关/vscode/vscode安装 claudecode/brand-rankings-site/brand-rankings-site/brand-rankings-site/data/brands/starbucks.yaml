@@ -1,0 +1,25 @@
+id: starbucks
+name: 星巴克
+nameEn: Starbucks
+slug: starbucks
+logo: /images/brands/starbucks.png
+founded: "1971"
+headquarters: 美国华盛顿州
+website: https://www.starbucks.com
+description: |
+  星巴克是全球最大的咖啡连锁企业，开创了"第三空间"理念。
+
+  以高品质咖啡豆和精致的制作工艺著称，门店环境舒适，
+  数字化会员体系完善，是精品咖啡的代表品牌。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 1
+    score: 9.6
+
+socialMedia:
+  twitter: https://twitter.com/Starbucks
+  weibo: https://weibo.com/starbucks

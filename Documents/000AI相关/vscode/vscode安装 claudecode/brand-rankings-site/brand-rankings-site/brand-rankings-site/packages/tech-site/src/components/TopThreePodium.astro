@@ -1,0 +1,183 @@
+---
+// Top 3 领奖台组件
+interface Props {
+  brands: Array<{
+    rank: number;
+    name: string;
+    brandId: string;
+    logo: string;
+    score: number;
+    tags?: string[];
+  }>;
+}
+
+const { brands } = Astro.props;
+
+// 提取前三名
+const topThree = brands.slice(0, 3);
+const [first, second, third] = topThree;
+---
+
+<div class="bg-gradient-to-br from-neutral-50 to-white border border-neutral-200 rounded-2xl p-6 md:p-8 mb-12">
+
+  <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 text-center mb-8">
+    🏆 排行榜前三名
+  </h2>
+
+  <!-- 领奖台布局 -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-end max-w-4xl mx-auto">
+
+    <!-- #2 银牌(左侧,较矮) -->
+    {second && (
+      <div class="order-2 lg:order-1">
+        <div class="bg-white border-2 border-rank-silver rounded-xl p-6 shadow-card hover:shadow-podium transition-shadow">
+          <!-- 排名徽章 -->
+          <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-rank-silver to-neutral-400 rounded-full flex items-center justify-center shadow-lg">
+              <span class="text-2xl">🥈</span>
+            </div>
+          </div>
+
+          <!-- Logo -->
+          <div class="flex justify-center mb-4">
+            <div class="w-20 h-20 bg-neutral-50 rounded-xl flex items-center justify-center p-3">
+              <img src={second.logo} alt={second.name} class="max-w-full max-h-full object-contain"/>
+            </div>
+          </div>
+
+          <!-- 品牌名 -->
+          <h3 class="text-xl font-semibold text-neutral-900 text-center mb-2">
+            {second.name}
+          </h3>
+
+          <!-- 评分 -->
+          <div class="flex justify-center items-center space-x-2 mb-3">
+            <span class="text-accent-400 text-xl">⭐</span>
+            <span class="text-2xl font-mono font-bold text-neutral-900">{second.score}</span>
+          </div>
+
+          <!-- 标签 -->
+          {second.tags && second.tags.length > 0 && (
+            <div class="flex justify-center flex-wrap gap-2 mb-4">
+              {second.tags.slice(0, 2).map(tag => (
+                <span class="px-3 py-1 bg-neutral-100 text-xs text-neutral-700 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <!-- 查看详情 -->
+          <a href={`/brands/${second.brandId}`} class="block text-center text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">
+            查看详情 →
+          </a>
+        </div>
+      </div>
+    )}
+
+    <!-- #1 金牌(中间,最高) -->
+    {first && (
+      <div class="order-1 lg:order-2">
+        <div class="bg-gradient-to-br from-rank-gold/10 to-accent-50 border-2 border-rank-gold rounded-xl p-8 shadow-podium relative">
+
+          <!-- 皇冠装饰 -->
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2">
+            <div class="w-12 h-12 bg-rank-gold rounded-full flex items-center justify-center shadow-lg animate-bounce-slow">
+              <span class="text-2xl">👑</span>
+            </div>
+          </div>
+
+          <!-- 排名徽章 -->
+          <div class="flex justify-center mb-4 mt-2">
+            <div class="w-20 h-20 bg-gradient-to-br from-rank-gold to-accent-500 rounded-full flex items-center justify-center shadow-xl">
+              <span class="text-3xl">🥇</span>
+            </div>
+          </div>
+
+          <!-- Logo(更大) -->
+          <div class="flex justify-center mb-4">
+            <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center p-4 shadow-md">
+              <img src={first.logo} alt={first.name} class="max-w-full max-h-full object-contain"/>
+            </div>
+          </div>
+
+          <!-- 品牌名 -->
+          <h3 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 text-center mb-3">
+            {first.name}
+          </h3>
+
+          <!-- 评分(更突出) -->
+          <div class="flex justify-center items-center space-x-2 mb-4">
+            <span class="text-accent-400 text-2xl">⭐</span>
+            <span class="text-3xl md:text-4xl font-mono font-black text-neutral-900">{first.score}</span>
+          </div>
+
+          <!-- 标签 -->
+          {first.tags && first.tags.length > 0 && (
+            <div class="flex justify-center flex-wrap gap-2 mb-6">
+              {first.tags.slice(0, 3).map(tag => (
+                <span class="px-3 py-1 bg-rank-gold/20 text-xs text-neutral-800 rounded-full font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <!-- 查看详情 -->
+          <a href={`/brands/${first.brandId}`} class="block text-center text-base text-primary-600 hover:text-primary-700 font-semibold transition-colors">
+            查看详情 →
+          </a>
+        </div>
+      </div>
+    )}
+
+    <!-- #3 铜牌(右侧,较矮) -->
+    {third && (
+      <div class="order-3 lg:order-3">
+        <div class="bg-white border-2 border-rank-bronze rounded-xl p-6 shadow-card hover:shadow-podium transition-shadow">
+          <!-- 排名徽章 -->
+          <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-rank-bronze to-accent-600 rounded-full flex items-center justify-center shadow-lg">
+              <span class="text-2xl">🥉</span>
+            </div>
+          </div>
+
+          <!-- Logo -->
+          <div class="flex justify-center mb-4">
+            <div class="w-20 h-20 bg-neutral-50 rounded-xl flex items-center justify-center p-3">
+              <img src={third.logo} alt={third.name} class="max-w-full max-h-full object-contain"/>
+            </div>
+          </div>
+
+          <!-- 品牌名 -->
+          <h3 class="text-xl font-semibold text-neutral-900 text-center mb-2">
+            {third.name}
+          </h3>
+
+          <!-- 评分 -->
+          <div class="flex justify-center items-center space-x-2 mb-3">
+            <span class="text-accent-400 text-xl">⭐</span>
+            <span class="text-2xl font-mono font-bold text-neutral-900">{third.score}</span>
+          </div>
+
+          <!-- 标签 -->
+          {third.tags && third.tags.length > 0 && (
+            <div class="flex justify-center flex-wrap gap-2 mb-4">
+              {third.tags.slice(0, 2).map(tag => (
+                <span class="px-3 py-1 bg-neutral-100 text-xs text-neutral-700 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <!-- 查看详情 -->
+          <a href={`/brands/${third.brandId}`} class="block text-center text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">
+            查看详情 →
+          </a>
+        </div>
+      </div>
+    )}
+
+  </div>
+</div>

@@ -1,0 +1,18 @@
+id: msi
+name: MSI
+nameEn: Micro-Star International
+slug: msi
+logo: /images/brands/msi.png
+founded: "1986"
+headquarters: 中国台湾
+website: https://www.msi.com
+description: |
+  微星科技专注游戏本领域，以强大性能和散热设计著称。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 8
+    score: 8.0

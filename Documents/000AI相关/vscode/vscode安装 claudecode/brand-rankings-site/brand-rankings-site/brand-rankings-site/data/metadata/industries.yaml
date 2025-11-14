@@ -1,0 +1,61 @@
+industries:
+  - id: tech
+    name: 科技数码
+    slug: tech
+    subdomain: tech
+    description: 涵盖智能手机、电脑、智能穿戴等前沿科技产品
+    icon: 🔧
+    color: "#3b82f6"
+    rankingCount: 125
+    featured:
+      - smartphones-2024
+      - laptops-2024
+      - headphones-2024
+
+  - id: food
+    name: 食品餐饮
+    slug: food
+    subdomain: food
+    description: 餐饮连锁品牌、食品品牌权威排行
+    icon: 🍔
+    color: "#f59e0b"
+    rankingCount: 89
+    featured:
+      - coffee-chains-2024
+      - fast-food-2024
+
+  - id: home
+    name: 家居建材
+    slug: home
+    subdomain: home
+    description: 家居装修、建材品牌专业评测
+    icon: 🏠
+    color: "#10b981"
+    rankingCount: 67
+
+  - id: auto
+    name: 汽车出行
+    slug: auto
+    subdomain: auto
+    description: 汽车品牌、出行服务综合排名
+    icon: 🚗
+    color: "#ef4444"
+    rankingCount: 78
+
+  - id: business
+    name: 商业服务
+    slug: business
+    subdomain: business
+    description: 企业服务、商业软件评估排行
+    icon: 💼
+    color: "#8b5cf6"
+    rankingCount: 56
+
+  - id: education
+    name: 教育培训
+    slug: education
+    subdomain: education
+    description: 在线教育、培训机构品质榜单
+    icon: 🎓
+    color: "#06b6d4"
+    rankingCount: 43

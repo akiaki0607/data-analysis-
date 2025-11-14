@@ -1,0 +1,48 @@
+---
+// Header 组件 - 主站导航栏
+import Search from './Search.astro';
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo区域 -->
+      <div class="flex items-center space-x-8">
+        <a href="/" class="flex items-center space-x-2 group">
+          <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg group-hover:scale-105 transition-transform"></div>
+          <span class="text-h4 font-display text-neutral-900">Rankings</span>
+        </a>
+
+        <!-- 导航菜单(桌面端) -->
+        <nav class="hidden lg:flex space-x-6">
+          <a href="/industries" class="text-body text-neutral-600 hover:text-primary-600 transition-colors">
+            行业分类
+          </a>
+          <a href="/hot" class="text-body text-neutral-600 hover:text-primary-600 transition-colors">
+            热门排行
+          </a>
+          <a href="/about" class="text-body text-neutral-600 hover:text-primary-600 transition-colors">
+            关于我们
+          </a>
+        </nav>
+      </div>
+
+      <!-- 搜索框(桌面端) -->
+      <div class="hidden md:flex flex-1 max-w-md mx-8">
+        <Search />
+      </div>
+
+      <!-- 用户操作 -->
+      <div class="flex items-center space-x-3">
+        <button class="hidden sm:block px-4 py-2 text-body text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
+          登录
+        </button>
+        <button class="px-4 py-2 text-body text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors shadow-sm hover:shadow-md">
+          注册
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>

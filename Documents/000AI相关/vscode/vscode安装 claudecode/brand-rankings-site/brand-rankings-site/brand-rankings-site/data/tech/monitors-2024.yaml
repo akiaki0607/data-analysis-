@@ -1,0 +1,200 @@
+id: monitors-2024
+title: 2024年显示器排行榜
+slug: monitors-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最佳显示器推荐，涵盖办公、设计、游戏等不同场景，
+  从4K到电竞高刷，总有一款适合您。
+
+methodology: |
+  评分标准：画质表现(30%)、色彩准确度(25%)、刷新率(20%)、功能性(15%)、性价比(10%)。
+
+viewCount: 43800
+
+brands:
+  - rank: 1
+    brandId: lg
+    name: LG 27GR95QE
+    logo: /images/brands/lg.png
+    score: 9.3
+    description: |
+      27英寸2K OLED面板，240Hz刷新率，0.03ms响应，
+      电竞显示器天花板级表现。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 240Hz
+      price: ¥9999
+    tags:
+      - OLED
+      - 电竞
+      - 高刷
+
+  - rank: 2
+    brandId: dell
+    name: Dell U2723DE
+    logo: /images/brands/dell.png
+    score: 9.1
+    description: |
+      27英寸2K IPS屏，100% sRGB，出厂校色，
+      专业设计师首选显示器。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 60Hz
+      price: ¥3499
+    tags:
+      - 专业
+      - 设计
+      - 准确
+
+  - rank: 3
+    brandId: samsung
+    name: Samsung Odyssey G7
+    logo: /images/brands/samsung.png
+    score: 8.9
+    description: |
+      32英寸4K曲面屏，165Hz刷新率，HDR600，
+      游戏和影音两相宜。
+    metrics:
+      size: 32英寸
+      resolution: 3840x2160
+      refresh: 165Hz
+      price: ¥5999
+    tags:
+      - 4K
+      - 曲面
+      - HDR
+
+  - rank: 4
+    brandId: asus
+    name: ROG Swift PG27AQDM
+    logo: /images/brands/asus.png
+    score: 8.8
+    description: |
+      27英寸2K OLED，240Hz，G-Sync兼容，
+      ROG信仰电竞屏。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 240Hz
+      price: ¥8999
+    tags:
+      - OLED
+      - ROG
+      - G-Sync
+
+  - rank: 5
+    brandId: benq
+    name: 明基 PD2725U
+    logo: /images/brands/benq.png
+    score: 8.7
+    description: |
+      27英寸4K IPS屏，99% Adobe RGB，硬件校色，
+      设计师专业显示器。
+    metrics:
+      size: 27英寸
+      resolution: 3840x2160
+      refresh: 60Hz
+      price: ¥4299
+    tags:
+      - 4K
+      - 专业
+      - 设计
+
+  - rank: 6
+    brandId: aoc
+    name: AOC U27U2
+    logo: /images/brands/aoc.png
+    score: 8.5
+    description: |
+      27英寸4K IPS，HDR400，Type-C 90W反向充电，
+      商务办公首选。
+    metrics:
+      size: 27英寸
+      resolution: 3840x2160
+      refresh: 60Hz
+      price: ¥2499
+    tags:
+      - 4K
+      - 商务
+      - Type-C
+
+  - rank: 7
+    brandId: xiaomi
+    name: 小米显示器27英寸
+    logo: /images/brands/xiaomi.png
+    score: 8.3
+    description: |
+      27英寸2K IPS，Type-C 65W充电，简约设计，
+      性价比办公显示器。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 75Hz
+      price: ¥1299
+    tags:
+      - 性价比
+      - 办公
+      - Type-C
+
+  - rank: 8
+    brandId: dell
+    name: Dell S2722DGM
+    logo: /images/brands/dell.png
+    score: 8.2
+    description: |
+      27英寸2K曲面VA屏，165Hz，1ms响应，
+      电竞入门好选择。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 165Hz
+      price: ¥1799
+    tags:
+      - 电竞
+      - 曲面
+      - 入门
+
+  - rank: 9
+    brandId: benq
+    name: 明基 EX2780Q
+    logo: /images/brands/benq.png
+    score: 8.0
+    description: |
+      27英寸2K IPS，144Hz，HDRi技术，
+      影音游戏两不误。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 144Hz
+      price: ¥2299
+    tags:
+      - 高刷
+      - HDR
+      - 娱乐
+
+  - rank: 10
+    brandId: hp
+    name: 惠普 E27 G5
+    logo: /images/brands/hp.png
+    score: 7.8
+    description: |
+      27英寸2K IPS，升降旋转底座，护眼认证，
+      办公显示器实惠之选。
+    metrics:
+      size: 27英寸
+      resolution: 2560x1440
+      refresh: 75Hz
+      price: ¥1599
+    tags:
+      - 办公
+      - 护眼
+      - 实惠
+
+tags:
+  - 显示器
+  - 电竞
+  - 设计
+  - 4K

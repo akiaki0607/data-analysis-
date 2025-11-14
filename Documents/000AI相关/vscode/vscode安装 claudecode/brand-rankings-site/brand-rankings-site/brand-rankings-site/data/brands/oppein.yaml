@@ -1,0 +1,14 @@
+id: oppein
+name: 欧派
+slug: oppein
+logo: /images/brands/oppein.png
+founded: "2000"
+headquarters: 中国
+website: https://www.oppein.com
+description: 欧派是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 5
+    score: 90.5

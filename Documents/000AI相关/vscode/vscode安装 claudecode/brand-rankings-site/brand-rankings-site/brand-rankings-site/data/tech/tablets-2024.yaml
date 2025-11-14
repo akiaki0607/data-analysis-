@@ -1,0 +1,200 @@
+id: tablets-2024
+title: 2024年平板电脑排行榜
+slug: tablets-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最受欢迎的平板电脑产品排行榜，综合考虑性能、屏幕质量、续航能力、生态系统等多个维度，为您推荐最值得购买的平板电脑。
+
+methodology: |
+  评分标准包括：性能表现(30%)、屏幕质量(25%)、续航能力(20%)、系统体验(15%)、性价比(10%)。
+  数据来源于权威媒体评测、用户反馈和销售数据。
+
+viewCount: 45600
+
+brands:
+  - rank: 1
+    brandId: apple
+    name: Apple iPad Pro
+    logo: /images/brands/apple.png
+    score: 9.6
+    description: |
+      M2芯片加持，12.9英寸Liquid Retina XDR显示屏，支持Apple Pencil和妙控键盘，
+      是专业创作者的首选平板。
+    metrics:
+      processor: M2芯片
+      screen: 12.9英寸 Liquid Retina XDR
+      battery: 10小时
+      price: ¥6799起
+    tags:
+      - 旗舰
+      - 创作
+      - 专业
+
+  - rank: 2
+    brandId: samsung
+    name: Samsung Galaxy Tab S9 Ultra
+    logo: /images/brands/samsung.png
+    score: 9.3
+    description: |
+      14.6英寸超大AMOLED屏幕，骁龙8 Gen 2处理器，S Pen手写笔，
+      Android平板的旗舰之选。
+    metrics:
+      processor: 骁龙8 Gen 2
+      screen: 14.6英寸 AMOLED
+      battery: 11200mAh
+      price: ¥9299起
+    tags:
+      - 大屏
+      - 旗舰
+      - 手写
+
+  - rank: 3
+    brandId: xiaomi
+    name: 小米平板6 Pro
+    logo: /images/brands/xiaomi.png
+    score: 8.9
+    description: |
+      骁龙8+ Gen 1处理器，11英寸2.8K高刷屏，8600mAh大电池，
+      性价比超高的生产力工具。
+    metrics:
+      processor: 骁龙8+ Gen 1
+      screen: 11英寸 2.8K 144Hz
+      battery: 8600mAh
+      price: ¥2499起
+    tags:
+      - 性价比
+      - 高刷
+      - 大电池
+
+  - rank: 4
+    brandId: huawei
+    name: 华为 MatePad Pro 13.2
+    logo: /images/brands/huawei.png
+    score: 8.7
+    description: |
+      13.2英寸OLED柔性屏，麒麟9000s处理器，HarmonyOS生态，
+      支持多屏协同，办公娱乐两不误。
+    metrics:
+      processor: 麒麟9000s
+      screen: 13.2英寸 OLED
+      battery: 10100mAh
+      price: ¥5999起
+    tags:
+      - 鸿蒙
+      - 办公
+      - 大屏
+
+  - rank: 5
+    brandId: lenovo
+    name: 联想小新 Pad Pro 12.7
+    logo: /images/brands/lenovo.png
+    score: 8.5
+    description: |
+      天玑9000处理器，12.7英寸3K屏，支持键盘和手写笔，
+      影音娱乐和轻办公的好选择。
+    metrics:
+      processor: 天玑9000
+      screen: 12.7英寸 3K
+      battery: 10200mAh
+      price: ¥2699起
+    tags:
+      - 影音
+      - 大屏
+      - 性价比
+
+  - rank: 6
+    brandId: apple
+    name: Apple iPad Air
+    logo: /images/brands/apple.png
+    score: 8.4
+    description: |
+      M1芯片，10.9英寸Liquid Retina屏，全面屏设计，
+      性能与便携的完美平衡。
+    metrics:
+      processor: M1芯片
+      screen: 10.9英寸 Liquid Retina
+      battery: 10小时
+      price: ¥4399起
+    tags:
+      - 便携
+      - 性能
+      - 全面屏
+
+  - rank: 7
+    brandId: apple
+    name: Apple iPad mini
+    logo: /images/brands/apple.png
+    score: 8.3
+    description: |
+      8.3英寸小屏旗舰，A15仿生芯片，单手可握，
+      移动办公娱乐神器。
+    metrics:
+      processor: A15仿生
+      screen: 8.3英寸 Liquid Retina
+      battery: 10小时
+      price: ¥3999起
+    tags:
+      - 小屏
+      - 便携
+      - 旗舰
+
+  - rank: 8
+    brandId: honor
+    name: 荣耀平板9
+    logo: /images/brands/honor.png
+    score: 8.1
+    description: |
+      12.1英寸护眼大屏，骁龙6 Gen 1，8扬声器，
+      影音娱乐性价比之选。
+    metrics:
+      processor: 骁龙6 Gen 1
+      screen: 12.1英寸 2.5K
+      battery: 10050mAh
+      price: ¥1799起
+    tags:
+      - 影音
+      - 护眼
+      - 性价比
+
+  - rank: 9
+    brandId: oppo
+    name: OPPO Pad 2
+    logo: /images/brands/oppo.png
+    score: 7.9
+    description: |
+      11.61英寸2.8K屏，天玑9000，ColorOS for Pad，
+      潮流外观设计。
+    metrics:
+      processor: 天玑9000
+      screen: 11.61英寸 2.8K
+      battery: 9510mAh
+      price: ¥2299起
+    tags:
+      - 时尚
+      - 娱乐
+      - 性能
+
+  - rank: 10
+    brandId: vivo
+    name: vivo Pad 3
+    logo: /images/brands/vivo.png
+    score: 7.7
+    description: |
+      12.1英寸3K屏，天玑9300，OriginOS for Pad，
+      支持蓝心大模型。
+    metrics:
+      processor: 天玑9300
+      screen: 12.1英寸 3K 144Hz
+      battery: 10000mAh
+      price: ¥2499起
+    tags:
+      - AI
+      - 高刷
+      - 性能
+
+tags:
+  - 平板电脑
+  - 生产力
+  - 娱乐
+  - 创作

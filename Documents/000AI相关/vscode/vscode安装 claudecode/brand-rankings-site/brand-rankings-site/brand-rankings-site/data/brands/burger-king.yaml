@@ -1,0 +1,19 @@
+id: burger-king
+name: 汉堡王
+nameEn: Burger King
+slug: burger-king
+logo: /images/brands/burger-king.png
+founded: "1954"
+headquarters: 美国佛罗里达州
+website: https://www.burgerking.com
+description: |
+  汉堡王以火烤汉堡著称，是全球第二大快餐汉堡连锁企业。
+  火烤工艺赋予汉堡独特风味，汉堡尺寸较大，性价比高。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 3
+    score: 8.7

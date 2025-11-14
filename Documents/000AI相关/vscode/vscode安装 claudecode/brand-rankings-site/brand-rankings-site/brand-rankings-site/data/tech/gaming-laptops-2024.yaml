@@ -1,0 +1,200 @@
+id: gaming-laptops-2024
+title: 2024年游戏本排行榜
+slug: gaming-laptops-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最强游戏笔记本电脑推荐，涵盖各价位段的高性能游戏本，
+  从入门到旗舰，总有一款适合您。
+
+methodology: |
+  评分标准：游戏性能(35%)、散热表现(25%)、屏幕素质(20%)、性价比(15%)、便携性(5%)。
+
+viewCount: 61200
+
+brands:
+  - rank: 1
+    brandId: asus
+    name: ROG 幻16 2024
+    logo: /images/brands/asus.png
+    score: 9.4
+    description: |
+      i9-14900HX+RTX 4090，16英寸2.5K 240Hz屏，
+      冰川散热架构，轻薄机身中的性能怪兽。
+    metrics:
+      cpu: i9-14900HX
+      gpu: RTX 4090 Laptop
+      screen: 16英寸 2.5K 240Hz
+      price: ¥24999起
+    tags:
+      - 旗舰
+      - 高性能
+      - 轻薄
+
+  - rank: 2
+    brandId: lenovo
+    name: 拯救者 Y9000P 2024
+    logo: /images/brands/lenovo.png
+    score: 9.2
+    description: |
+      i9-14900HX+RTX 4080，16英寸2.5K 165Hz屏，
+      霜刃散热系统，性价比游戏本标杆。
+    metrics:
+      cpu: i9-14900HX
+      gpu: RTX 4080 Laptop
+      screen: 16英寸 2.5K 165Hz
+      price: ¥13999起
+    tags:
+      - 性价比
+      - 高性能
+      - 散热强
+
+  - rank: 3
+    brandId: dell
+    name: 外星人 m16 R2
+    logo: /images/brands/dell.png
+    score: 9.0
+    description: |
+      i9-14900HX+RTX 4080，16英寸QHD+ 240Hz屏，
+      传奇设计，信仰加持，游戏本天花板。
+    metrics:
+      cpu: i9-14900HX
+      gpu: RTX 4080 Laptop
+      screen: 16英寸 QHD+ 240Hz
+      price: ¥21999起
+    tags:
+      - 外星人
+      - 信仰
+      - 设计
+
+  - rank: 4
+    brandId: hp
+    name: 暗影精灵9 Plus
+    logo: /images/brands/hp.png
+    score: 8.7
+    description: |
+      i7-13700HX+RTX 4070，16.1英寸2.5K 165Hz屏，
+      主流价位性能强劲之选。
+    metrics:
+      cpu: i7-13700HX
+      gpu: RTX 4070 Laptop
+      screen: 16.1英寸 2.5K 165Hz
+      price: ¥9999起
+    tags:
+      - 主流
+      - 性价比
+      - 高刷
+
+  - rank: 5
+    brandId: asus
+    name: 天选4
+    logo: /images/brands/asus.png
+    score: 8.4
+    description: |
+      R7-7735HS+RTX 4060，15.6英寸2.5K 165Hz屏，
+      入门级游戏本性价比之王。
+    metrics:
+      cpu: R7-7735HS
+      gpu: RTX 4060 Laptop
+      screen: 15.6英寸 2.5K 165Hz
+      price: ¥6999起
+    tags:
+      - 入门
+      - 性价比
+      - 二次元
+
+  - rank: 6
+    brandId: mechrevo
+    name: 机械革命 蛟龙16K
+    logo: /images/brands/mechrevo.png
+    score: 8.3
+    description: |
+      i7-13650HX+RTX 4060，16英寸2.5K屏，
+      极致性价比，国产游戏本黑马。
+    metrics:
+      cpu: i7-13650HX
+      gpu: RTX 4060 Laptop
+      screen: 16英寸 2.5K 165Hz
+      price: ¥6499起
+    tags:
+      - 性价比
+      - 国产
+      - 主流
+
+  - rank: 7
+    brandId: msi
+    name: 微星 冲锋坦克2 Pro
+    logo: /images/brands/msi.png
+    score: 8.2
+    description: |
+      i7-13700H+RTX 4060，15.6英寸FHD 144Hz，
+      微星品质，游戏性能稳定可靠。
+    metrics:
+      cpu: i7-13700H
+      gpu: RTX 4060 Laptop
+      screen: 15.6英寸 FHD 144Hz
+      price: ¥7499起
+    tags:
+      - 稳定
+      - 主流
+      - 品牌
+
+  - rank: 8
+    brandId: thunderobot
+    name: 雷神 ZERO 2024
+    logo: /images/brands/thunderobot.png
+    score: 8.0
+    description: |
+      i5-13500H+RTX 4050，15.6英寸FHD 144Hz，
+      入门级游戏本，学生党首选。
+    metrics:
+      cpu: i5-13500H
+      gpu: RTX 4050 Laptop
+      screen: 15.6英寸 FHD 144Hz
+      price: ¥5499起
+    tags:
+      - 入门
+      - 学生
+      - 实惠
+
+  - rank: 9
+    brandId: acer
+    name: 宏碁 暗影骑士·擎
+    logo: /images/brands/acer.png
+    score: 7.8
+    description: |
+      i5-12500H+RTX 4050，15.6英寸FHD 144Hz，
+      宏碁经典系列，做工扎实。
+    metrics:
+      cpu: i5-12500H
+      gpu: RTX 4050 Laptop
+      screen: 15.6英寸 FHD 144Hz
+      price: ¥5999起
+    tags:
+      - 入门
+      - 稳定
+      - 经典
+
+  - rank: 10
+    brandId: hasee
+    name: 神舟 战神Z8
+    logo: /images/brands/hasee.png
+    score: 7.6
+    description: |
+      i7-12700H+RTX 4060，15.6英寸FHD 144Hz，
+      神舟价格屠夫，极致性价比。
+    metrics:
+      cpu: i7-12700H
+      gpu: RTX 4060 Laptop
+      screen: 15.6英寸 FHD 144Hz
+      price: ¥5299起
+    tags:
+      - 超值
+      - 性价比
+      - 神舟
+
+tags:
+  - 游戏本
+  - 高性能
+  - 电竞
+  - RTX

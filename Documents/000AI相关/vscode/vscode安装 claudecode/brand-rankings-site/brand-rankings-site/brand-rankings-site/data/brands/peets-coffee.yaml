@@ -1,0 +1,19 @@
+id: peets-coffee
+name: Peet's Coffee
+nameEn: Peet's Coffee
+slug: peets-coffee
+logo: /images/brands/peets-coffee.png
+founded: "1966"
+headquarters: 美国加利福尼亚州
+website: https://www.peets.com
+description: |
+  Peet's Coffee是美国精品咖啡的鼻祖，以深度烘焙咖啡豆著称。
+  星巴克创始人曾在此学习，堪称星巴克的启蒙者。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 7
+    score: 7.9

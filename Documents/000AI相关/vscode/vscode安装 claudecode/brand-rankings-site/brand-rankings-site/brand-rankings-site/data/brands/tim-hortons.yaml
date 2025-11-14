@@ -1,0 +1,19 @@
+id: tim-hortons
+name: Tim Hortons
+nameEn: Tim Hortons
+slug: tim-hortons
+logo: /images/brands/tim-hortons.png
+founded: "1964"
+headquarters: 加拿大安大略省
+website: https://www.timhortons.com
+description: |
+  Tim Hortons是加拿大国民咖啡品牌，以咖啡和甜甜圈著称。
+  早餐套餐丰富，性价比高，在加拿大拥有极高的品牌忠诚度。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 6
+    score: 8.1

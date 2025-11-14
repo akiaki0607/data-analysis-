@@ -1,0 +1,200 @@
+id: routers-2024
+title: 2024年路由器排行榜
+slug: routers-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最佳无线路由器推荐，涵盖WiFi 6、WiFi 6E、WiFi 7等最新技术，
+  从入门到旗舰，打造稳定高速的家庭网络。
+
+methodology: |
+  评分标准：信号覆盖(30%)、传输速度(25%)、稳定性(25%)、功能性(15%)、性价比(5%)。
+
+viewCount: 35700
+
+brands:
+  - rank: 1
+    brandId: huawei
+    name: 华为 BE7 Pro
+    logo: /images/brands/huawei.png
+    score: 9.2
+    description: |
+      WiFi 7路由器，7.2Gbps超高速率，鸿蒙智联，
+      支持NFC一碰连网，全屋智能中枢。
+    metrics:
+      standard: WiFi 7
+      speed: 7200Mbps
+      coverage: 300㎡
+      price: ¥1699
+    tags:
+      - WiFi 7
+      - 鸿蒙
+      - 旗舰
+
+  - rank: 2
+    brandId: xiaomi
+    name: 小米 万兆路由器BE7000
+    logo: /images/brands/xiaomi.png
+    score: 9.0
+    description: |
+      WiFi 7三频路由，7000Mbps，10G网口，
+      澎湃OS加持，全屋覆盖利器。
+    metrics:
+      standard: WiFi 7
+      speed: 7000Mbps
+      coverage: 280㎡
+      price: ¥999
+    tags:
+      - WiFi 7
+      - 性价比
+      - 万兆
+
+  - rank: 3
+    brandId: asus
+    name: 华硕 RT-AXE7800
+    logo: /images/brands/asus.png
+    score: 8.8
+    description: |
+      WiFi 6E三频路由，7800Mbps，6GHz频段，
+      专业游戏路由，低延迟高稳定。
+    metrics:
+      standard: WiFi 6E
+      speed: 7800Mbps
+      coverage: 250㎡
+      price: ¥1899
+    tags:
+      - WiFi 6E
+      - 游戏
+      - 6GHz
+
+  - rank: 4
+    brandId: xiaomi
+    name: Redmi AX6000
+    logo: /images/brands/xiaomi.png
+    score: 8.5
+    description: |
+      WiFi 6双频路由，6000Mbps，6根天线，
+      百元价位信号之王。
+    metrics:
+      standard: WiFi 6
+      speed: 6000Mbps
+      coverage: 200㎡
+      price: ¥299
+    tags:
+      - WiFi 6
+      - 性价比
+      - 入门
+
+  - rank: 5
+    brandId: tplink
+    name: TP-LINK XDR6088
+    logo: /images/brands/tplink.png
+    score: 8.3
+    description: |
+      WiFi 7三频路由，易展Mesh，8根天线，
+      全屋无缝覆盖方案。
+    metrics:
+      standard: WiFi 7
+      speed: 6000Mbps
+      coverage: 300㎡
+      price: ¥899
+    tags:
+      - WiFi 7
+      - Mesh
+      - 全屋覆盖
+
+  - rank: 6
+    brandId: huawei
+    name: 华为 AX3 Pro
+    logo: /images/brands/huawei.png
+    score: 8.2
+    description: |
+      WiFi 6+ 凌霄四核，3000Mbps，NFC一碰连网，
+      鸿蒙智联入门路由。
+    metrics:
+      standard: WiFi 6+
+      speed: 3000Mbps
+      coverage: 150㎡
+      price: ¥329
+    tags:
+      - WiFi 6+
+      - 鸿蒙
+      - NFC
+
+  - rank: 7
+    brandId: honor
+    name: 荣耀路由4 Pro
+    logo: /images/brands/honor.png
+    score: 8.0
+    description: |
+      WiFi 6双频，凌霄四核1.4GHz，5根天线，
+      性价比家用路由首选。
+    metrics:
+      standard: WiFi 6
+      speed: 3000Mbps
+      coverage: 180㎡
+      price: ¥269
+    tags:
+      - WiFi 6
+      - 性价比
+      - 家用
+
+  - rank: 8
+    brandId: mercury
+    name: 水星 M88
+    logo: /images/brands/mercury.png
+    score: 7.8
+    description: |
+      WiFi 6双频，6天线设计，2.5G网口，
+      百元价位超值之选。
+    metrics:
+      standard: WiFi 6
+      speed: 3000Mbps
+      coverage: 150㎡
+      price: ¥199
+    tags:
+      - WiFi 6
+      - 超值
+      - 入门
+
+  - rank: 9
+    brandId: tenda
+    name: 腾达 RX18 Pro
+    logo: /images/brands/tenda.png
+    score: 7.6
+    description: |
+      WiFi 6双频，易展分身，8根天线，
+      大户型覆盖利器。
+    metrics:
+      standard: WiFi 6
+      speed: 1800Mbps
+      coverage: 200㎡
+      price: ¥179
+    tags:
+      - WiFi 6
+      - 实惠
+      - 大户型
+
+  - rank: 10
+    brandId: netgear
+    name: 网件 RAX70
+    logo: /images/brands/netgear.png
+    score: 7.5
+    description: |
+      WiFi 6双频，Nighthawk系列，MU-MIMO，
+      美系品牌稳定可靠。
+    metrics:
+      standard: WiFi 6
+      speed: 6600Mbps
+      coverage: 220㎡
+      price: ¥1299
+    tags:
+      - WiFi 6
+      - 稳定
+      - 品牌
+
+tags:
+  - 路由器
+  - WiFi 6
+  - WiFi 7
+  - 网络

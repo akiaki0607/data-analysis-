@@ -1,0 +1,14 @@
+id: derucci
+name: 慕思
+slug: derucci
+logo: /images/brands/derucci.png
+founded: "2000"
+headquarters: 中国
+website: https://www.derucci.com
+description: 慕思是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 10
+    score: 80.10

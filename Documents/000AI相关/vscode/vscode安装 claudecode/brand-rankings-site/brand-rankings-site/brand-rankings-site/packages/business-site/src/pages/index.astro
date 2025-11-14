@@ -1,0 +1,180 @@
+---
+// 科技数码子站首页
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { loadRankingsByIndustry, getIndustryById } from '../utils/dataLoader';
+import { formatDate, formatNumber } from '../utils/helpers';
+
+const industry = getIndustryById('business');
+const rankings = loadRankingsByIndustry('business');
+
+if (!industry) {
+  return Astro.redirect('/404');
+}
+
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: industry.name }
+];
+---
+
+<BaseLayout
+  title={`${industry.name} - 排行榜列表`}
+  description={industry.description}
+>
+  <!-- Header with Breadcrumb -->
+  <header class="bg-white border-b border-neutral-200">
+    <div class="container mx-auto px-4 py-4">
+      <Breadcrumb items={breadcrumbItems} />
+
+      <div class="flex items-center justify-between mt-2">
+        <div class="flex items-center space-x-3">
+          <span class="text-4xl">{industry.icon}</span>
+          <div>
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-neutral-900">
+              {industry.name}
+            </h1>
+            <p class="text-sm text-neutral-600 mt-1">
+              {industry.description}
+            </p>
+          </div>
+        </div>
+        <a
+          href="/"
+          class="hidden md:block text-sm text-neutral-600 hover:text-primary-600 transition-colors"
+        >
+          ← 返回主站
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- 统计信息 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      <div class="bg-white border border-neutral-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-display font-bold text-primary-600 mb-1">
+          {rankings.length}
+        </div>
+        <div class="text-sm text-neutral-600">排行榜总数</div>
+      </div>
+
+      <div class="bg-white border border-neutral-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-display font-bold text-primary-600 mb-1">
+          {rankings.reduce((sum, r) => sum + r.brands.length, 0)}
+        </div>
+        <div class="text-sm text-neutral-600">品牌总数</div>
+      </div>
+
+      <div class="bg-white border border-neutral-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-display font-bold text-primary-600 mb-1">
+          {formatNumber(rankings.reduce((sum, r) => sum + (r.viewCount || 0), 0))}
+        </div>
+        <div class="text-sm text-neutral-600">总浏览量</div>
+      </div>
+
+      <div class="bg-white border border-neutral-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-display font-bold text-primary-600 mb-1">
+          {new Date().toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })}
+        </div>
+        <div class="text-sm text-neutral-600">最新更新</div>
+      </div>
+    </div>
+
+    <!-- 排行榜列表 -->
+    <section>
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-2">
+            所有排行榜
+          </h2>
+          <p class="text-base text-neutral-600">
+            共 {rankings.length} 个专业排行榜
+          </p>
+        </div>
+      </div>
+
+      {rankings.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {rankings.map((ranking) => (
+            <a href={`/rankings/${ranking.slug}`} class="group block">
+              <div class="bg-white border border-neutral-200 rounded-lg p-6 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-250 h-full">
+
+                <!-- 行业标签 -->
+                <div class="flex items-center space-x-2 mb-4">
+                  <span class={`w-2 h-2 rounded-full bg-industry-${ranking.category}`}></span>
+                  <span class="text-xs text-neutral-500">
+                    {formatDate(ranking.updateDate)}
+                  </span>
+                </div>
+
+                <!-- 标题 -->
+                <h3 class="text-xl font-semibold text-neutral-900 mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
+                  {ranking.title}
+                </h3>
+
+                <!-- 描述 -->
+                <p class="text-sm text-neutral-600 mb-4 line-clamp-2">
+                  {ranking.description}
+                </p>
+
+                <!-- 元数据 -->
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-neutral-500">
+                    Top {ranking.brands.length} 品牌
+                  </span>
+                  {ranking.viewCount && (
+                    <span class="text-neutral-500">
+                      {formatNumber(ranking.viewCount)} 浏览
+                    </span>
+                  )}
+                </div>
+
+                <!-- Top 3 预览 -->
+                {ranking.brands.length >= 3 && (
+                  <div class="mt-4 pt-4 border-t border-neutral-200">
+                    <div class="text-xs text-neutral-600 mb-2">前三名:</div>
+                    <div class="flex items-center -space-x-2">
+                      {ranking.brands.slice(0, 3).map((brand) => (
+                        <div class="w-8 h-8 bg-neutral-100 rounded-full border-2 border-white flex items-center justify-center overflow-hidden">
+                          <img
+                            src={brand.logo}
+                            alt={brand.name}
+                            class="w-full h-full object-contain p-1"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                      <span class="text-xs text-neutral-500 ml-3">
+                        等{ranking.brands.length}个品牌
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="bg-gradient-to-r from-primary-50 to-accent-50 border border-primary-200 rounded-xl p-12 text-center">
+          <div class="text-5xl mb-4">📊</div>
+          <h3 class="text-2xl font-display font-bold text-neutral-900 mb-2">
+            排行榜即将上线
+          </h3>
+          <p class="text-neutral-600 mb-6">
+            我们正在精心准备{industry.name}行业的排行榜数据
+          </p>
+          <a
+            href="/"
+            class="inline-block px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
+          >
+            返回首页
+          </a>
+        </div>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>

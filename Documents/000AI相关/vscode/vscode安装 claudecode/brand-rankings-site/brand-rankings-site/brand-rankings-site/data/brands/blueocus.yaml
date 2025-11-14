@@ -1,0 +1,18 @@
+id: blueocus
+name: 蓝色光标
+nameEn: BlueFocus
+slug: blueocus
+logo: /images/brands/blueocus.png
+founded: "1996"
+headquarters: 中国北京
+website: https://www.bluefocus.com
+description: |
+  蓝色光标是中国最大的营销传播集团之一，A股上市公司。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 7
+    score: 8.2

@@ -1,0 +1,14 @@
+id: bmw
+name: 宝马
+slug: bmw
+logo: /images/brands/bmw.png
+founded: "2000"
+headquarters: 中国
+website: https://www.bmw.com
+description: 宝马汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 6
+    score: 84.4

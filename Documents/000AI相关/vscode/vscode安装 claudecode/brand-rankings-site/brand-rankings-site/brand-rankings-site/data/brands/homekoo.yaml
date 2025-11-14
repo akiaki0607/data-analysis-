@@ -1,0 +1,14 @@
+id: homekoo
+name: 尚品宅配
+slug: homekoo
+logo: /images/brands/homekoo.png
+founded: "2000"
+headquarters: 中国
+website: https://www.homekoo.com
+description: 尚品宅配是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 9
+    score: 82.1

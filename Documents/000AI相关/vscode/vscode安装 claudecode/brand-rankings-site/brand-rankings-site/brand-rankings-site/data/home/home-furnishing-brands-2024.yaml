@@ -1,0 +1,147 @@
+id: home-furnishing-brands-2024
+title: 2024年家居家具品牌排行榜
+slug: home-furnishing-brands-2024
+description: 基于产品质量、设计水平、品牌影响力和用户口碑的综合评分
+industry: home
+category: home
+publishDate: '2024-01-15'
+updateDate: '2024-01-15'
+viewCount: 12456
+author: 品牌研究院
+tags:
+  - 家居
+  - 家具
+  - 装修
+
+intro: |
+  本排行榜综合评估了各大家居家具品牌的产品质量、设计创新、环保标准、
+  售后服务和用户满意度，为装修需求者提供权威的品牌参考。
+
+methodology: |
+  评分标准：
+  - 产品质量（35%）：材质、工艺、耐用性
+  - 设计水平（25%）：美学设计、功能创新
+  - 品牌影响力（20%）：市场份额、品牌知名度
+  - 环保标准（15%）：环保认证、材料安全
+  - 服务体系（5%）：售后服务、配送安装
+
+brands:
+  - rank: 1
+    name: 宜家
+    brandId: ikea
+    score: 9.5
+    logo: /images/brands/ikea.png
+    description: 全球家居巨头，北欧简约设计典范
+    highlights:
+      - 全球门店460+
+      - 性价比极高
+      - 自助购物体验
+      - 环保理念先进
+
+  - rank: 2
+    name: 顾家家居
+    brandId: kuka
+    score: 9.2
+    logo: /images/brands/kuka.png
+    description: 中国软体家居领导品牌
+    highlights:
+      - 沙发品类领先
+      - 门店6000+
+      - 定制化服务
+      - 上市公司
+
+  - rank: 3
+    name: 全友家居
+    brandId: quanyou
+    score: 8.9
+    logo: /images/brands/quanyou.png
+    description: 中国板式家具龙头企业
+    highlights:
+      - 性价比优势
+      - 全屋定制
+      - 绿色环保
+      - 门店遍布全国
+
+  - rank: 4
+    name: 索菲亚
+    brandId: sofia
+    score: 8.7
+    logo: /images/brands/sofia.png
+    description: 定制衣柜行业领军品牌
+    highlights:
+      - 定制衣柜专家
+      - 智能设计系统
+      - 环保板材
+      - 全屋定制方案
+
+  - rank: 5
+    name: 欧派
+    brandId: oppein
+    score: 8.6
+    logo: /images/brands/oppein.png
+    description: 整体橱柜行业领导者
+    highlights:
+      - 橱柜品类第一
+      - 全屋定制
+      - 智能厨房
+      - 上市品牌
+
+  - rank: 6
+    name: 曲美家居
+    brandId: qumei
+    score: 8.4
+    logo: /images/brands/qumei.png
+    description: 原创设计家具品牌
+    highlights:
+      - 原创设计
+      - 北欧风格
+      - 环保材料
+      - 现代简约
+
+  - rank: 7
+    name: 林氏木业
+    brandId: linshimuye
+    score: 8.2
+    logo: /images/brands/linshimuye.png
+    description: 互联网家具领导品牌
+    highlights:
+      - 电商起家
+      - 年轻化定位
+      - 性价比高
+      - 快速配送
+
+  - rank: 8
+    name: 红苹果
+    brandId: redapple
+    score: 8.0
+    logo: /images/brands/redapple.png
+    description: 板式家具知名品牌
+    highlights:
+      - 板式家具
+      - 环保E0级
+      - 实惠耐用
+      - 售后完善
+
+  - rank: 9
+    name: 尚品宅配
+    brandId: homekoo
+    score: 7.8
+    logo: /images/brands/homekoo.png
+    description: C2B定制家居开创者
+    highlights:
+      - 全屋定制
+      - 3D设计
+      - 工业4.0
+      - 个性化定制
+
+  - rank: 10
+    name: 慕思
+    brandId: derucci
+    score: 7.6
+    logo: /images/brands/derucci.png
+    description: 健康睡眠系统专家
+    highlights:
+      - 智能床垫
+      - 睡眠科技
+      - 高端定位
+      - 明星代言

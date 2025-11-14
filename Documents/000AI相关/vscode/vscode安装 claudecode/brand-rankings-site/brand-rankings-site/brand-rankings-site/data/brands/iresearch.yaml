@@ -1,0 +1,18 @@
+id: iresearch
+name: 艾瑞咨询
+nameEn: iResearch
+slug: iresearch
+logo: /images/brands/iresearch.png
+founded: "2002"
+headquarters: 中国上海
+website: https://www.iresearch.com.cn
+description: |
+  艾瑞咨询是中国领先的互联网第三方研究机构。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 9
+    score: 7.8

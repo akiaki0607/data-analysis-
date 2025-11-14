@@ -1,0 +1,18 @@
+id: 360-search
+name: 360搜索营销
+nameEn: 360 Search Marketing
+slug: 360-search
+logo: /images/brands/360.png
+founded: "2012"
+headquarters: 中国北京
+website: https://e.360.cn
+description: |
+  360搜索营销提供基于360搜索引擎的全方位营销服务。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 6
+    score: 8.4

@@ -1,0 +1,165 @@
+---
+// 排行榜详情页
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TopThreePodium from '../../components/TopThreePodium.astro';
+import BrandListItem from '../../components/BrandListItem.astro';
+import { loadRanking, loadRankingsByIndustry, getIndustryById } from '../../utils/dataLoader';
+import { formatDate, formatNumber } from '../../utils/helpers';
+
+export async function getStaticPaths() {
+  const rankings = loadRankingsByIndustry('tech');
+
+  return rankings.map((ranking) => ({
+    params: { slug: ranking.slug },
+    props: { ranking }
+  }));
+}
+
+const { ranking } = Astro.props;
+const industry = getIndustryById(ranking.category);
+
+if (!industry) {
+  return Astro.redirect('/404');
+}
+
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: industry.name, href: '/' },
+  { label: ranking.title }
+];
+
+// 分离Top 3和其余品牌
+const topThree = ranking.brands.slice(0, 3);
+const restBrands = ranking.brands.slice(3);
+
+// 获取相关排行榜推荐
+const relatedRankings = loadRankingsByIndustry('tech')
+  .filter(r => r.id !== ranking.id)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={ranking.title}
+  description={ranking.description}
+>
+  <!-- Header with Breadcrumb -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-4">
+      <Breadcrumb items={breadcrumbItems} />
+
+      <div class="flex items-center justify-between mt-2">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">{industry.icon}</span>
+          <span class="text-lg font-display font-semibold text-neutral-900">
+            {industry.name}
+          </span>
+        </div>
+        <a
+          href="/"
+          class="hidden md:block text-sm text-neutral-600 hover:text-primary-600 transition-colors"
+        >
+          ← 返回行业首页
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- 页面标题区域 -->
+    <header class="mb-12">
+      <div class="flex items-start justify-between mb-4">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold text-neutral-900">
+          🏆 {ranking.title}
+        </h1>
+
+        <!-- 分享按钮(可选) -->
+        <button class="hidden md:block px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors">
+          <span class="text-neutral-600">分享</span>
+        </button>
+      </div>
+
+      <p class="text-lg md:text-xl text-neutral-600 mb-6 leading-relaxed">
+        {ranking.description}
+      </p>
+
+      <!-- 元数据 -->
+      <div class="flex flex-wrap items-center gap-4 text-sm md:text-base text-neutral-600">
+        <div class="flex items-center space-x-2">
+          <span>📊</span>
+          <span>共 <strong class="text-neutral-900">{ranking.brands.length}</strong> 个品牌</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span>🔄</span>
+          <span>更新于 <strong class="text-neutral-900">{formatDate(ranking.updateDate)}</strong></span>
+        </div>
+        {ranking.viewCount && (
+          <div class="flex items-center space-x-2">
+            <span>📈</span>
+            <span><strong class="text-neutral-900">{formatNumber(ranking.viewCount)}</strong> 浏览</span>
+          </div>
+        )}
+      </div>
+
+      <!-- 评估方法说明 -->
+      {ranking.methodology && (
+        <div class="mt-6 p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+          <h3 class="text-sm font-semibold text-neutral-900 mb-2">评估方法</h3>
+          <p class="text-sm text-neutral-600 leading-relaxed">
+            {ranking.methodology}
+          </p>
+        </div>
+      )}
+    </header>
+
+    <!-- Top 3 领奖台 -->
+    {topThree.length >= 3 && (
+      <TopThreePodium brands={topThree} />
+    )}
+
+    <!-- 完整排行榜列表 -->
+    {restBrands.length > 0 && (
+      <section class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">
+          完整排行榜 (#{topThree.length + 1}-#{ranking.brands.length})
+        </h2>
+
+        <div class="space-y-3">
+          {restBrands.map((brand) => (
+            <BrandListItem brand={brand} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 相关排行榜推荐 -->
+    {relatedRankings.length > 0 && (
+      <section class="bg-white rounded-2xl p-6 md:p-12 border border-neutral-200">
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">
+          相关排行榜推荐
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {relatedRankings.map((related) => (
+            <a href={`/rankings/${related.slug}`} class="group block">
+              <div class="border border-neutral-200 rounded-lg p-6 hover:shadow-card-hover transition-shadow h-full">
+                <div class="flex items-center space-x-2 mb-3">
+                  <span class={`w-2 h-2 rounded-full bg-industry-${related.category}`}></span>
+                  <span class="text-xs text-neutral-600">{industry.name}</span>
+                </div>
+                <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors mb-2 line-clamp-2">
+                  {related.title}
+                </h3>
+                <p class="text-sm text-neutral-600 mt-2">
+                  Top {related.brands.length}品牌 • {formatDate(related.updateDate)}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

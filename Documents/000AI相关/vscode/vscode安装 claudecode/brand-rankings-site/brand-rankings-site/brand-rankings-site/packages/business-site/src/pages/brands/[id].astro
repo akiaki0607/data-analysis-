@@ -1,0 +1,284 @@
+---
+// 品牌详情页
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { loadAllBrands, loadRankingsByIndustry, getIndustryById } from '../../utils/dataLoader';
+import { formatDate, formatNumber } from '../../utils/helpers';
+
+export async function getStaticPaths() {
+  const allBrands = loadAllBrands();
+  const techBrands = allBrands.filter(brand => brand.industries?.includes('business'));
+
+  return techBrands.map((brand) => ({
+    params: { id: brand.id },
+    props: { brand }
+  }));
+}
+
+const { brand } = Astro.props;
+const industry = getIndustryById('business');
+
+if (!industry) {
+  return Astro.redirect('/404');
+}
+
+// 获取品牌参与的排行榜
+const allRankings = loadRankingsByIndustry('business');
+const brandRankings = allRankings
+  .filter(ranking => ranking.brands.some(b => b.brandId === brand.id))
+  .map(ranking => {
+    const brandInRanking = ranking.brands.find(b => b.brandId === brand.id);
+    return {
+      ...ranking,
+      brandRank: brandInRanking?.rank || 0,
+      brandScore: brandInRanking?.score || 0
+    };
+  })
+  .sort((a, b) => a.brandRank - b.brandRank);
+
+// 获取相关品牌推荐（同行业其他品牌）
+const allBrands = loadAllBrands();
+const relatedBrands = allBrands
+  .filter(b => b.id !== brand.id && b.industries?.includes('business'))
+  .slice(0, 3);
+
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: industry.name, href: '/' },
+  { label: brand.name }
+];
+---
+
+<BaseLayout
+  title={`${brand.name} - 品牌详情`}
+  description={brand.description}
+>
+  <!-- Header with Breadcrumb -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40">
+    <div class="container mx-auto px-4 py-4">
+      <Breadcrumb items={breadcrumbItems} />
+
+      <div class="flex items-center justify-between mt-2">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">{industry.icon}</span>
+          <span class="text-lg font-display font-semibold text-neutral-900">
+            {industry.name}
+          </span>
+        </div>
+        <a
+          href="/"
+          class="hidden md:block text-sm text-neutral-600 hover:text-primary-600 transition-colors"
+        >
+          ← 返回行业首页
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- 品牌头部区域 -->
+    <header class="mb-12">
+      <div class="bg-white rounded-2xl border border-neutral-200 p-8 md:p-12">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+
+          <!-- 品牌Logo -->
+          <div class="flex-shrink-0">
+            <div class="w-32 h-32 md:w-40 md:h-40 bg-neutral-50 rounded-2xl border-2 border-neutral-200 flex items-center justify-center p-6 shadow-card">
+              <img
+                src={brand.logo}
+                alt={brand.name}
+                class="w-full h-full object-contain"
+              />
+            </div>
+          </div>
+
+          <!-- 品牌信息 -->
+          <div class="flex-1">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold text-neutral-900 mb-4">
+              {brand.name}
+            </h1>
+
+            <p class="text-lg md:text-xl text-neutral-600 mb-6 leading-relaxed">
+              {brand.description}
+            </p>
+
+            <!-- 品牌标签 - 从行业生成 -->
+            {brand.industries && brand.industries.length > 0 && (
+              <div class="flex flex-wrap gap-2 mb-6">
+                {brand.industries.map(ind => {
+                  const industry = getIndustryById(ind);
+                  return industry && (
+                    <span class="px-3 py-1 bg-primary-50 text-primary-700 text-sm rounded-full border border-primary-200">
+                      {industry.icon} {industry.name}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+
+            <!-- 快速操作 -->
+            <div class="flex flex-wrap items-center gap-4">
+              {brand.website && (
+                <a
+                  href={brand.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium shadow-sm hover:shadow-md"
+                >
+                  🌐 访问官网
+                </a>
+              )}
+              <button class="px-6 py-3 border-2 border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors font-medium">
+                ⭐ 关注品牌
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 品牌详细信息卡片 -->
+    <section class="mb-12">
+      <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">
+        品牌信息
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {brand.founded && (
+          <div class="bg-white border border-neutral-200 rounded-lg p-6">
+            <div class="text-sm text-neutral-600 mb-2">成立时间</div>
+            <div class="text-2xl font-display font-bold text-neutral-900">
+              {brand.founded}年
+            </div>
+          </div>
+        )}
+
+        {brand.headquarters && (
+          <div class="bg-white border border-neutral-200 rounded-lg p-6">
+            <div class="text-sm text-neutral-600 mb-2">总部地址</div>
+            <div class="text-lg font-semibold text-neutral-900">
+              {brand.headquarters}
+            </div>
+          </div>
+        )}
+
+        <div class="bg-white border border-neutral-200 rounded-lg p-6">
+          <div class="text-sm text-neutral-600 mb-2">入榜次数</div>
+          <div class="text-2xl font-display font-bold text-primary-600">
+            {brandRankings.length}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 参与的排行榜 -->
+    {brandRankings.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">
+          参与的排行榜 ({brandRankings.length})
+        </h2>
+
+        <div class="space-y-4">
+          {brandRankings.map((ranking) => (
+            <a href={`/rankings/${ranking.slug}`} class="group block">
+              <div class="bg-white border border-neutral-200 rounded-lg p-6 hover:shadow-card-hover transition-all duration-250 hover:-translate-y-0.5">
+                <div class="flex items-start justify-between gap-4">
+
+                  <!-- 排名徽章 -->
+                  <div class="flex-shrink-0">
+                    <div class={`w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-display font-bold ${
+                      ranking.brandRank === 1 ? 'bg-rank-gold text-white' :
+                      ranking.brandRank === 2 ? 'bg-rank-silver text-white' :
+                      ranking.brandRank === 3 ? 'bg-rank-bronze text-white' :
+                      'bg-neutral-100 text-neutral-900'
+                    }`}>
+                      #{ranking.brandRank}
+                    </div>
+                  </div>
+
+                  <!-- 排行榜信息 -->
+                  <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors mb-2">
+                      {ranking.title}
+                    </h3>
+                    <p class="text-sm text-neutral-600 mb-3">
+                      {ranking.description}
+                    </p>
+                    <div class="flex items-center gap-4 text-sm">
+                      <span class="text-neutral-500">
+                        更新于 {formatDate(ranking.updateDate)}
+                      </span>
+                      {ranking.viewCount && (
+                        <span class="text-neutral-500">
+                          {formatNumber(ranking.viewCount)} 浏览
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <!-- 评分 -->
+                  <div class="flex-shrink-0 text-right">
+                    <div class="text-3xl font-display font-bold text-primary-600 mb-1">
+                      {ranking.brandScore.toFixed(1)}
+                    </div>
+                    <div class="text-xs text-neutral-600">综合评分</div>
+                  </div>
+
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 相关品牌推荐 -->
+    {relatedBrands.length > 0 && (
+      <section class="bg-white rounded-2xl p-6 md:p-12 border border-neutral-200">
+        <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">
+          相关品牌推荐
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {relatedBrands.map((relatedBrand) => (
+            <a href={`/brands/${relatedBrand.id}`} class="group block">
+              <div class="border border-neutral-200 rounded-lg p-6 hover:shadow-card-hover transition-shadow h-full">
+
+                <!-- Logo -->
+                <div class="w-20 h-20 bg-neutral-50 rounded-lg border border-neutral-200 flex items-center justify-center p-3 mb-4">
+                  <img
+                    src={relatedBrand.logo}
+                    alt={relatedBrand.name}
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+
+                <!-- 品牌名称 -->
+                <h3 class="text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors mb-2">
+                  {relatedBrand.name}
+                </h3>
+
+                <!-- 描述 -->
+                <p class="text-sm text-neutral-600 line-clamp-2 mb-3">
+                  {relatedBrand.description}
+                </p>
+
+                <!-- 成立年份 -->
+                {relatedBrand.founded && (
+                  <div class="text-xs text-neutral-500">
+                    成立于 {relatedBrand.founded}年
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>

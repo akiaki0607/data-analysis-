@@ -1,0 +1,19 @@
+id: dicos
+name: 德克士
+nameEn: Dicos
+slug: dicos
+logo: /images/brands/dicos.png
+founded: "1996"
+headquarters: 中国成都
+website: https://www.dicos.com.cn
+description: |
+  德克士是中国本土西式快餐连锁品牌，在三四线城市布局广泛。
+  脆皮炸鸡是招牌产品，性价比优势明显，下沉市场表现突出。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 4
+    score: 8.5

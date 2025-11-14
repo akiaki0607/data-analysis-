@@ -1,0 +1,45 @@
+id: lenovo
+name: Lenovo
+nameEn: Lenovo Group Limited
+slug: lenovo
+logo: /images/brands/lenovo.png
+founded: "1984"
+headquarters: 中国北京/美国北卡罗来纳州
+website: https://www.lenovo.com
+description: |
+  联想集团是全球领先的个人电脑制造商和智能设备提供商，由柳传志等11位科技人员创立于1984年。
+
+  联想通过持续创新和并购整合（包括收购IBM PC业务），成为全球最大的PC厂商。在消费电子领域，
+  联想推出了拯救者（Legion）游戏本品牌、小新（IdeaPad）系列轻薄本、YOGA系列翻转本等
+  多条产品线，满足不同用户需求。
+
+  核心产品线：
+  - ThinkPad系列商务笔记本（传承IBM基因）
+  - 拯救者（Legion）游戏本
+  - 小新（IdeaPad）轻薄本
+  - YOGA系列翻转触控本
+  - 小新平板系列
+  - ThinkVision显示器
+
+  联想秉承"智能，为每一个可能"的愿景，在智能化转型浪潮中，积极布局AI PC、智能手机、
+  AR/VR等新兴领域，为用户提供更加智能的数字化体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 3
+    score: 9.1
+  - rankingId: tablets-2024
+    rank: 5
+    score: 8.5
+  - rankingId: gaming-laptops-2024
+    rank: 2
+    score: 9.2
+
+socialMedia:
+  weibo: https://weibo.com/lenovo
+  wechat: 联想中国
+  twitter: https://twitter.com/Lenovo
+  linkedin: https://www.linkedin.com/company/lenovo

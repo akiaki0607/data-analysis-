@@ -1,0 +1,14 @@
+id: geely
+name: 吉利
+slug: geely
+logo: /images/brands/geely.png
+founded: "2000"
+headquarters: 中国
+website: https://www.geely.com
+description: 吉利汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 10
+    score: 76.10

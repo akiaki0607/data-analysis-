@@ -1,0 +1,14 @@
+id: toyota
+name: 丰田
+slug: toyota
+logo: /images/brands/toyota.png
+founded: "2000"
+headquarters: 中国
+website: https://www.toyota.com
+description: 丰田汽车品牌
+industries:
+  - auto
+rankings:
+  - rankingId: car-brands-2024
+    rank: 3
+    score: 90.7

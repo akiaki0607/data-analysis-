@@ -1,0 +1,18 @@
+id: tencent-ads
+name: 腾讯广告
+nameEn: Tencent Ads
+slug: tencent-ads
+logo: /images/brands/tencent.png
+founded: "2011"
+headquarters: 中国深圳
+website: https://ad.tencent.com
+description: |
+  腾讯广告依托微信、QQ、腾讯视频等超级流量平台，提供全场景数字营销解决方案。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 4
+    score: 8.8

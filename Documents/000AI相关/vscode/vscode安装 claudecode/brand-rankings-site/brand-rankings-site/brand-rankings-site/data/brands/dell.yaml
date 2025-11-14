@@ -1,0 +1,43 @@
+id: dell
+name: Dell
+nameEn: Dell Technologies
+slug: dell
+logo: /images/brands/dell.png
+founded: "1984"
+headquarters: 美国德克萨斯州
+website: https://www.dell.com
+description: |
+  戴尔科技集团是全球知名的科技解决方案提供商，由迈克尔·戴尔（Michael Dell）创立于1984年。
+
+  戴尔以直销模式起家，革新了PC行业的销售模式。在消费电子领域，戴尔旗下的外星人（Alienware）
+  品牌是游戏本的标杆，XPS系列是轻薄本的典范，Precision系列则专注于专业工作站领域。
+
+  核心产品线：
+  - Alienware外星人游戏本（游戏玩家信仰）
+  - XPS系列轻薄本（商务精英首选）
+  - Inspiron灵越系列（主流家用）
+  - Precision工作站（专业创作）
+  - Dell显示器（专业色彩）
+  - Dell外设产品
+
+  戴尔以卓越的制造工艺、可靠的品质和完善的售后服务著称，在企业级市场和高端消费市场
+  都占据重要地位。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 2
+    score: 9.3
+  - rankingId: gaming-laptops-2024
+    rank: 3
+    score: 9.0
+  - rankingId: monitors-2024
+    rank: 2
+    score: 9.1
+
+socialMedia:
+  twitter: https://twitter.com/Dell
+  linkedin: https://www.linkedin.com/company/dell
+  weibo: https://weibo.com/dell

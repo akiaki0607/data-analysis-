@@ -1,0 +1,41 @@
+id: xiaomi
+name: Xiaomi
+nameEn: Xiaomi Corporation
+slug: xiaomi
+logo: /images/brands/xiaomi.png
+founded: "2010"
+headquarters: 中国北京
+website: https://www.mi.com
+description: |
+  小米科技是一家以手机、智能硬件和IoT平台为核心的互联网公司,由雷军创立于2010年。
+
+  小米以"让每个人都能享受科技的乐趣"为使命,通过高性价比的产品策略迅速崛起,成为全球第三大手机厂商。
+
+  产品生态:
+  - 小米手机(旗舰/数字系列)
+  - Redmi品牌(性价比产品线)
+  - 笔记本电脑、平板电脑
+  - 智能家居产品(米家生态链)
+  - 可穿戴设备
+
+  核心竞争力:
+  - 极致性价比策略
+  - 完善的AIoT生态
+  - 强大的线上线下渠道
+  - 年轻化的品牌形象
+
+  小米不仅是手机公司,更是"手机+AIoT"双引擎驱动的全场景智能生活平台。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 4
+    score: 8.8
+
+socialMedia:
+  twitter: https://twitter.com/Xiaomi
+  linkedin: https://www.linkedin.com/company/xiaomi
+  weibo: https://weibo.com/xiaomi
+  wechat: 小米公司

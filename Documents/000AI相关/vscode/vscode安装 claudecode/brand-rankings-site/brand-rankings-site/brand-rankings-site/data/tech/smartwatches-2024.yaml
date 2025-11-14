@@ -1,0 +1,200 @@
+id: smartwatches-2024
+title: 2024年智能手表排行榜
+slug: smartwatches-2024
+category: tech
+updateDate: "2024-11-14"
+description: |
+  2024年最佳智能手表推荐，涵盖健康监测、运动追踪、智能通知等功能，
+  帮您找到最适合的智能穿戴设备。
+
+methodology: |
+  评分标准：健康功能(30%)、续航表现(25%)、设计做工(20%)、系统体验(15%)、价格(10%)。
+
+viewCount: 38900
+
+brands:
+  - rank: 1
+    brandId: apple
+    name: Apple Watch Series 9
+    logo: /images/brands/apple.png
+    score: 9.5
+    description: |
+      全天候视网膜显示屏，S9芯片性能强劲，心电图和血氧监测，
+      watchOS生态完善，iPhone用户首选。
+    metrics:
+      display: 1.9英寸 LTPO OLED
+      battery: 18小时
+      waterproof: 50米防水
+      price: ¥2999起
+    tags:
+      - iOS生态
+      - 健康监测
+      - 旗舰
+
+  - rank: 2
+    brandId: samsung
+    name: Samsung Galaxy Watch6 Classic
+    logo: /images/brands/samsung.png
+    score: 9.1
+    description: |
+      经典旋转表圈设计，Wear OS系统，丰富的健康监测功能，
+      Android用户的最佳选择。
+    metrics:
+      display: 1.5英寸 Super AMOLED
+      battery: 40小时
+      waterproof: 5ATM+IP68
+      price: ¥2599起
+    tags:
+      - Android
+      - 经典设计
+      - 健康
+
+  - rank: 3
+    brandId: huawei
+    name: 华为 WATCH GT 4
+    logo: /images/brands/huawei.png
+    score: 8.8
+    description: |
+      超长续航14天，精准健康监测，支持高尔夫、潜水等100+运动模式，
+      鸿蒙生态加持。
+    metrics:
+      display: 1.43英寸 AMOLED
+      battery: 14天
+      waterproof: 5ATM
+      price: ¥1488起
+    tags:
+      - 长续航
+      - 运动
+      - 鸿蒙
+
+  - rank: 4
+    brandId: xiaomi
+    name: 小米手表 S3
+    logo: /images/brands/xiaomi.png
+    score: 8.5
+    description: |
+      1.43英寸AMOLED屏，15天超长续航，200+表盘，
+      支持小爱同学，性价比之选。
+    metrics:
+      display: 1.43英寸 AMOLED
+      battery: 15天
+      waterproof: 5ATM
+      price: ¥999起
+    tags:
+      - 性价比
+      - 长续航
+      - 小爱
+
+  - rank: 5
+    brandId: garmin
+    name: Garmin Forerunner 265
+    logo: /images/brands/garmin.png
+    score: 8.4
+    description: |
+      专业运动手表，AMOLED彩屏，全天候血氧监测，
+      跑者最佳训练伙伴。
+    metrics:
+      display: 1.3英寸 AMOLED
+      battery: 13天
+      waterproof: 5ATM
+      price: ¥3280起
+    tags:
+      - 专业运动
+      - 跑步
+      - GPS
+
+  - rank: 6
+    brandId: oppo
+    name: OPPO Watch 3 Pro
+    logo: /images/brands/oppo.png
+    score: 8.2
+    description: |
+      1.91英寸AMOLED曲面屏，eSIM独立通话，双芯双系统，
+      ColorOS生态完善。
+    metrics:
+      display: 1.91英寸 AMOLED
+      battery: 5天
+      waterproof: 5ATM+IP68
+      price: ¥2199起
+    tags:
+      - eSIM
+      - 独立通话
+      - 曲面屏
+
+  - rank: 7
+    brandId: vivo
+    name: vivo WATCH 3
+    logo: /images/brands/vivo.png
+    score: 8.0
+    description: |
+      1.43英寸AMOLED屏，16天续航，蓝心大模型，
+      健康监测精准全面。
+    metrics:
+      display: 1.43英寸 AMOLED
+      battery: 16天
+      waterproof: 5ATM
+      price: ¥1299起
+    tags:
+      - 长续航
+      - AI
+      - 健康
+
+  - rank: 8
+    brandId: honor
+    name: 荣耀手表4
+    logo: /images/brands/honor.png
+    score: 7.8
+    description: |
+      1.75英寸AMOLED屏，14天续航，100+运动模式，
+      性价比智能手表。
+    metrics:
+      display: 1.75英寸 AMOLED
+      battery: 14天
+      waterproof: 5ATM
+      price: ¥899起
+    tags:
+      - 性价比
+      - 运动
+      - 续航
+
+  - rank: 9
+    brandId: ticwatch
+    name: TicWatch Pro 5
+    logo: /images/brands/ticwatch.png
+    score: 7.6
+    description: |
+      Wear OS 3系统，骁龙W5+芯片，双层屏设计，
+      极客玩家之选。
+    metrics:
+      display: 1.43英寸 AMOLED
+      battery: 80小时
+      waterproof: IP68
+      price: ¥2299起
+    tags:
+      - Wear OS
+      - 极客
+      - 双屏
+
+  - rank: 10
+    brandId: amazfit
+    name: Amazfit跃我GTR 4
+    logo: /images/brands/amazfit.png
+    score: 7.5
+    description: |
+      1.43英寸AMOLED屏，14天续航，150+运动模式，
+      超值运动手表。
+    metrics:
+      display: 1.43英寸 AMOLED
+      battery: 14天
+      waterproof: 5ATM
+      price: ¥799起
+    tags:
+      - 超值
+      - 运动
+      - 续航
+
+tags:
+  - 智能手表
+  - 可穿戴
+  - 健康
+  - 运动

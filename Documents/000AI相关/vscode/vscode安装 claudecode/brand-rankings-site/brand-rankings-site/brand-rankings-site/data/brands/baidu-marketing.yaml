@@ -1,0 +1,27 @@
+id: baidu-marketing
+name: 百度营销
+nameEn: Baidu Marketing
+slug: baidu-marketing
+logo: /images/brands/baidu.png
+founded: "2001"
+headquarters: 中国北京
+website: https://e.baidu.com
+description: |
+  百度营销是百度公司旗下的官方营销平台，为企业提供基于百度搜索引擎的
+  全方位营销服务。作为中国最大的搜索引擎，百度营销拥有得天独厚的平台优势。
+
+  核心产品：
+  - 百度推广：关键词竞价广告
+  - 百度统计：网站流量分析工具
+  - 百度SEO顾问：搜索优化咨询服务
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 2
+    score: 9.3
+
+socialMedia:
+  weibo: https://weibo.com/baidutuiguang

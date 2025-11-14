@@ -1,0 +1,18 @@
+id: razer
+name: Razer
+nameEn: Razer Inc.
+slug: razer
+logo: /images/brands/razer.png
+founded: "2005"
+headquarters: 美国加州
+website: https://www.razer.com
+description: |
+  雷蛇是全球顶级游戏外设和游戏本品牌，Blade系列是轻薄游戏本标杆。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 9
+    score: 7.8

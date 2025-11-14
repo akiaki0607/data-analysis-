@@ -1,0 +1,147 @@
+id: coffee-chains-2024
+title: 2024年咖啡连锁品牌排行榜
+slug: coffee-chains-2024
+description: 基于咖啡品质、门店体验、品牌影响力和顾客口碑的综合评分
+industry: food
+category: food
+publishDate: '2024-01-15'
+updateDate: '2024-01-15'
+viewCount: 18756
+author: 品牌研究院
+tags:
+  - 咖啡
+  - 连锁咖啡
+  - 饮品
+
+intro: |
+  本排行榜综合评估了各大咖啡连锁品牌的咖啡品质、门店环境、服务水平、
+  品牌文化和创新能力，为咖啡爱好者提供专业的品牌参考。
+
+methodology: |
+  评分标准：
+  - 咖啡品质（35%）：咖啡豆品质、制作工艺、口味评价
+  - 门店体验（25%）：环境氛围、座位舒适度、装修风格
+  - 品牌影响力（20%）：品牌知名度、市场份额
+  - 服务水平（15%）：服务态度、出品速度、会员体系
+  - 创新能力（5%）：新品研发、数字化服务
+
+brands:
+  - rank: 1
+    name: 星巴克
+    brandId: starbucks
+    score: 9.6
+    logo: /images/brands/starbucks.png
+    description: 全球咖啡连锁巨头，第三空间理念开创者
+    highlights:
+      - 全球门店35000+
+      - 精品咖啡标杆
+      - 第三空间文化
+      - 数字化会员体系
+
+  - rank: 2
+    name: 瑞幸咖啡
+    brandId: luckin-coffee
+    score: 9.2
+    logo: /images/brands/luckin-coffee.png
+    description: 中国新零售咖啡领导品牌，性价比之选
+    highlights:
+      - 中国门店13000+
+      - 互联网咖啡先锋
+      - 高性价比
+      - 外卖配送便捷
+
+  - rank: 3
+    name: COSTA咖啡
+    brandId: costa-coffee
+    score: 8.8
+    logo: /images/brands/costa-coffee.png
+    description: 英伦咖啡代表，可口可乐旗下品牌
+    highlights:
+      - 英式咖啡风味
+      - 全球4000+门店
+      - 手冲咖啡专业
+      - 环境优雅舒适
+
+  - rank: 4
+    name: 太平洋咖啡
+    brandId: pacific-coffee
+    score: 8.5
+    logo: /images/brands/pacific-coffee.png
+    description: 香港本土品牌，华润集团旗下
+    highlights:
+      - 港式咖啡文化
+      - 门店环境好
+      - 甜品品质高
+      - 商务首选
+
+  - rank: 5
+    name: Manner咖啡
+    brandId: manner-coffee
+    score: 8.3
+    logo: /images/brands/manner-coffee.png
+    description: 上海精品咖啡新星，极简主义代表
+    highlights:
+      - 精品咖啡定位
+      - 性价比突出
+      - 门店设计简约
+      - 年轻人喜爱
+
+  - rank: 6
+    name: Tim Hortons
+    brandId: tim-hortons
+    score: 8.1
+    logo: /images/brands/tim-hortons.png
+    description: 加拿大国民咖啡，甜甜圈专家
+    highlights:
+      - 加式咖啡文化
+      - 甜甜圈招牌
+      - 早餐套餐丰富
+      - 全球5000+门店
+
+  - rank: 7
+    name: Peet's Coffee
+    brandId: peets-coffee
+    score: 7.9
+    logo: /images/brands/peets-coffee.png
+    description: 美国精品咖啡鼻祖，深度烘焙专家
+    highlights:
+      - 精品咖啡先驱
+      - 深度烘焙特色
+      - 咖啡豆品质高
+      - 星巴克启蒙者
+
+  - rank: 8
+    name: 库迪咖啡
+    brandId: cotti-coffee
+    score: 7.7
+    logo: /images/brands/cotti-coffee.png
+    description: 中国新兴咖啡品牌，快速扩张中
+    highlights:
+      - 门店快速扩张
+      - 价格亲民
+      - 联名营销强
+      - 年轻化定位
+
+  - rank: 9
+    name: Tims咖啡
+    brandId: tims-china
+    score: 7.5
+    logo: /images/brands/tims-china.png
+    description: Tim Hortons中国合资品牌
+    highlights:
+      - 本土化创新
+      - 甜品品类丰富
+      - 会员活动多
+      - 性价比好
+
+  - rank: 10
+    name: M Stand
+    brandId: m-stand
+    score: 7.3
+    logo: /images/brands/m-stand.png
+    description: 设计师咖啡品牌，网红打卡圣地
+    highlights:
+      - 工业风设计
+      - 拍照打卡热门
+      - 咖啡品质佳
+      - 上海起家

@@ -1,0 +1,107 @@
+id: car-brands-2024
+title: 2024年汽车品牌排行榜
+slug: car-brands-2024
+description: 基于品牌价值、销量、质量可靠性和用户满意度的综合评分
+industry: auto
+category: auto
+publishDate: '2024-01-15'
+updateDate: '2024-01-15'
+viewCount: 25678
+author: 品牌研究院
+tags:
+  - 汽车
+  - 汽车品牌
+  - 新能源
+
+intro: |
+  本排行榜综合评估了各大汽车品牌的市场表现、产品质量、技术创新、
+  用户口碑和售后服务，为购车者提供权威的品牌参考。
+
+methodology: |
+  评分标准：
+  - 品牌价值（30%）：品牌影响力、市场份额
+  - 产品质量（30%）：可靠性、安全性
+  - 技术创新（20%）：新能源、智能驾驶
+  - 用户满意度（15%）：车主评价、投诉率
+  - 服务体系（5%）：售后服务、保养便利
+
+brands:
+  - rank: 1
+    name: 比亚迪
+    brandId: byd
+    score: 9.6
+    logo: /images/brands/byd.png
+    description: 中国新能源汽车领导品牌
+    highlights: [新能源销量第一, 刀片电池技术, DM-i混动, 全球化布局]
+
+  - rank: 2
+    name: 特斯拉
+    brandId: tesla
+    score: 9.4
+    logo: /images/brands/tesla.png
+    description: 全球电动汽车先驱
+    highlights: [自动驾驶技术, 超级充电网络, Model系列, 科技标杆]
+
+  - rank: 3
+    name: 丰田
+    brandId: toyota
+    score: 9.2
+    logo: /images/brands/toyota.png
+    description: 全球销量最大汽车品牌
+    highlights: [质量可靠, 混动技术, 全球布局, 保值率高]
+
+  - rank: 4
+    name: 大众
+    brandId: volkswagen
+    score: 9.0
+    logo: /images/brands/volkswagen.png
+    description: 德系品质代表
+    highlights: [市场占有率高, TSI+DSG, 品牌矩阵, MEB平台]
+
+  - rank: 5
+    name: 奔驰
+    brandId: mercedes
+    score: 8.8
+    logo: /images/brands/mercedes.png
+    description: 豪华汽车标杆
+    highlights: [豪华品质, 百年品牌, EQ系列, 驾驶辅助]
+
+  - rank: 6
+    name: 宝马
+    brandId: bmw
+    score: 8.7
+    logo: /images/brands/bmw.png
+    description: 运动豪华代表
+    highlights: [驾驶乐趣, i系列纯电, 智能座舱, 品牌溢价]
+
+  - rank: 7
+    name: 理想
+    brandId: li-auto
+    score: 8.5
+    logo: /images/brands/li-auto.png
+    description: 增程式电动车先锋
+    highlights: [增程技术, 智能座舱, 奶爸车, 用户运营]
+
+  - rank: 8
+    name: 蔚来
+    brandId: nio
+    score: 8.4
+    logo: /images/brands/nio.png
+    description: 高端智能电动汽车
+    highlights: [换电模式, 用户服务, NT2.0平台, 智能驾驶]
+
+  - rank: 9
+    name: 小鹏
+    brandId: xpeng
+    score: 8.2
+    logo: /images/brands/xpeng.png
+    description: 智能汽车科技公司
+    highlights: [智能驾驶, 飞行汽车, 鹏翼门, 语音交互]
+
+  - rank: 10
+    name: 吉利
+    brandId: geely
+    score: 8.0
+    logo: /images/brands/geely.png
+    description: 中国自主品牌领军者
+    highlights: [收购沃尔沃, 多品牌运营, 新能源布局, 性价比高]

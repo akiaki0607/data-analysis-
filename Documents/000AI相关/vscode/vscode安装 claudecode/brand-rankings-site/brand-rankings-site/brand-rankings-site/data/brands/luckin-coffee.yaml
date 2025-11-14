@@ -1,0 +1,24 @@
+id: luckin-coffee
+name: 瑞幸咖啡
+nameEn: Luckin Coffee
+slug: luckin-coffee
+logo: /images/brands/luckin-coffee.png
+founded: "2017"
+headquarters: 中国厦门
+website: https://www.luckincoffee.com
+description: |
+  瑞幸咖啡是中国新零售咖啡领导品牌，以互联网思维重塑咖啡行业。
+
+  门店数量快速增长，性价比优势明显，外卖配送便捷，
+  深受年轻消费者喜爱。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 2
+    score: 9.2
+
+socialMedia:
+  weibo: https://weibo.com/luckincoffee

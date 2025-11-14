@@ -1,0 +1,14 @@
+id: sofia
+name: 索菲亚
+slug: sofia
+logo: /images/brands/sofia.png
+founded: "2000"
+headquarters: 中国
+website: https://www.sofia.com
+description: 索菲亚是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 4
+    score: 92.6

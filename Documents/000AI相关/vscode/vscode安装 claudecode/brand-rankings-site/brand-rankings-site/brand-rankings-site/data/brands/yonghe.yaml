@@ -1,0 +1,19 @@
+id: yonghe
+name: 永和大王
+nameEn: Yonghe King
+slug: yonghe
+logo: /images/brands/yonghe.png
+founded: "1995"
+headquarters: 中国上海
+website: https://www.yonghe.com.cn
+description: |
+  永和大王是台式快餐品牌，以豆浆油条等中式早餐特色著称。
+  24小时营业模式，为消费者提供全天候的中式快餐服务。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 10
+    score: 7.3

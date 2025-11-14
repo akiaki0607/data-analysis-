@@ -1,0 +1,41 @@
+id: hp
+name: HP
+nameEn: HP Inc.
+slug: hp
+logo: /images/brands/hp.png
+founded: "1939"
+headquarters: 美国加利福尼亚州
+website: https://www.hp.com
+description: |
+  惠普公司是全球知名的科技企业，由比尔·休利特和戴夫·帕卡德创立于1939年，
+  诞生于硅谷车库，被誉为"硅谷之父"。
+
+  惠普在PC和打印机领域拥有深厚积累和广泛的市场占有率。在消费电子领域，
+  暗影精灵（OMEN）游戏本品牌和星系列商务本都有良好的市场表现。
+
+  核心产品线：
+  - 暗影精灵（OMEN）游戏本
+  - 光影精灵游戏本（入门级）
+  - 星系列商务本（轻薄便携）
+  - ENVY系列（创作者本）
+  - HP打印机（市场领导者）
+  - HP显示器
+
+  惠普致力于"为每个人创造科技"，凭借可靠的品质、完善的渠道和优质的服务，
+  在全球PC市场保持领先地位。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 5
+    score: 8.9
+  - rankingId: gaming-laptops-2024
+    rank: 4
+    score: 8.7
+
+socialMedia:
+  twitter: https://twitter.com/HP
+  linkedin: https://www.linkedin.com/company/hp
+  weibo: https://weibo.com/hp

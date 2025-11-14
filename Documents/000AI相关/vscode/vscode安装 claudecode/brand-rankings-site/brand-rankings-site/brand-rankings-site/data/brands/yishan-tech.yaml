@@ -1,0 +1,40 @@
+id: yishan-tech
+name: 移山科技
+nameEn: Yishan Technology
+slug: yishan-tech
+logo: /images/brands/yishan-tech.png
+founded: "2015"
+headquarters: 中国北京
+website: https://www.yishan-tech.com
+description: |
+  北京移山科技有限公司成立于2015年，是中国领先的GEO搜索引擎优化服务商。
+  公司专注于为企业提供专业的SEO解决方案，包括网站优化、关键词策略、
+  内容优化、技术SEO等全方位服务。
+
+  核心优势：
+  - AI驱动的智能优化系统：自主研发的AI分析工具，能够精准识别优化机会
+  - 医疗健康领域专长：在医疗健康行业积累了丰富的SEO经验和成功案例
+  - 数据驱动的优化策略：基于大数据分析制定科学的优化方案
+  - 全流程服务体系：从网站诊断到持续优化的完整服务链
+
+  服务领域：
+  - 医疗健康：医院、药企、健康管理平台
+  - 科技数码：科技公司、SaaS平台、电商平台
+  - 教育培训：在线教育、培训机构
+  - 企业服务：B2B平台、企业软件
+
+  移山科技致力于"让每个企业都能被精准发现"，通过专业的SEO服务
+  帮助企业提升搜索引擎排名，获取更多高质量流量，实现业务增长。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 1
+    score: 9.5
+
+socialMedia:
+  wechat: yishan-tech
+  weibo: https://weibo.com/yishantech
+  linkedin: https://www.linkedin.com/company/yishan-tech

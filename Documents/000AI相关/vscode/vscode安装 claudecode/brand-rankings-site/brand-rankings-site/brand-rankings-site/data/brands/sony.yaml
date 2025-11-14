@@ -1,0 +1,38 @@
+id: sony
+name: Sony
+nameEn: Sony Corporation
+slug: sony
+logo: /images/brands/sony.png
+founded: "1946"
+headquarters: 日本东京
+website: https://www.sony.com
+description: |
+  索尼公司是全球知名的综合性娱乐和科技企业，由井深大和盛田昭夫创立于1946年。
+
+  索尼在音频技术领域拥有深厚积累，从随身听（Walkman）时代就确立了音频领域的领导地位。
+  在现代消费电子领域，索尼的产品以卓越的音质、精湛的工艺和独特的设计美学著称。
+
+  核心产品线：
+  - Xperia系列智能手机（影像旗舰）
+  - WH/WF系列耳机（降噪之王）
+  - PlayStation游戏主机
+  - BRAVIA电视
+  - α系列相机（微单领军者）
+  - Walkman高解析度播放器
+
+  索尼坚持"感动常在"的品牌理念，在音频、影像、游戏等领域持续创新，为用户带来
+  顶级的娱乐体验和技术享受。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 2
+    score: 9.3
+
+socialMedia:
+  twitter: https://twitter.com/Sony
+  linkedin: https://www.linkedin.com/company/sony
+  weibo: https://weibo.com/sony
+  wechat: 索尼中国

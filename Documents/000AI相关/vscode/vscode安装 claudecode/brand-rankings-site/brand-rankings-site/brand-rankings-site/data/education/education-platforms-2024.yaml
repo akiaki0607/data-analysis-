@@ -1,0 +1,107 @@
+id: education-platforms-2024
+title: 2024年在线教育平台排行榜
+slug: education-platforms-2024
+description: 基于课程质量、师资力量、用户体验和学习效果的综合评分
+industry: education
+category: education
+publishDate: '2024-01-15'
+updateDate: '2024-01-15'
+viewCount: 19876
+author: 品牌研究院
+tags:
+  - 在线教育
+  - 职业培训
+  - 学习平台
+
+intro: |
+  本排行榜综合评估了各大在线教育平台的课程体系、教学质量、技术创新、
+  用户口碑和学习效果，为学习者提供权威的平台参考。
+
+methodology: |
+  评分标准：
+  - 课程质量（35%）：内容深度、实用性、更新频率
+  - 师资力量（25%）：讲师资质、教学经验
+  - 用户体验（20%）：平台易用性、学习工具
+  - 学习效果（15%）：完课率、就业率
+  - 服务支持（5%）：客服响应、社群运营
+
+brands:
+  - rank: 1
+    name: 学而思网校
+    brandId: xueersi
+    score: 9.3
+    logo: /images/brands/xueersi.png
+    description: K12在线教育领导品牌
+    highlights: [名师团队, K12全科, 直播互动, 学而思品质]
+
+  - rank: 2
+    name: 猿辅导
+    brandId: yuanfudao
+    score: 9.1
+    logo: /images/brands/yuanfudao.png
+    description: 在线教育独角兽
+    highlights: [AI智能教学, 题库丰富, 互动性强, 千万用户]
+
+  - rank: 3
+    name: 作业帮
+    brandId: zuoyebang
+    score: 8.9
+    logo: /images/brands/zuoyebang.png
+    description: 在线学习App领军者
+    highlights: [拍照搜题, 直播课, 题库海量, 免费资源]
+
+  - rank: 4
+    name: 腾讯课堂
+    brandId: ke-qq
+    score: 8.7
+    logo: /images/brands/ke-qq.png
+    description: 职业技能培训平台
+    highlights: [课程丰富, IT职业培训, 认证课程, 腾讯背景]
+
+  - rank: 5
+    name: 网易云课堂
+    brandId: study-163
+    score: 8.5
+    logo: /images/brands/study-163.png
+    description: 综合在线学习平台
+    highlights: [微专业, 实战项目, 职业技能, 大厂课程]
+
+  - rank: 6
+    name: 慕课网
+    brandId: imooc
+    score: 8.3
+    logo: /images/brands/imooc.png
+    description: IT技能学习平台
+    highlights: [实战课程, 编程学习, 项目驱动, 就业导向]
+
+  - rank: 7
+    name: 中国大学MOOC
+    brandId: icourse163
+    score: 8.1
+    logo: /images/brands/icourse163.png
+    description: 高校精品课程平台
+    highlights: [名校课程, 免费资源, 学分认证, 学术性强]
+
+  - rank: 8
+    name: 得到
+    brandId: igetget
+    score: 7.9
+    logo: /images/brands/igetget.png
+    description: 知识服务App
+    highlights: [精品课程, 知识付费, 名师讲解, 音频学习]
+
+  - rank: 9
+    name: 知乎
+    brandId: zhihu
+    score: 7.7
+    logo: /images/brands/zhihu.png
+    description: 知识问答社区
+    highlights: [盐选会员, Live讲座, 问答社区, 知识分享]
+
+  - rank: 10
+    name: B站
+    brandId: bilibili
+    score: 7.5
+    logo: /images/brands/bilibili.png
+    description: 年轻人学习社区
+    highlights: [免费资源, UP主教学, 弹幕互动, 学习氛围]

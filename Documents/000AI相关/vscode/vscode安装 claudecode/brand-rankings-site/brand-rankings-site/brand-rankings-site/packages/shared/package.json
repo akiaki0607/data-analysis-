@@ -1,0 +1,14 @@
+{
+  "name": "@brand-rankings/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./components/*": "./src/components/*.astro",
+    "./layouts/*": "./src/layouts/*.astro",
+    "./styles/*": "./src/styles/*",
+    "./utils/*": "./src/utils/*"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+id: subway
+name: 赛百味
+nameEn: Subway
+slug: subway
+logo: /images/brands/subway.png
+founded: "1965"
+headquarters: 美国康涅狄格州
+website: https://www.subway.com
+description: |
+  赛百味是全球门店数量最多的快餐连锁品牌，主打健康快餐理念。
+  三明治现场制作，顾客可自选配料，强调新鲜食材和低脂选择。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 6
+    score: 8.1

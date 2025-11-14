@@ -1,0 +1,173 @@
+id: laptops-2024
+title: 2024年笔记本电脑品牌排行榜
+slug: laptops-2024
+category: tech
+updateDate: "2024-11-14"
+description: 综合性能、设计、性价比等维度的专业评测
+methodology: 基于处理器性能(25%)、屏幕质量(20%)、续航能力(20%)、散热设计(15%)、性价比(20%)等多维度评估
+viewCount: 98000
+tags:
+  - 笔记本电脑
+  - 办公学习
+  - 年度榜单
+
+brands:
+  - rank: 1
+    name: Apple
+    brandId: apple
+    score: 9.7
+    logo: /images/brands/apple.png
+    description: MacBook系列凭借M系列芯片引领笔记本新时代,性能与续航兼具
+    metrics:
+      performance: "A+"
+      design: "A+"
+      battery: "A+"
+      priceValue: "A"
+    tags:
+      - M芯片革命
+      - 超长续航
+      - 生态完善
+
+  - rank: 2
+    name: Dell
+    brandId: dell
+    score: 9.0
+    logo: /images/brands/dell.png
+    description: XPS系列和Alienware游戏本备受专业用户青睐
+    metrics:
+      performance: "A"
+      design: "A"
+      battery: "A"
+      priceValue: "A"
+    tags:
+      - 商务首选
+      - 游戏本强者
+      - 品控优秀
+
+  - rank: 3
+    name: HP
+    brandId: hp
+    score: 8.8
+    logo: /images/brands/hp.png
+    description: 全球PC巨头,Spectre和ENVY系列深受商务人士喜爱
+    metrics:
+      performance: "A"
+      design: "A"
+      battery: "A"
+      priceValue: "A"
+    tags:
+      - 全球领先
+      - 产品线完整
+      - 可靠稳定
+
+  - rank: 4
+    name: Lenovo
+    brandId: lenovo
+    score: 8.7
+    logo: /images/brands/lenovo.png
+    description: ThinkPad系列是商务本标杆,小新系列性价比出色
+    metrics:
+      performance: "A"
+      design: "A-"
+      battery: "A"
+      priceValue: "A+"
+    tags:
+      - ThinkPad传奇
+      - 商务之王
+      - 性价比高
+
+  - rank: 5
+    name: ASUS
+    brandId: asus
+    score: 8.5
+    logo: /images/brands/asus.png
+    description: ROG游戏本和灵耀系列在各自领域表现出色
+    metrics:
+      performance: "A"
+      design: "A"
+      battery: "B+"
+      priceValue: "A"
+    tags:
+      - 游戏本专家
+      - 创新设计
+      - ROG信仰
+
+  - rank: 6
+    name: Microsoft
+    brandId: microsoft
+    score: 8.3
+    logo: /images/brands/microsoft.png
+    description: Surface系列定义了二合一电脑新标准,触控体验出色
+    metrics:
+      performance: "A-"
+      design: "A+"
+      battery: "A"
+      priceValue: "B+"
+    tags:
+      - 二合一创新
+      - 触控专家
+      - 商务时尚
+
+  - rank: 7
+    name: Acer
+    brandId: acer
+    score: 8.1
+    logo: /images/brands/acer.png
+    description: 宏碁旗下Predator游戏本和Swift轻薄本性价比突出
+    metrics:
+      performance: "A-"
+      design: "B+"
+      battery: "B+"
+      priceValue: "A+"
+    tags:
+      - 性价比之选
+      - 游戏本实力
+      - 全球品牌
+
+  - rank: 8
+    name: MSI
+    brandId: msi
+    score: 8.0
+    logo: /images/brands/msi.png
+    description: 微星专注游戏本领域,高性能和散热设计是其强项
+    metrics:
+      performance: "A"
+      design: "A-"
+      battery: "B"
+      priceValue: "A-"
+    tags:
+      - 游戏本专业
+      - 散热强大
+      - 电竞首选
+
+  - rank: 9
+    name: Razer
+    brandId: razer
+    score: 7.8
+    logo: /images/brands/razer.png
+    description: 雷蛇Blade系列是轻薄游戏本的标杆,设计精美性能强劲
+    metrics:
+      performance: "A"
+      design: "A+"
+      battery: "B"
+      priceValue: "B"
+    tags:
+      - 轻薄游戏本
+      - 设计精美
+      - 发烧友最爱
+
+  - rank: 10
+    name: LG
+    brandId: lg
+    score: 7.6
+    logo: /images/brands/lg.png
+    description: LG gram系列以超轻机身和超长续航著称,移动办公首选
+    metrics:
+      performance: "B+"
+      design: "A"
+      battery: "A+"
+      priceValue: "B+"
+    tags:
+      - 超轻机身
+      - 超长续航
+      - 移动办公

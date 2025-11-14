@@ -1,0 +1,18 @@
+id: microsoft
+name: Microsoft
+nameEn: Microsoft Corporation
+slug: microsoft
+logo: /images/brands/microsoft.png
+founded: "1975"
+headquarters: 美国华盛顿州
+website: https://www.microsoft.com
+description: |
+  微软是全球领先的科技公司，Surface系列产品重新定义了二合一电脑。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 6
+    score: 8.3

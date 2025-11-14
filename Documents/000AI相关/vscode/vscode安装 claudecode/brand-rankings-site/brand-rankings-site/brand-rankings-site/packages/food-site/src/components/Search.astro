@@ -1,0 +1,188 @@
+---
+// 搜索组件 - 使用 Pagefind
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = '搜索品牌或排行榜...' } = Astro.props;
+---
+
+<div class="search-container" id="search">
+  <!-- 搜索输入框 -->
+  <div class="relative">
+    <input
+      type="text"
+      id="search-input"
+      placeholder={placeholder}
+      class="w-full px-4 py-2 pl-10 pr-4 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+      autocomplete="off"
+    />
+    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400">
+      🔍
+    </span>
+  </div>
+
+  <!-- 搜索结果弹窗 -->
+  <div
+    id="search-results"
+    class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-neutral-200 rounded-lg shadow-lg max-h-96 overflow-y-auto z-50"
+  >
+    <!-- 搜索结果将通过 JavaScript 动态插入 -->
+  </div>
+</div>
+
+<script>
+  // 等待 Pagefind 加载
+  let pagefind: any = null;
+
+  async function initPagefind() {
+    try {
+      // @ts-ignore
+      pagefind = await import('/pagefind/pagefind.js');
+      await pagefind.options({
+        excerptLength: 15
+      });
+    } catch (error) {
+      console.error('Failed to load Pagefind:', error);
+    }
+  }
+
+  // 页面加载时初始化
+  initPagefind();
+
+  // 搜索功能
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results') as HTMLDivElement;
+
+  if (searchInput && searchResults) {
+    let debounceTimer: number;
+
+    searchInput.addEventListener('input', async (e) => {
+      const query = (e.target as HTMLInputElement).value.trim();
+
+      // 清除之前的定时器
+      clearTimeout(debounceTimer);
+
+      if (!query || query.length < 2) {
+        searchResults.classList.add('hidden');
+        return;
+      }
+
+      // 防抖处理
+      debounceTimer = window.setTimeout(async () => {
+        if (!pagefind) {
+          searchResults.innerHTML = `
+            <div class="p-4 text-center text-neutral-500">
+              搜索功能加载中...
+            </div>
+          `;
+          searchResults.classList.remove('hidden');
+          return;
+        }
+
+        try {
+          const results = await pagefind.search(query);
+
+          if (results.results.length === 0) {
+            searchResults.innerHTML = `
+              <div class="p-4 text-center text-neutral-500">
+                <div class="text-4xl mb-2">🔍</div>
+                <div>未找到相关结果</div>
+                <div class="text-sm mt-1">试试其他关键词</div>
+              </div>
+            `;
+          } else {
+            const resultsData = await Promise.all(
+              results.results.slice(0, 8).map((r: any) => r.data())
+            );
+
+            searchResults.innerHTML = `
+              <div class="p-2">
+                <div class="px-3 py-2 text-xs text-neutral-500 border-b border-neutral-100 flex items-center justify-between">
+                  <span>找到 ${results.results.length} 个结果</span>
+                  ${results.results.length > 8 ? `
+                    <a href="/search?q=${encodeURIComponent(query)}" class="text-primary-600 hover:text-primary-700 font-medium">
+                      查看全部
+                    </a>
+                  ` : ''}
+                </div>
+                ${resultsData.map((data: any) => `
+                  <a
+                    href="${data.url}"
+                    class="block px-3 py-3 hover:bg-neutral-50 transition-colors border-b border-neutral-100 last:border-0"
+                  >
+                    <div class="font-semibold text-neutral-900 mb-1 line-clamp-1">
+                      ${data.meta.title || '无标题'}
+                    </div>
+                    <div class="text-sm text-neutral-600 line-clamp-2">
+                      ${data.excerpt || ''}
+                    </div>
+                  </a>
+                `).join('')}
+              </div>
+            `;
+          }
+
+          searchResults.classList.remove('hidden');
+        } catch (error) {
+          console.error('Search error:', error);
+          searchResults.innerHTML = `
+            <div class="p-4 text-center text-red-500">
+              搜索出错，请稍后再试
+            </div>
+          `;
+          searchResults.classList.remove('hidden');
+        }
+      }, 300);
+    });
+
+    // 按 Enter 键跳转到搜索结果页
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const query = (e.target as HTMLInputElement).value.trim();
+        if (query) {
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+
+    // 点击外部关闭搜索结果
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target as Node) && !searchResults.contains(e.target as Node)) {
+        searchResults.classList.add('hidden');
+      }
+    });
+
+    // 按 ESC 关闭搜索结果
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchResults.classList.add('hidden');
+        searchInput.blur();
+      }
+    });
+  }
+</script>
+
+<style>
+  .search-container {
+    position: relative;
+    width: 100%;
+  }
+
+  #search-results::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #search-results::-webkit-scrollbar-track {
+    background: #f5f5f5;
+  }
+
+  #search-results::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 3px;
+  }
+
+  #search-results::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;
+  }
+</style>

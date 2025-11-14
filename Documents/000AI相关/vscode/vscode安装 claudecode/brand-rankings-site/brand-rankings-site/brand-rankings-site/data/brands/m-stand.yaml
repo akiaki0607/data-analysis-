@@ -1,0 +1,19 @@
+id: m-stand
+name: M Stand
+nameEn: M Stand
+slug: m-stand
+logo: /images/brands/m-stand.png
+founded: "2017"
+headquarters: 中国上海
+website: https://www.mstandcoffee.com
+description: |
+  M Stand是设计师咖啡品牌，以工业风门店设计和精品咖啡著称。
+  网红打卡圣地，拍照氛围好，咖啡品质佳，从上海起家。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 10
+    score: 7.3

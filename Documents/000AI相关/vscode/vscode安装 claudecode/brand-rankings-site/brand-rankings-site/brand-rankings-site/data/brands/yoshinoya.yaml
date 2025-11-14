@@ -1,0 +1,19 @@
+id: yoshinoya
+name: 吉野家
+nameEn: Yoshinoya
+slug: yoshinoya
+logo: /images/brands/yoshinoya.png
+founded: "1899"
+headquarters: 日本东京
+website: https://www.yoshinoya.com
+description: |
+  吉野家是日本著名的牛肉饭快餐连锁品牌，拥有120多年历史。
+  牛肉饭是招牌产品，出餐速度快，是商务人士午餐的首选。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: fast-food-chains-2024
+    rank: 8
+    score: 7.7

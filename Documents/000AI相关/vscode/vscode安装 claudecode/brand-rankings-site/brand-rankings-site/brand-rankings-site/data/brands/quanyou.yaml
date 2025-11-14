@@ -1,0 +1,14 @@
+id: quanyou
+name: 全友家居
+slug: quanyou
+logo: /images/brands/quanyou.png
+founded: "2000"
+headquarters: 中国
+website: https://www.quanyou.com
+description: 全友家居是中国知名家居品牌。
+industries:
+  - home
+rankings:
+  - rankingId: home-furnishing-brands-2024
+    rank: 3
+    score: 94.7

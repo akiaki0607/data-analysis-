@@ -1,0 +1,19 @@
+id: costa-coffee
+name: COSTA咖啡
+nameEn: Costa Coffee
+slug: costa-coffee
+logo: /images/brands/costa-coffee.png
+founded: "1971"
+headquarters: 英国伦敦
+website: https://www.costa.com
+description: |
+  COSTA咖啡是英国最大的咖啡连锁品牌，现为可口可乐公司旗下。
+  以英式咖啡风味和优雅的门店环境著称，手冲咖啡制作专业。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 3
+    score: 8.8

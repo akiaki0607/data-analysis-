@@ -1,0 +1,19 @@
+id: cotti-coffee
+name: 库迪咖啡
+nameEn: Cotti Coffee
+slug: cotti-coffee
+logo: /images/brands/cotti-coffee.png
+founded: "2022"
+headquarters: 中国福建
+website: https://www.cotticoffee.com
+description: |
+  库迪咖啡是中国新兴咖啡品牌，门店扩张速度快。
+  价格亲民，联名营销活动丰富，年轻化定位明确。
+
+industries:
+  - food
+
+rankings:
+  - rankingId: coffee-chains-2024
+    rank: 8
+    score: 7.7

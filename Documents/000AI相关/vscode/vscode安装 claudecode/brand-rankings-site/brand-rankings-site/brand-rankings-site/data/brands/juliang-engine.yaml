@@ -1,0 +1,19 @@
+id: juliang-engine
+name: 巨量引擎
+nameEn: Ocean Engine
+slug: juliang-engine
+logo: /images/brands/juliang.png
+founded: "2020"
+headquarters: 中国北京
+website: https://www.oceanengine.com
+description: |
+  巨量引擎是字节跳动旗下的营销服务品牌，整合了今日头条、抖音、西瓜视频等
+  产品的营销能力，提供全场景数字营销解决方案。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 3
+    score: 9.0

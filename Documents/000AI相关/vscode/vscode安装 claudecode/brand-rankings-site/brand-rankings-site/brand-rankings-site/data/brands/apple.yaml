@@ -1,0 +1,39 @@
+id: apple
+name: Apple Inc.
+nameEn: Apple Inc.
+slug: apple
+logo: /images/brands/apple.png
+founded: "1976"
+headquarters: 美国加利福尼亚州库比蒂诺
+website: https://www.apple.com
+description: |
+  Apple Inc. 是全球领先的消费电子和软件公司,由史蒂夫·乔布斯、史蒂夫·沃兹尼亚克和罗纳德·韦恩于1976年创立。
+
+  Apple 以其创新的产品设计、强大的生态系统和卓越的用户体验而闻名。从革命性的iPhone到重新定义笔记本电脑的MacBook,
+  Apple 一直引领着科技行业的发展方向。
+
+  核心产品线包括:
+  - iPhone系列智能手机
+  - iPad系列平板电脑
+  - Mac系列个人电脑
+  - Apple Watch智能手表
+  - AirPods无线耳机
+  - Apple TV流媒体设备
+
+  Apple 还提供丰富的服务生态,包括App Store、Apple Music、iCloud、Apple Pay等,形成了完整的软硬件一体化体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 1
+    score: 9.5
+  - rankingId: laptops-2024
+    rank: 1
+    score: 9.7
+
+socialMedia:
+  twitter: https://twitter.com/Apple
+  linkedin: https://www.linkedin.com/company/apple
+  weibo: https://weibo.com/apple

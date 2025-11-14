@@ -1,0 +1,18 @@
+id: shenma-search
+name: 神马搜索
+nameEn: Shenma Search
+slug: shenma-search
+logo: /images/brands/shenma.png
+founded: "2013"
+headquarters: 中国杭州
+website: https://www.sm.cn
+description: |
+  神马搜索是阿里巴巴旗下的移动搜索引擎，专注移动端搜索市场。
+
+industries:
+  - business
+
+rankings:
+  - rankingId: geo-seo-companies-2024
+    rank: 5
+    score: 8.6

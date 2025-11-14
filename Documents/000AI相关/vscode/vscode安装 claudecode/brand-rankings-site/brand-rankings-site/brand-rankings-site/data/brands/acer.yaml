@@ -1,0 +1,18 @@
+id: acer
+name: Acer
+nameEn: Acer Inc.
+slug: acer
+logo: /images/brands/acer.png
+founded: "1976"
+headquarters: 中国台湾
+website: https://www.acer.com
+description: |
+  宏碁是全球知名PC品牌，Predator游戏本和Swift轻薄本深受用户喜爱。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: laptops-2024
+    rank: 7
+    score: 8.1

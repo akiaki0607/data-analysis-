@@ -1,0 +1,41 @@
+---
+// 面包屑导航组件
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="text-sm text-neutral-500 mb-3" aria-label="面包屑导航">
+  <ol class="flex items-center flex-wrap space-x-2">
+    {items.map((item, index) => (
+      <>
+        <li>
+          {item.href ? (
+            <a
+              href={item.href}
+              class="hover:text-primary-600 transition-colors"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span class="text-neutral-900" aria-current="page">
+              {item.label}
+            </span>
+          )}
+        </li>
+        {index < items.length - 1 && (
+          <li aria-hidden="true">
+            <span class="text-neutral-400">/</span>
+          </li>
+        )}
+      </>
+    ))}
+  </ol>
+</nav>

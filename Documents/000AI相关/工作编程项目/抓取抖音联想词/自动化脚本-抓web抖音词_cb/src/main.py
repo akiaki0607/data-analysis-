@@ -20,7 +20,11 @@ from playwright.async_api import async_playwright
 
 # 导入本地模块
 from utils import setup_logging, get_output_paths, create_screenshot_filename, get_relative_screenshot_path, get_current_date
-from ocr import OCRProcessor
+try:
+    from ocr import OCRProcessor
+except ImportError:
+    from ocr_dummy import OCRProcessor
+    print("警告: OCR功能不可用，将跳过文本提取")
 
 class DouyinScraper:
     def __init__(self, config_path='config/config.yml', headful=False):
