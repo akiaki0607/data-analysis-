@@ -1,0 +1,19 @@
+id: aoc
+name: AOC冠捷
+nameEn: AOC
+slug: aoc
+logo: /images/brands/aoc.png
+founded: "1967"
+headquarters: 中国台湾
+website: https://www.aoc.com
+description: |
+  AOC是全球领先的显示设备提供商，隶属于冠捷科技集团。
+  AOC以"因为专注,所以专业"为理念，为全球用户提供高品质的显示器产品。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: monitors-2024
+    rank: 6
+    score: 8.5

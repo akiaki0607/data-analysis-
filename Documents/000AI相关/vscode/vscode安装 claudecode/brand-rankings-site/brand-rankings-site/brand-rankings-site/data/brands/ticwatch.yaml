@@ -1,0 +1,19 @@
+id: ticwatch
+name: TicWatch 出门问问
+nameEn: TicWatch
+slug: ticwatch
+logo: /images/brands/ticwatch.png
+founded: "2012"
+headquarters: 中国北京
+website: https://www.ticwatch.com
+description: |
+  TicWatch是出门问问旗下的智能手表品牌，专注于AI语音交互和健康监测。
+  结合强大的语音助手和丰富的健康功能，为用户提供智能便捷的穿戴体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartwatches-2024
+    rank: 10
+    score: 7.8

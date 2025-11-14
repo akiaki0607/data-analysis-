@@ -1,0 +1,19 @@
+id: ke-qq
+name: 腾讯课堂
+nameEn: Tencent Classroom
+slug: ke-qq
+logo: /images/brands/tencent.png
+founded: "2014"
+headquarters: 中国深圳
+website: https://ke.qq.com
+description: |
+  腾讯课堂是腾讯推出的专业在线教育平台，聚合大量优质教育机构和名师，提供职业培训、考试辅导、兴趣培养等多品类课程。
+  依托QQ的强大用户基础和即时通讯功能，为学员和教育机构建立连接的桥梁。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 5
+    score: 8.8

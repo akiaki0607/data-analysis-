@@ -1,0 +1,25 @@
+id: honor
+name: 荣耀
+nameEn: HONOR
+slug: honor
+logo: /images/brands/honor.png
+founded: "2013"
+headquarters: 中国深圳
+website: https://www.hihonor.com
+description: |
+  荣耀是一家智能终端提供商，致力于成为构建全场景、面向全渠道、服务全人群的标志性科技品牌。
+  荣耀以创新、品质和服务为核心战略控制点，坚持研发及前瞻性技术的持续投入，为全球消费者带来不断创新的智能设备。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: routers-2024
+    rank: 6
+    score: 8.3
+  - rankingId: tablets-2024
+    rank: 8
+    score: 8.1
+  - rankingId: smartwatches-2024
+    rank: 9
+    score: 7.9

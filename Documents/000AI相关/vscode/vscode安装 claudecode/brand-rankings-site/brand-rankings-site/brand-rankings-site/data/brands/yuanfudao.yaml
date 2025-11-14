@@ -1,0 +1,19 @@
+id: yuanfudao
+name: 猿辅导
+nameEn: Yuanfudao
+slug: yuanfudao
+logo: /images/brands/yuanfudao.png
+founded: "2012"
+headquarters: 中国北京
+website: https://www.yuanfudao.com
+description: |
+  猿辅导是中国领先的K12在线教育公司，为学生提供网课、智能练习、难题解析等多元化的智能教育服务。
+  通过人工智能、大数据等技术手段，实现每个学生的个性化学习。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 3
+    score: 9.2

@@ -1,0 +1,25 @@
+id: vivo
+name: vivo
+nameEn: vivo
+slug: vivo
+logo: /images/brands/vivo.png
+founded: "2009"
+headquarters: 中国东莞
+website: https://www.vivo.com
+description: |
+  vivo是一家以创新和用户导向为核心的科技公司，致力于和消费者一起打造拥有极致照片、畅快游戏、Hi-Fi音乐的智能手机产品。
+  vivo在影像、设计、系统、性能等方面不断创新，为消费者创造非凡的移动智慧生活体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 9
+    score: 7.8
+  - rankingId: tablets-2024
+    rank: 10
+    score: 7.7
+  - rankingId: smartwatches-2024
+    rank: 8
+    score: 7.9

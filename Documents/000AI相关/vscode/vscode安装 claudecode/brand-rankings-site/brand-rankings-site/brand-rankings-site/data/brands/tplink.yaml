@@ -1,0 +1,19 @@
+id: tplink
+name: TP-LINK 普联
+nameEn: TP-LINK
+slug: tplink
+logo: /images/brands/tplink.png
+founded: "1996"
+headquarters: 中国深圳
+website: https://www.tp-link.com.cn
+description: |
+  TP-LINK是全球领先的网络通讯设备供应商，专注于为大众提供便利的本地局域网络互联和Internet接入手段。
+  产品涵盖路由器、交换机、网卡等全系列网络设备，市场份额连续多年全球第一。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: routers-2024
+    rank: 4
+    score: 8.7

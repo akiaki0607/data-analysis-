@@ -1,0 +1,19 @@
+id: mercury
+name: 水星网络
+nameEn: MERCURY
+slug: mercury
+logo: /images/brands/mercury.png
+founded: "2001"
+headquarters: 中国成都
+website: https://www.mercurycom.com.cn
+description: |
+  水星网络是专注于无线网络、宽带路由、以太网领域的研发、生产和行销的公司。
+  以高性价比产品为核心竞争力，为家庭和中小企业用户提供可靠的网络解决方案。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: routers-2024
+    rank: 7
+    score: 8.1

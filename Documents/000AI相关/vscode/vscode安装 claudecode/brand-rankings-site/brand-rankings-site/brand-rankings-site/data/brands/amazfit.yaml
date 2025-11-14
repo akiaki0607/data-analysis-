@@ -1,0 +1,19 @@
+id: amazfit
+name: Amazfit 跃我
+nameEn: Amazfit
+slug: amazfit
+logo: /images/brands/amazfit.png
+founded: "2015"
+headquarters: 中国合肥
+website: https://www.amazfit.com
+description: |
+  Amazfit是华米科技旗下的智能可穿戴品牌，专注于健康和运动领域。
+  以超长续航、专业运动监测和时尚设计著称，产品线覆盖智能手表、手环等多个品类。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartwatches-2024
+    rank: 11
+    score: 7.7

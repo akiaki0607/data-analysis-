@@ -1,0 +1,19 @@
+id: bose
+name: Bose
+nameEn: Bose
+slug: bose
+logo: /images/brands/bose.png
+founded: "1964"
+headquarters: 美国马萨诸塞州
+website: https://www.bose.com
+description: |
+  Bose是全球知名的音响品牌，以卓越的音质和创新的降噪技术闻名于世。
+  Bose耳机在降噪领域处于行业领先地位，为用户提供沉浸式的聆听体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 6
+    score: 8.4

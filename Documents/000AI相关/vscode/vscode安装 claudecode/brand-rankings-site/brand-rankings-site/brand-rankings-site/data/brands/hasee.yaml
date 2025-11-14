@@ -1,0 +1,19 @@
+id: hasee
+name: 神舟/海尔
+nameEn: Hasee
+slug: hasee
+logo: /images/brands/hasee.png
+founded: "2001"
+headquarters: 中国深圳
+website: https://www.hasee.com
+description: |
+  神舟电脑是中国知名的PC品牌，以高性价比著称。
+  品牌专注于为中国消费者提供性能卓越、价格亲民的笔记本电脑产品。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: gaming-laptops-2024
+    rank: 10
+    score: 7.9

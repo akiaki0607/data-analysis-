@@ -1,0 +1,19 @@
+id: google
+name: Google Pixel
+nameEn: Google
+slug: google
+logo: /images/brands/google.png
+founded: "2016"
+headquarters: 美国加州
+website: https://store.google.com/pixel
+description: |
+  Google Pixel是谷歌推出的智能手机系列，以纯净的原生Android系统和顶级的计算摄影技术著称。
+  Pixel系列代表了Android手机的标杆水准，深度整合Google AI能力，为用户提供最智能的移动体验。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 10
+    score: 8.2

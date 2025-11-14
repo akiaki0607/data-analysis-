@@ -1,0 +1,19 @@
+id: igetget
+name: 得到
+nameEn: iGet
+slug: igetget
+logo: /images/brands/igetget.png
+founded: "2015"
+headquarters: 中国北京
+website: https://www.igetget.com
+description: |
+  得到App是罗辑思维团队出品的知识服务平台，为用户提供精选的知识产品和服务。
+  通过音频、电子书、课程等形式，帮助用户利用碎片时间实现知识升级，打造终身学习的知识库。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 4
+    score: 9.0

@@ -1,5 +1,8 @@
 ---
 // 品牌列表项组件 (#4+)
+import BrandLogo from './BrandLogo.astro';
+import { loadAllBrands } from '../utils/dataLoader';
+
 interface Props {
   brand: {
     rank: number;
@@ -13,6 +16,10 @@ interface Props {
 }
 
 const { brand } = Astro.props;
+
+// 获取品牌完整信息以获取nameEn
+const allBrands = loadAllBrands();
+const fullBrand = allBrands.find(b => b.id === brand.brandId);
 ---
 
 <div class="bg-white border border-neutral-200 rounded-lg hover:shadow-card-hover transition-shadow">
@@ -26,13 +33,8 @@ const { brand } = Astro.props;
     </div>
 
     <!-- Logo -->
-    <div class="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 bg-neutral-50 rounded-lg flex items-center justify-center p-2">
-      <img
-        src={brand.logo}
-        alt={brand.name}
-        class="max-w-full max-h-full object-contain"
-        loading="lazy"
-      />
+    <div class="flex-shrink-0">
+      <BrandLogo name={brand.name} nameEn={fullBrand?.nameEn} size="md" />
     </div>
 
     <!-- 品牌信息 -->

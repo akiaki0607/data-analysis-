@@ -1,0 +1,19 @@
+id: thunderobot
+name: 雷神
+nameEn: ThundeRobot
+slug: thunderobot
+logo: /images/brands/thunderobot.png
+founded: "2014"
+headquarters: 中国青岛
+website: https://www.thunderobot.com
+description: |
+  雷神是海尔集团旗下的游戏本品牌，专注于为中国游戏玩家打造高性价比的游戏装备。
+  雷神以"游戏装备专家"自居，产品覆盖游戏本、台式机、外设等多个品类。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: gaming-laptops-2024
+    rank: 7
+    score: 8.2

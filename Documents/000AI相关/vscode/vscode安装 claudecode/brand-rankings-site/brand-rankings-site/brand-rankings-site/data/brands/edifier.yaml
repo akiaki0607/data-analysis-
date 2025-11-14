@@ -1,0 +1,19 @@
+id: edifier
+name: 漫步者
+nameEn: Edifier
+slug: edifier
+logo: /images/brands/edifier.png
+founded: "1996"
+headquarters: 中国北京
+website: https://www.edifier.com
+description: |
+  漫步者是中国知名的音频品牌，专注于音箱和耳机的研发制造。
+  以出色的音质、精湛的工艺和高性价比著称，产品获得多项Hi-Res认证。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 10
+    score: 7.6

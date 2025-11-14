@@ -1,0 +1,19 @@
+id: zhihu
+name: 知乎
+nameEn: Zhihu
+slug: zhihu
+logo: /images/brands/zhihu.png
+founded: "2010"
+headquarters: 中国北京
+website: https://www.zhihu.com
+description: |
+  知乎是中国领先的问答社区，汇聚各行各业的专业人士分享知识、经验和见解。
+  知乎Live、知乎盐选等产品为用户提供系统化的知识付费服务，成为重要的在线学习和知识获取平台。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 9
+    score: 8.2

@@ -1,0 +1,19 @@
+id: beats
+name: Beats
+nameEn: Beats
+slug: beats
+logo: /images/brands/beats.png
+founded: "2006"
+headquarters: 美国加州
+website: https://www.beatsbydre.com
+description: |
+  Beats是由Dr. Dre创立的音频品牌，现为Apple旗下品牌。
+  以时尚设计、强劲低音和与Apple生态的深度整合著称，深受年轻用户喜爱。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 7
+    score: 8.2

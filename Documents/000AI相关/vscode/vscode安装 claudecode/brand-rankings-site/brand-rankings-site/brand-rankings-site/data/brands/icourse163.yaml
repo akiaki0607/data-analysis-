@@ -1,0 +1,19 @@
+id: icourse163
+name: 中国大学MOOC
+nameEn: iCourse163
+slug: icourse163
+logo: /images/brands/icourse163.png
+founded: "2014"
+headquarters: 中国北京
+website: https://www.icourse163.org
+description: |
+  中国大学MOOC是由网易与教育部爱课程网携手推出的在线教育平台，汇集中国顶尖高校的MOOC课程。
+  让每一个有提升愿望的用户能够学到中国最好的大学课程，享受优质的教育资源。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 7
+    score: 8.5

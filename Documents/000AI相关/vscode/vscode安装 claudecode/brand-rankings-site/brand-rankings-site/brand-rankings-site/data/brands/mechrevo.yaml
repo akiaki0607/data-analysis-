@@ -1,0 +1,19 @@
+id: mechrevo
+name: 机械革命
+nameEn: MECHREVO
+slug: mechrevo
+logo: /images/brands/mechrevo.png
+founded: "2014"
+headquarters: 中国北京
+website: https://www.mechrevo.com
+description: |
+  机械革命是专注游戏本的国产品牌，以极致性价比和强悍性能著称。
+  品牌坚持"让游戏本回归本质"的理念，为玩家提供高性能、高品质的游戏装备。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: gaming-laptops-2024
+    rank: 6
+    score: 8.3

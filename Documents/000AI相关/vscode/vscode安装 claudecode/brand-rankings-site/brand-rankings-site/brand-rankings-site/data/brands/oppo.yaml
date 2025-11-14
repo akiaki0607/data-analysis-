@@ -1,0 +1,25 @@
+id: oppo
+name: OPPO
+nameEn: OPPO
+slug: oppo
+logo: /images/brands/oppo.png
+founded: "2004"
+headquarters: 中国东莞
+website: https://www.oppo.com
+description: |
+  OPPO是一家致力于为全球消费者提供拥有至美外观、愉悦体验的智能终端产品的科技公司。
+  OPPO不断追求极致科技和艺术融合的理想形态，旗下产品涵盖手机、智能手表、平板、耳机等多个品类。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: wireless-earbuds-2024
+    rank: 8
+    score: 8.0
+  - rankingId: tablets-2024
+    rank: 9
+    score: 7.9
+  - rankingId: smartwatches-2024
+    rank: 7
+    score: 8.0

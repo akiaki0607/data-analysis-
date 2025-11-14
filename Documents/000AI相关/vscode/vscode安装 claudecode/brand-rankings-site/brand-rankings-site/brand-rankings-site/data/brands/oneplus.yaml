@@ -1,0 +1,19 @@
+id: oneplus
+name: 一加
+nameEn: OnePlus
+slug: oneplus
+logo: /images/brands/oneplus.png
+founded: "2013"
+headquarters: 中国深圳
+website: https://www.oneplus.com
+description: |
+  一加是一家专注于高端旗舰手机的科技品牌，秉持"只做最好的安卓旗舰"的理念。
+  一加以极致的性能、优质的屏幕和流畅的系统体验赢得全球用户的喜爱，在海外市场特别是欧美地区表现出色。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartphones-2024
+    rank: 9
+    score: 8.3

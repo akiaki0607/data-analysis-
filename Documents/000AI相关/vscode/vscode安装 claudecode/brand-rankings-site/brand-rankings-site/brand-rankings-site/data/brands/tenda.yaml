@@ -1,0 +1,19 @@
+id: tenda
+name: 腾达
+nameEn: Tenda
+slug: tenda
+logo: /images/brands/tenda.png
+founded: "1999"
+headquarters: 中国深圳
+website: https://www.tenda.com.cn
+description: |
+  腾达是专业从事网络设备研发、制造和销售的国家级高新技术企业。
+  产品涵盖无线路由器、交换机、网卡等，以稳定可靠和高性价比著称。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: routers-2024
+    rank: 8
+    score: 8.0

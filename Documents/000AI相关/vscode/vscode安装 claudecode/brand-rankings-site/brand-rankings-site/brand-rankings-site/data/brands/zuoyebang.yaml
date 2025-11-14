@@ -1,0 +1,19 @@
+id: zuoyebang
+name: 作业帮
+nameEn: Zuoyebang
+slug: zuoyebang
+logo: /images/brands/zuoyebang.png
+founded: "2015"
+headquarters: 中国北京
+website: https://www.zuoyebang.com
+description: |
+  作业帮是中国领先的K12在线教育平台，致力于为全国中小学生提供全学段的学习辅导服务。
+  通过作业帮一课、题库、直播课等产品，帮助学生高效学习、解决难题。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 2
+    score: 9.3

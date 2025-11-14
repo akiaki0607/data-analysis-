@@ -7,23 +7,23 @@ import { formatDate, formatNumber } from '../../utils/helpers';
 
 export async function getStaticPaths() {
   const allBrands = loadAllBrands();
-  const techBrands = allBrands.filter(brand => brand.industries?.includes('tech'));
+  const homeBrands = allBrands.filter(brand => brand.industries?.includes('home'));
 
-  return techBrands.map((brand) => ({
+  return homeBrands.map((brand) => ({
     params: { id: brand.id },
     props: { brand }
   }));
 }
 
 const { brand } = Astro.props;
-const industry = getIndustryById('tech');
+const industry = getIndustryById('home');
 
 if (!industry) {
   return Astro.redirect('/404');
 }
 
 // 获取品牌参与的排行榜
-const allRankings = loadRankingsByIndustry('tech');
+const allRankings = loadRankingsByIndustry('home');
 const brandRankings = allRankings
   .filter(ranking => ranking.brands.some(b => b.brandId === brand.id))
   .map(ranking => {
@@ -39,7 +39,7 @@ const brandRankings = allRankings
 // 获取相关品牌推荐（同行业其他品牌）
 const allBrands = loadAllBrands();
 const relatedBrands = allBrands
-  .filter(b => b.id !== brand.id && b.industries?.includes('tech'))
+  .filter(b => b.id !== brand.id && b.industries?.includes('home'))
   .slice(0, 3);
 
 const breadcrumbItems = [

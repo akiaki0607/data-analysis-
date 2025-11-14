@@ -1,0 +1,19 @@
+id: benq
+name: 明基
+nameEn: BenQ
+slug: benq
+logo: /images/brands/benq.png
+founded: "2001"
+headquarters: 中国台湾
+website: https://www.benq.com
+description: |
+  明基是全球知名的数字时尚科技领导品牌，专注于显示器、投影机等视讯产品。
+  BenQ以"数位时尚网络产品"为主轴，致力于实现"传达资讯生活的真善美"的企业愿景。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: monitors-2024
+    rank: 5
+    score: 8.7

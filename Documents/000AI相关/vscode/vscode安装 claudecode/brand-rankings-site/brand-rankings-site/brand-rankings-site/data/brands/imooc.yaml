@@ -1,0 +1,19 @@
+id: imooc
+name: 慕课网
+nameEn: iMooc
+slug: imooc
+logo: /images/brands/imooc.png
+founded: "2013"
+headquarters: 中国北京
+website: https://www.imooc.com
+description: |
+  慕课网是中国领先的IT技能学习平台，专注于提供前沿的IT技术课程和职业培训服务。
+  涵盖前端、后端、移动开发、数据科学等各个技术领域，帮助程序员持续提升技能。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 10
+    score: 8.0

@@ -1,0 +1,19 @@
+id: bilibili
+name: 哔哩哔哩
+nameEn: Bilibili
+slug: bilibili
+logo: /images/brands/bilibili.png
+founded: "2009"
+headquarters: 中国上海
+website: https://www.bilibili.com
+description: |
+  哔哩哔哩（B站）是中国年轻世代高度聚集的文化社区和视频平台，在知识分享和在线学习领域影响力不断扩大。
+  大量优质UP主在B站分享学习视频，涵盖编程、设计、语言学习等各个领域，成为年轻人重要的学习平台。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 8
+    score: 8.3

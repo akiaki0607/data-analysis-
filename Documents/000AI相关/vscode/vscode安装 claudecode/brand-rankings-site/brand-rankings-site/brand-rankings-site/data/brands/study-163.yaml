@@ -1,0 +1,19 @@
+id: study-163
+name: 网易云课堂
+nameEn: Study.163
+slug: study-163
+logo: /images/brands/netease.png
+founded: "2012"
+headquarters: 中国杭州
+website: https://study.163.com
+description: |
+  网易云课堂是网易公司打造的在线实用技能学习平台，提供IT互联网、职场提升、生活兴趣等多领域课程。
+  汇聚众多知名讲师和教育机构，致力于为用户提供优质、系统的在线学习服务。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 6
+    score: 8.6

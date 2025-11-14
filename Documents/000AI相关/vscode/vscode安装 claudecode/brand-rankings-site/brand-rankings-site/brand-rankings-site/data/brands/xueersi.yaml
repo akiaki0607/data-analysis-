@@ -1,0 +1,19 @@
+id: xueersi
+name: 学而思网校
+nameEn: Xueersi Online School
+slug: xueersi
+logo: /images/brands/xueersi.png
+founded: "2008"
+headquarters: 中国北京
+website: https://www.xueersi.com
+description: |
+  学而思网校是好未来教育集团旗下的中小学在线教育品牌，为3-18岁孩子提供小初高全学科课外教学。
+  采用"直播+辅导"双师模式，通过实时在线的互动教学、图文并茂的随堂讲义、科学全面的学情分析，让学习更有效。
+
+industries:
+  - education
+
+rankings:
+  - rankingId: education-platforms-2024
+    rank: 1
+    score: 9.5

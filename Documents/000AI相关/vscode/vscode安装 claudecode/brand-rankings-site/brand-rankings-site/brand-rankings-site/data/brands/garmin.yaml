@@ -1,0 +1,19 @@
+id: garmin
+name: Garmin 佳明
+nameEn: Garmin
+slug: garmin
+logo: /images/brands/garmin.png
+founded: "1989"
+headquarters: 美国堪萨斯
+website: https://www.garmin.com
+description: |
+  Garmin是全球知名的GPS导航设备制造商，在运动健康领域享有盛誉。
+  Garmin智能手表以专业运动监测、超长续航和精准GPS定位著称，是运动爱好者和专业运动员的首选。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: smartwatches-2024
+    rank: 5
+    score: 8.3

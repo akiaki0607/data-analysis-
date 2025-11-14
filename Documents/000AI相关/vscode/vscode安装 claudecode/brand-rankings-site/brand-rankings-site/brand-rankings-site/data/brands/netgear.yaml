@@ -1,0 +1,19 @@
+id: netgear
+name: 网件
+nameEn: NETGEAR
+slug: netgear
+logo: /images/brands/netgear.png
+founded: "1996"
+headquarters: 美国加州
+website: https://www.netgear.com
+description: |
+  NETGEAR是全球领先的企业级网络解决方案及数字家庭网络产品提供商。
+  以创新的网络技术和高性能产品著称，在高端路由器市场占据重要地位。
+
+industries:
+  - tech
+
+rankings:
+  - rankingId: routers-2024
+    rank: 9
+    score: 7.9
