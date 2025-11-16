@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="品牌排行榜详情">
+    <title>榜单详情 - paihp.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .ranking-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .ranking-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .ranking-intro {
+            background: var(--bg-white);
+            padding: 3rem 0;
+        }
+
+        .ranking-intro p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .brands-section {
+            padding: 3rem 0;
+            background: var(--bg-light);
+        }
+
+        .top3-brands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .brand-card {
+            background: var(--bg-white);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card.top1 {
+            border: 3px solid #FFD700;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .brand-card.top2 {
+            border: 3px solid #C0C0C0;
+            box-shadow: 0 10px 40px rgba(192, 192, 192, 0.3);
+        }
+
+        .brand-card.top3 {
+            border: 3px solid #CD7F32;
+            box-shadow: 0 10px 40px rgba(205, 127, 50, 0.3);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .rank-badge.gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+
+        .rank-badge.silver {
+            background: linear-gradient(135deg, #C0C0C0, #808080);
+        }
+
+        .rank-badge.bronze {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+        }
+
+        .brand-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .brand-rating {
+            font-size: 1.25rem;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-score {
+            font-size: 1rem;
+            color: var(--success-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .brand-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .brand-highlights {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-highlights h4 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .brand-highlights ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .brand-highlights li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-highlights li:before {
+            content: "✓ ";
+            color: var(--success-color);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .brand-website {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .brand-website:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .other-brands {
+            margin-top: 3rem;
+        }
+
+        .other-brand-item {
+            background: var(--bg-white);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .other-rank {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 50px;
+        }
+
+        .other-brand-content {
+            flex: 1;
+        }
+
+        .other-brand-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .evaluation-section {
+            background: var(--bg-white);
+            padding: 3rem 0;
+        }
+
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .evaluation-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 0.75rem;
+        }
+
+        .evaluation-item h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .evaluation-item p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .data-source {
+            background: var(--bg-light);
+            padding: 3rem 0;
+        }
+
+        .source-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .source-content h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .source-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .back-buttons {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 0 0.5rem;
+            padding: 0.75rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .back-btn.secondary {
+            background: var(--text-light);
+        }
+
+        .back-btn.secondary:hover {
+            background: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>paihp.com</h1>
+                <p>2025中国行业品牌排行榜</p>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="index.html#industries">行业榜单</a>
+                <a href="index.html#hot-rankings">热门榜单</a>
+                <a href="index.html#rules">榜单规则</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 榜单标题 -->
+    <section class="ranking-header">
+        <div class="container">
+            <h1 id="rankingTitle">加载中...</h1>
+            <div class="ranking-stats" style="margin-top: 1rem;">
+                <span class="stat-badge" style="background: rgba(255,255,255,0.2); color: white; padding: 0.5rem 1rem;">
+                    <span>🔥</span>
+                    <span id="rankingHeat"></span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 榜单介绍 -->
+    <section class="ranking-intro">
+        <div class="container">
+            <p id="rankingDescription"></p>
+        </div>
+    </section>
+
+    <!-- Top 3 品牌展示 -->
+    <section class="brands-section">
+        <div class="container">
+            <h2 class="section-title">🏆 Top 3 品牌</h2>
+            <div class="top3-brands" id="top3Brands"></div>
+
+            <!-- 其他品牌 -->
+            <div class="other-brands" id="otherBrands"></div>
+        </div>
+    </section>
+
+    <!-- 综合评分维度 -->
+    <section class="evaluation-section">
+        <div class="container">
+            <h2 class="section-title">📊 综合评分维度</h2>
+            <div class="evaluation-grid">
+                <div class="evaluation-item">
+                    <h4>品牌热度</h4>
+                    <p>基于搜索量、社交媒体讨论度等数据</p>
+                </div>
+                <div class="evaluation-item">
+                    <h4>用户口碑</h4>
+                    <p>来自电商平台、社交媒体的用户评价</p>
+                </div>
+                <div class="evaluation-item">
+                    <h4>创新能力</h4>
+                    <p>产品创新、技术研发投入等指标</p>
+                </div>
+                <div class="evaluation-item">
+                    <h4>市场表现</h4>
+                    <p>市场占有率、销售数据等</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据来源与规则声明 -->
+    <section class="data-source">
+        <div class="container">
+            <h2 class="section-title">📋 数据来源与规则声明</h2>
+            <div class="source-content">
+                <h3>数据来源</h3>
+                <p>• 行业权威报告与研究机构数据</p>
+                <p>• 主流电商平台销售与评价数据</p>
+                <p>• 搜索引擎与社交媒体公开数据</p>
+                <p>• AI技术自动采集与分析</p>
+                
+                <h3 style="margin-top: 1.5rem;">评选规则</h3>
+                <p>• 采用多维度综合评分体系</p>
+                <p>• AI自动评估与人工复核相结合</p>
+                <p>• 定期更新，确保数据时效性</p>
+                <p>• 不接受商业付费排名，保证公正性</p>
+            </div>
+
+            <div class="back-buttons">
+                <a href="#" id="backToIndustry" class="back-btn">← 返回行业页</a>
+                <a href="index.html" class="back-btn secondary">返回首页</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>paihp.com致力于打造权威、可验证的行业品牌排行榜体系</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速导航</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="index.html#industries">行业榜单</a></li>
+                        <li><a href="index.html#hot-rankings">热门榜单</a></li>
+                        <li><a href="index.html#rules">榜单规则</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>邮箱: contact@paihp.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 paihp.com. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const industryId = urlParams.get('industry');
+        const rankingId = urlParams.get('id');
+
+        // 加载数据
+        async function loadRankingData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const industry = data.industries.find(ind => ind.id === industryId);
+                
+                if (industry) {
+                    const ranking = industry.rankings.find(r => r.id === rankingId);
+                    if (ranking) {
+                        renderRanking(ranking, industry);
+                    } else {
+                        document.getElementById('rankingTitle').textContent = '榜单未找到';
+                    }
+                } else {
+                    document.getElementById('rankingTitle').textContent = '行业未找到';
+                }
+            } catch (error) {
+                console.error('加载数据失败:', error);
+            }
+        }
+
+        // 渲染榜单信息
+        function renderRanking(ranking, industry) {
+            document.getElementById('rankingTitle').textContent = ranking.title;
+            document.getElementById('rankingDescription').textContent = ranking.description;
+            document.getElementById('rankingHeat').textContent = ranking.heat;
+            document.title = `${ranking.title} - paihp.com`;
+
+            // 设置返回行业页链接
+            document.getElementById('backToIndustry').href = `industry.html?id=${industryId}`;
+
+            // 渲染Top 3品牌
+            const top3 = ranking.brands.slice(0, 3);
+            const top3Container = document.getElementById('top3Brands');
+            
+            const rankClasses = ['top1', 'top2', 'top3'];
+            const rankBadges = ['gold', 'silver', 'bronze'];
+            
+            top3Container.innerHTML = top3.map((brand, index) => `
+                <div class="brand-card ${rankClasses[index]}">
+                    <div class="rank-badge ${rankBadges[index]}">${brand.rank}</div>
+                    <div class="brand-name">${brand.name}</div>
+                    <div class="brand-rating">${brand.rating}</div>
+                    <div class="brand-score">综合评分: ${brand.score}</div>
+                    <div class="brand-description">${brand.description}</div>
+                    <div class="brand-highlights">
+                        <h4>核心优势:</h4>
+                        <ul>
+                            ${brand.highlights.map(h => `<li>${h}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ${brand.rank === 1 ? `<a href="${brand.website}" class="brand-website" target="_blank" rel="noopener">访问官网 →</a>` : ''}
+                </div>
+            `).join('');
+
+            // 渲染其他品牌
+            const others = ranking.brands.slice(3);
+            const othersContainer = document.getElementById('otherBrands');
+            
+            if (others.length > 0) {
+                othersContainer.innerHTML = `
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">其他上榜品牌</h3>
+                    ${others.map(brand => `
+                        <div class="other-brand-item">
+                            <div class="other-rank">${brand.rank}</div>
+                            <div class="other-brand-content">
+                                <h3>${brand.name}</h3>
+                                <div style="margin: 0.5rem 0;">
+                                    <span class="brand-rating" style="font-size: 1rem;">${brand.rating}</span>
+                                    <span class="brand-score" style="margin-left: 1rem; font-size: 0.875rem;">综合评分: ${brand.score}</span>
+                                </div>
+                                <p style="color: var(--text-light); margin: 0.75rem 0;">${brand.description}</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;">
+                                    ${brand.highlights.slice(0, 3).map(h => `
+                                        <span class="stat-badge">${h}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                `;
+            }
+        }
+
+        // 页面加载时执行
+        document.addEventListener('DOMContentLoaded', loadRankingData);
+    </script>
+</body>
+</html>

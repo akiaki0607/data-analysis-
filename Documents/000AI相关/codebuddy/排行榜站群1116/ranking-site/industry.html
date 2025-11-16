@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="行业品牌排行榜详情">
+    <title>行业详情 - paihp.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .industry-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .industry-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .industry-intro {
+            background: var(--bg-white);
+            padding: 3rem 0;
+        }
+
+        .industry-intro p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .rankings-section {
+            padding: 3rem 0;
+            background: var(--bg-light);
+        }
+
+        .ranking-item {
+            background: var(--bg-white);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .ranking-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .ranking-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .ranking-item p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .ranking-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 2rem auto;
+            padding: 0.75rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>paihp.com</h1>
+                <p>2025中国行业品牌排行榜</p>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="index.html#industries">行业榜单</a>
+                <a href="index.html#hot-rankings">热门榜单</a>
+                <a href="index.html#rules">榜单规则</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 行业标题 -->
+    <section class="industry-header">
+        <div class="container">
+            <div id="industryIcon" style="font-size: 4rem; margin-bottom: 1rem;"></div>
+            <h1 id="industryName">加载中...</h1>
+        </div>
+    </section>
+
+    <!-- 行业介绍 -->
+    <section class="industry-intro">
+        <div class="container">
+            <p id="industryDescription"></p>
+        </div>
+    </section>
+
+    <!-- 榜单列表 -->
+    <section class="rankings-section">
+        <div class="container">
+            <h2 class="section-title">📋 行业榜单列表</h2>
+            <div id="rankingsList"></div>
+            <div class="btn-container">
+                <a href="index.html" class="back-btn">← 返回首页</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>paihp.com致力于打造权威、可验证的行业品牌排行榜体系</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速导航</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="index.html#industries">行业榜单</a></li>
+                        <li><a href="index.html#hot-rankings">热门榜单</a></li>
+                        <li><a href="index.html#rules">榜单规则</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>邮箱: contact@paihp.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 paihp.com. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const industryId = urlParams.get('id');
+
+        // 加载数据
+        async function loadIndustryData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const industry = data.industries.find(ind => ind.id === industryId);
+                
+                if (industry) {
+                    renderIndustry(industry);
+                } else {
+                    document.getElementById('industryName').textContent = '行业未找到';
+                }
+            } catch (error) {
+                console.error('加载数据失败:', error);
+            }
+        }
+
+        // 渲染行业信息
+        function renderIndustry(industry) {
+            document.getElementById('industryIcon').textContent = industry.icon;
+            document.getElementById('industryName').textContent = industry.name;
+            document.getElementById('industryDescription').textContent = industry.description;
+            document.title = `${industry.name} - paihp.com`;
+
+            // 渲染榜单列表
+            const rankingsList = document.getElementById('rankingsList');
+            rankingsList.innerHTML = industry.rankings.map(ranking => `
+                <div class="ranking-item" onclick="goToRanking('${industry.id}', '${ranking.id}')">
+                    <h3>${ranking.title}</h3>
+                    <p>${ranking.description}</p>
+                    <div class="ranking-meta">
+                        <span class="stat-badge">
+                            <span>🔥</span>
+                            <span class="heat-value">${ranking.heat}</span>
+                        </span>
+                        <span class="stat-badge">
+                            <span>📂</span>
+                            <span>${ranking.category}</span>
+                        </span>
+                        <span class="stat-badge">
+                            <span>🏆</span>
+                            <span>Top ${ranking.brands.length} 品牌</span>
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 跳转到榜单详情
+        function goToRanking(industryId, rankingId) {
+            window.location.href = `ranking.html?industry=${industryId}&id=${rankingId}`;
+        }
+
+        // 页面加载时执行
+        document.addEventListener('DOMContentLoaded', loadIndustryData);
+    </script>
+</body>
+</html>
