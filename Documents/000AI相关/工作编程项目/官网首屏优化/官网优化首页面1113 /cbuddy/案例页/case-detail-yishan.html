@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移山科技GEO服务案例 - 从0到1的AI搜索增长之路</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;line-height:1.6;color:#1e293b;background:#fff;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+header{position:fixed;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);border-bottom:1px solid #f1f5f9;z-index:1000;padding:18px 0;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:19px;font-weight:700;color:#0ea5e9}
+.nav-links{display:flex;gap:35px;list-style:none}
+.nav-links a{color:#64748b;text-decoration:none;transition:color 0.3s;font-weight:500;font-size:15px}
+.nav-links a:hover{color:#0ea5e9}
+.cta-btn{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:11px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;box-shadow:0 4px 12px rgba(14,165,233,0.25)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,165,233,0.35)}
+
+/* 案例头部 */
+.case-hero{margin-top:80px;padding:80px 0 60px;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 50%,#f0f9ff 100%);position:relative}
+.breadcrumb{font-size:14px;color:#64748b;margin-bottom:20px}
+.breadcrumb a{color:#0ea5e9;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.case-hero-content{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.case-badge{background:#e0f2fe;color:#0369a1;padding:8px 20px;border-radius:20px;font-size:13px;margin-bottom:20px;display:inline-block;font-weight:600;border:1px solid #bae6fd}
+.case-hero h1{font-size:48px;line-height:1.2;margin-bottom:20px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.case-hero .subtitle{font-size:18px;color:#64748b;margin-bottom:30px;line-height:1.75}
+.case-meta{display:flex;gap:30px;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:10px}
+.meta-icon{width:40px;height:40px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.meta-info h4{font-size:13px;color:#64748b;font-weight:500;margin-bottom:2px}
+.meta-info p{font-size:16px;color:#0f172a;font-weight:700}
+
+/* 关键指标卡片 */
+.metrics-card{background:white;border-radius:20px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,0.08);border:1px solid #f1f5f9}
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.metric-item{text-align:center;padding:20px;background:#f8fafc;border-radius:12px;border-left:3px solid #0ea5e9}
+.metric-value{font-size:36px;font-weight:800;color:#0ea5e9;display:block;margin-bottom:8px}
+.metric-label{font-size:14px;color:#64748b;font-weight:500}
+
+/* 客户背景 */
+.section{padding:80px 0}
+.section-white{background:white}
+.section-gray{background:#f8fafc}
+.section-header{text-align:center;margin-bottom:50px}
+.section-title{font-size:38px;margin-bottom:15px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.section-subtitle{font-size:17px;color:#64748b}
+.content-box{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:45px;max-width:900px;margin:0 auto}
+.content-box h3{font-size:24px;color:#0f172a;margin-bottom:20px;font-weight:700;display:flex;align-items:center;gap:12px}
+.content-box h3::before{content:'';width:4px;height:24px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:2px}
+.content-box p{color:#64748b;line-height:1.8;font-size:16px;margin-bottom:20px}
+.highlight-box{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border-left:4px solid #0ea5e9;border-radius:12px;padding:25px;margin:25px 0}
+.highlight-box p{color:#0369a1;font-weight:500;margin:0}
+
+/* 痛点分析 */
+.pain-points{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin-top:40px}
+.pain-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:30px;transition:all 0.3s}
+.pain-card:hover{border-color:#0ea5e9;transform:translateY(-5px);box-shadow:0 10px 30px rgba(14,165,233,0.12)}
+.pain-icon{width:50px;height:50px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.pain-card h4{font-size:18px;color:#0f172a;margin-bottom:12px;font-weight:700}
+.pain-card p{color:#64748b;font-size:15px;line-height:1.7}
+
+/* 策略步骤 */
+.strategy-timeline{max-width:900px;margin:40px auto 0}
+.timeline-item{display:grid;grid-template-columns:80px 1fr;gap:25px;margin-bottom:35px;position:relative}
+.timeline-item::before{content:'';position:absolute;left:39px;top:80px;bottom:-35px;width:2px;background:linear-gradient(180deg,#0ea5e9 0%,#e0f2fe 100%)}
+.timeline-item:last-child::before{display:none}
+.timeline-number{width:80px;height:80px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:28px;font-weight:800;box-shadow:0 4px 15px rgba(14,165,233,0.3);position:relative;z-index:1}
+.timeline-content{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:30px;flex:1}
+.timeline-content h4{font-size:20px;color:#0f172a;margin-bottom:15px;font-weight:700}
+.timeline-content p{color:#64748b;line-height:1.8;font-size:15px;margin-bottom:15px}
+.timeline-content ul{list-style:none;margin-top:15px}
+.timeline-content li{padding:8px 0;padding-left:28px;position:relative;color:#475569;font-size:14px}
+.timeline-content li::before{content:'✓';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:16px}
+
+/* 效果展示 */
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:40px}
+.result-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:35px;text-align:center;transition:all 0.3s}
+.result-card:hover{border-color:#0ea5e9;transform:translateY(-5px);box-shadow:0 10px 30px rgba(14,165,233,0.12)}
+.result-icon{font-size:48px;margin-bottom:20px}
+.result-value{font-size:42px;font-weight:800;color:#0ea5e9;display:block;margin-bottom:10px}
+.result-label{font-size:15px;color:#64748b;font-weight:500;margin-bottom:8px}
+.result-desc{font-size:13px;color:#94a3b8;line-height:1.6}
+
+/* CTA区域 */
+.case-cta{padding:80px 0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;text-align:center}
+.case-cta h2{font-size:38px;margin-bottom:20px;font-weight:800}
+.case-cta p{font-size:18px;margin-bottom:35px;opacity:0.95}
+.cta-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.btn-white{background:white;color:#0ea5e9;padding:15px 35px;border-radius:10px;text-decoration:none;font-weight:700;transition:all 0.3s;display:inline-block;font-size:16px}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,255,255,0.3)}
+.btn-outline{background:transparent;color:white;padding:15px 35px;border:2px solid rgba(255,255,255,0.5);border-radius:10px;text-decoration:none;font-weight:700;transition:all 0.3s;display:inline-block;font-size:16px}
+.btn-outline:hover{border-color:white;background:rgba(255,255,255,0.1)}
+
+/* 相关案例 */
+.related-cases{padding:80px 0;background:#f8fafc}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:40px}
+.mini-case-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:0;overflow:hidden;transition:all 0.3s;text-decoration:none;display:block}
+.mini-case-card:hover{border-color:#0ea5e9;transform:translateY(-5px);box-shadow:0 10px 30px rgba(14,165,233,0.12)}
+.mini-case-image{width:100%;height:160px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);display:flex;align-items:center;justify-content:center;font-size:60px}
+.mini-case-content{padding:25px}
+.mini-case-industry{color:#0ea5e9;font-size:13px;font-weight:600;margin-bottom:8px;text-transform:uppercase}
+.mini-case-card h4{font-size:18px;color:#0f172a;margin-bottom:10px;font-weight:700}
+.mini-case-card p{color:#64748b;font-size:14px;line-height:1.7}
+
+@media(max-width:768px){
+  .case-hero-content,.metrics-grid{grid-template-columns:1fr}
+  .case-hero h1{font-size:32px}
+  .nav-links{display:none}
+  .timeline-item{grid-template-columns:60px 1fr;gap:15px}
+  .timeline-number{width:60px;height:60px;font-size:22px}
+  .timeline-item::before{left:29px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <div class="logo">移山科技 | GEO专家</div>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#solutions">解决方案</a></li>
+      <li><a href="#cases">成功案例</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <a href="#cta" class="cta-btn">获取诊断</a>
+  </nav>
+</header>
+
+<section class="case-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a> / <a href="index.html#cases">成功案例</a> / 移山科技GEO服务案例
+    </div>
+    <div class="case-hero-content">
+      <div>
+        <div class="case-badge">GEO服务行业 · 科技创新</div>
+        <h1>从0到1的AI搜索增长之路</h1>
+        <p class="subtitle">中国GEO领域先行者，如何通过精准策略在两周内实现品牌AI搜索可见度从0到行业第一的跨越式增长</p>
+        <div class="case-meta">
+          <div class="meta-item">
+            <div class="meta-icon">🏢</div>
+            <div class="meta-info">
+              <h4>行业</h4>
+              <p>GEO服务 · 科技</p>
+            </div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-icon">⏱️</div>
+            <div class="meta-info">
+              <h4>优化周期</h4>
+              <p>14天</p>
+            </div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-icon">📊</div>
+            <div class="meta-info">
+              <h4>覆盖平台</h4>
+              <p>4大AI平台</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-card">
+        <div class="metrics-grid">
+          <div class="metric-item">
+            <span class="metric-value">+62%</span>
+            <span class="metric-label">品牌可见率提升</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-value">4+</span>
+            <span class="metric-label">覆盖AI平台</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-value">14天</span>
+            <span class="metric-label">快速见效周期</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-value">100%</span>
+            <span class="metric-label">核心指标达成</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">客户背景</h2>
+      <p class="section-subtitle">新兴科技公司的破局之道</p>
+    </div>
+    <div class="content-box">
+      <h3>关于移山科技</h3>
+      <p>移山科技是中国GEO（生成式引擎优化）领域的先行者，核心团队来自一线互联网大厂搜索/增长岗位，拥有15年+营销技术经验。</p>
+      <p>公司专注于"答案位运营+跨平台分发"，致力于让品牌在AI搜索中获得稳定、可复制的增长曲线，帮助企业在AI时代抢占先机。</p>
+      <div class="highlight-box">
+        <p><strong>核心优势：</strong>深厚的搜索引擎优化经验 + AI技术理解 + 跨平台运营能力，为客户提供从诊断到执行的一站式GEO解决方案。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">客户痛点</h2>
+      <p class="section-subtitle">新兴品牌面临的核心挑战</p>
+    </div>
+    <div class="pain-points">
+      <div class="pain-card">
+        <div class="pain-icon">❓</div>
+        <h4>品牌认知度低</h4>
+        <p>作为新兴品牌，在传统搜索引擎和AI平台上几乎没有曝光，用户无法通过AI搜索找到品牌信息。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">💰</div>
+        <h4>营销预算有限</h4>
+        <p>如何在有限预算下快速且低成本完成从0-1的业务发展，避开传统高付费渠道？</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🎯</div>
+        <h4>获客渠道单一</h4>
+        <p>传统获客方式成本高、效率低，急需找到新型、高效的商机获取和业务积累渠道。</p>
+      </div>
+    </div>
+    <div class="content-box" style="margin-top:40px">
+      <div class="highlight-box">
+        <p><strong>核心挑战：</strong>如何避开传统高付费渠道，锚定新型大模型平台（DeepSeek、豆包、腾讯元宝、Kimi），快速布局和有效运营，完成第一阶段的商机获取和业务积累？</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">GEO优化策略</h2>
+      <p class="section-subtitle">10大核心策略动作，系统化提升AI搜索表现</p>
+    </div>
+    <div class="strategy-timeline">
+      <div class="timeline-item">
+        <div class="timeline-number">01</div>
+        <div class="timeline-content">
+          <h4>诊断分析</h4>
+          <p>通过AI诊断系统全面检测企业在DeepSeek、豆包、腾讯元宝、Kimi四大平台的引用率、搜索答案位置、内容AI友好度及竞品对比，明确优化基线和方向。</p>
+          <ul>
+            <li>四大平台全面扫描</li>
+            <li>竞品对比分析</li>
+            <li>确定优化基线</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">02</div>
+        <div class="timeline-content">
+          <h4>关键词矩阵构建</h4>
+          <p>挖掘核心业务词、长尾词、问题型词、场景词，覆盖用户所有提问场景（100-500个关键词），确保精准意图匹配。</p>
+          <ul>
+            <li>核心业务词挖掘</li>
+            <li>长尾词覆盖</li>
+            <li>问题型词布局</li>
+            <li>场景词匹配</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">03</div>
+        <div class="timeline-content">
+          <h4>企业AI知识库建设</h4>
+          <p>建立专属AI知识库，进行数据清洗和结构化改造，提炼品牌优质内容资产（产品优势、案例、数据），让AI深度理解企业。</p>
+          <ul>
+            <li>数据清洗与结构化</li>
+            <li>内容资产提炼</li>
+            <li>知识图谱构建</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">04</div>
+        <div class="timeline-content">
+          <h4>高质量内容创作</h4>
+          <p>以"原创性≥90%、信息丰富度≥800字、结构化标题层级、权威性引用"标准，批量生产AI友好的权威内容。</p>
+          <ul>
+            <li>原创性保证≥90%</li>
+            <li>信息丰富度≥800字</li>
+            <li>结构化标题层级</li>
+            <li>权威性引用</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">05</div>
+        <div class="timeline-content">
+          <h4>证据链构建</h4>
+          <p>通过"研究报告+第三方测评+用户证言+数据图表"形成可核验证据链，强化E-E-A-T信号（专业性、权威性、可信度）。</p>
+          <ul>
+            <li>研究报告发布</li>
+            <li>第三方测评</li>
+            <li>用户证言收集</li>
+            <li>数据图表可视化</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">06</div>
+        <div class="timeline-content">
+          <h4>多平台差异化适配</h4>
+          <p>针对不同AI平台特性定制优化（DeepSeek强调技术深度、豆包突出用户体验、元宝强化企业实力、Kimi平衡专业性），一套内容多平台适配。</p>
+          <ul>
+            <li>DeepSeek：技术深度</li>
+            <li>豆包：用户体验</li>
+            <li>元宝：企业实力</li>
+            <li>Kimi：专业平衡</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">07</div>
+        <div class="timeline-content">
+          <h4>Schema技术实施</h4>
+          <p>使用结构化数据标记（Schema.org标准）、语义化HTML标签、API对接，提升AI抓取和理解效率（结构化数据覆盖率≥80%）。</p>
+          <ul>
+            <li>Schema.org标准实施</li>
+            <li>语义化HTML标签</li>
+            <li>API对接优化</li>
+            <li>覆盖率≥80%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">08</div>
+        <div class="timeline-content">
+          <h4>GEO-Agent智能体训练</h4>
+          <p>打造客户专属智能体，实现高效的GEO内容与任务管理，精准智能投放。</p>
+          <ul>
+            <li>专属智能体训练</li>
+            <li>内容管理自动化</li>
+            <li>精准智能投放</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">09</div>
+        <div class="timeline-content">
+          <h4>全渠道内容分发</h4>
+          <p>对接权重高媒体、自建社区渠道、媒体群社区优化，扩大内容覆盖面和引用源。</p>
+          <ul>
+            <li>高权重媒体对接</li>
+            <li>自建社区渠道</li>
+            <li>媒体群优化</li>
+            <li>引用源扩展</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-number">10</div>
+        <div class="timeline-content">
+          <h4>实时监测与迭代</h4>
+          <p>通过AOR（答案位占比）、RR（推荐提及率）、CVR（有效询盘）三指标日常监控，T+3上线、T+14看拐点、季度重构，持续优化策略。</p>
+          <ul>
+            <li>AOR答案位占比监控</li>
+            <li>RR推荐提及率追踪</li>
+            <li>CVR有效询盘分析</li>
+            <li>T+3上线，T+14拐点</li>
+            <li>季度策略重构</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">优化效果</h2>
+      <p class="section-subtitle">核心指标显著提升，行业竞品对标排名第一</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-icon">📊</div>
+        <span class="result-value">0→62%</span>
+        <div class="result-label">品牌可见率</div>
+        <p class="result-desc">四大平台从完全不可见到高度可见</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🎯</div>
+        <span class="result-value">4+</span>
+        <div class="result-label">覆盖AI平台</div>
+        <p class="result-desc">覆盖主流AI搜索平台</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📈</div>
+        <span class="result-value">0→1</span>
+        <div class="result-label">信源占比</div>
+        <p class="result-desc">从零到成为主要信息来源</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">成功关键因素</h2>
+      <p class="section-subtitle">为什么能在14天内实现从0到1的突破</p>
+    </div>
+    <div class="pain-points">
+      <div class="pain-card">
+        <div class="pain-icon">🎯</div>
+        <h4>精准定位</h4>
+        <p>避开传统高付费渠道，锚定新型大模型平台，抢占AI搜索蓝海市场先机。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📊</div>
+        <h4>数据驱动</h4>
+        <p>通过AI诊断系统实时监控，T+3上线、T+14看拐点，快速迭代优化策略。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔧</div>
+        <h4>技术赋能</h4>
+        <p>Schema技术、GEO-Agent智能体、结构化数据标记，全方位技术支持。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🌐</div>
+        <h4>多平台协同</h4>
+        <p>一套内容多平台差异化适配，实现四大AI平台全覆盖，最大化曝光效果。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📝</div>
+        <h4>内容质量</h4>
+        <p>原创性≥90%、信息丰富度≥800字，高质量内容获得AI平台优先推荐。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔗</div>
+        <h4>证据链完整</h4>
+        <p>研究报告+第三方测评+用户证言+数据图表，构建可信赖的E-E-A-T信号。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case-cta" id="cta">
+  <div class="container">
+    <h2>想要实现同样的增长效果？</h2>
+    <p>获取专属《GEO诊断报告》，让我们的专家为您量身定制AI搜索优化方案</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-white">免费获取诊断报告</a>
+      <a href="#" class="btn-outline">查看更多案例</a>
+    </div>
+  </div>
+</section>
+
+<section class="related-cases">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">相关案例</h2>
+      <p class="section-subtitle">更多行业成功案例</p>
+    </div>
+    <div class="case-grid">
+      <a href="#" class="mini-case-card">
+        <div class="mini-case-image">🏠</div>
+        <div class="mini-case-content">
+          <div class="mini-case-industry">消费行业</div>
+          <h4>家居品牌</h4>
+          <p>新消费品牌借助GEO内容矩阵，品牌曝光提升30%，可见度行业排名第一。</p>
+        </div>
+      </a>
+      <a href="#" class="mini-case-card">
+        <div class="mini-case-image">🚴</div>
+        <div class="mini-case-content">
+          <div class="mini-case-industry">消费品行业</div>
+          <h4>儿童骑行品牌</h4>
+          <p>通过GEO策略构建权威内容链，Top1占比提升20%，领先竞品推荐率40%+。</p>
+        </div>
+      </a>
+      <a href="#" class="mini-case-card">
+        <div class="mini-case-image">💻</div>
+        <div class="mini-case-content">
+          <div class="mini-case-industry">软件服务行业</div>
+          <h4>AI+BI领域</h4>
+          <p>差异化定位+语义化优化，品牌可见度突破50%+，AI推荐率增长2倍。</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+// 平滑滚动
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>

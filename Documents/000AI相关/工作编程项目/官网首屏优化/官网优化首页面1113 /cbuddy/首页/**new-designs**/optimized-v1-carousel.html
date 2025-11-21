@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移山科技 | GEO专家 - 让您的品牌成为AI搜索的首选答案</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;line-height:1.6;color:#1e293b;background:#fff;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+header{position:fixed;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);border-bottom:1px solid #f1f5f9;z-index:1000;padding:18px 0;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:19px;font-weight:700;color:#0ea5e9}
+.nav-links{display:flex;gap:35px;list-style:none}
+.nav-links a{color:#64748b;text-decoration:none;transition:color 0.3s;font-weight:500;font-size:15px}
+.nav-links a:hover{color:#0ea5e9}
+.cta-btn{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:11px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;box-shadow:0 4px 12px rgba(14,165,233,0.25)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,165,233,0.35)}
+.hero{margin-top:80px;min-height:90vh;display:flex;align-items:center;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 50%,#f0f9ff 100%);position:relative;padding:60px 0 40px}
+.hero-content{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:center}
+.badge{background:#e0f2fe;color:#0369a1;padding:9px 22px;border-radius:22px;font-size:13px;margin-bottom:28px;display:inline-block;font-weight:500;border:1px solid #bae6fd}
+.hero h1{font-size:50px;line-height:1.15;margin-bottom:22px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.hero h1 .highlight{color:#0ea5e9}
+.hero p{font-size:17px;color:#64748b;margin-bottom:38px;line-height:1.75}
+.pain-box{background:white;border-radius:20px;padding:35px;box-shadow:0 10px 40px rgba(0,0,0,0.08);border:1px solid #f1f5f9}
+.pain-item{background:#f8fafc;border-left:3px solid #0ea5e9;border-radius:10px;padding:20px;margin-bottom:14px;transition:all 0.3s;cursor:pointer}
+.pain-item:hover{background:#e0f2fe;transform:translateX(6px)}
+.pain-item h3{color:#0f172a;font-size:17px;margin-bottom:6px;font-weight:600}
+.pain-item p{color:#64748b;font-size:14px;margin:0}
+.clients-carousel{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);padding:50px 0;overflow:hidden;position:relative}
+.clients-carousel h3{color:#0369a1;margin-bottom:32px;font-size:13px;text-align:center;font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+.carousel-track{display:flex;gap:30px;animation:scroll 30s linear infinite;width:max-content}
+.carousel-track:hover{animation-play-state:paused}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.client-logo{background:white;border:1px solid #e0f2fe;border-radius:12px;padding:20px 35px;min-width:160px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(14,165,233,0.08);transition:all 0.3s}
+.client-logo:hover{border-color:#0ea5e9;box-shadow:0 4px 16px rgba(14,165,233,0.15);color:#0ea5e9;transform:translateY(-2px)}
+.solutions{padding:95px 0;background:#f8fafc}
+.section-title{text-align:center;font-size:40px;margin-bottom:18px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.section-subtitle{text-align:center;color:#64748b;font-size:17px;margin-bottom:55px}
+.solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.solution-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:38px;transition:all 0.3s}
+.solution-card:hover{border-color:#0ea5e9;transform:translateY(-6px);box-shadow:0 15px 35px rgba(14,165,233,0.12)}
+.solution-icon{width:60px;height:60px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:22px}
+.solution-card h3{font-size:21px;margin-bottom:15px;color:#0f172a;font-weight:700}
+.solution-card p{color:#64748b;margin-bottom:22px;line-height:1.7;font-size:15px}
+.solution-card ul{list-style:none}
+.solution-card li{padding:9px 0;padding-left:26px;position:relative;color:#475569;font-size:14px}
+.solution-card li::before{content:'✓';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:17px}
+.scenarios{padding:95px 0;background:white}
+.scenario-content{display:grid;grid-template-columns:260px 1fr;gap:55px;margin-top:55px}
+.scenario-tabs{display:flex;flex-direction:column;gap:10px}
+.scenario-tab{background:#f8fafc;border:2px solid transparent;border-radius:12px;padding:18px 22px;cursor:pointer;transition:all 0.3s;color:#475569;font-weight:500;text-align:left;font-size:15px}
+.scenario-tab:hover{background:#e0f2fe;border-color:#bae6fd}
+.scenario-tab.active{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-color:transparent;color:white;box-shadow:0 4px 12px rgba(14,165,233,0.3)}
+.scenario-detail{background:#f8fafc;border:1px solid #f1f5f9;border-radius:16px;padding:45px;display:none}
+.scenario-detail.active{display:block}
+.scenario-detail h3{font-size:30px;margin-bottom:18px;color:#0f172a;font-weight:700}
+.scenario-detail p{color:#64748b;margin-bottom:28px;line-height:1.75;font-size:15px}
+.scenario-detail ul{list-style:none}
+.scenario-detail li{padding:12px 0;padding-left:28px;position:relative;color:#475569;font-size:15px}
+.scenario-detail li::before{content:'→';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:17px}
+.industries{padding:95px 0;background:#f8fafc}
+.industry-tabs{display:flex;justify-content:center;gap:12px;margin-bottom:48px;flex-wrap:wrap}
+.industry-tab{background:white;border:2px solid #f1f5f9;border-radius:22px;padding:10px 24px;cursor:pointer;transition:all 0.3s;color:#475569;font-weight:500;font-size:14px}
+.industry-tab:hover{border-color:#bae6fd;background:#f0f9ff}
+.industry-tab.active{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-color:transparent;color:white;box-shadow:0 4px 12px rgba(14,165,233,0.3)}
+.industry-content-wrapper{display:grid;grid-template-columns:1fr 400px;gap:45px;align-items:start}
+.industry-content{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:45px}
+.industry-image{background:#f0f9ff;border:1px solid #e0f2fe;border-radius:16px;height:100%;min-height:400px;display:flex;align-items:center;justify-content:center;font-size:80px;transition:all 0.3s;overflow:hidden;position:relative}
+.industry-image::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,0.1) 0%,rgba(6,182,212,0.1) 100%);z-index:1}
+.industry-panel{display:none}
+.industry-panel.active{display:block}
+.industry-panel h3{font-size:30px;margin-bottom:10px;color:#0f172a;font-weight:700}
+.industry-tag{display:inline-block;background:#e0f2fe;color:#0369a1;padding:7px 16px;border-radius:18px;font-size:12px;margin-bottom:22px;font-weight:500}
+.industry-panel>p{color:#64748b;margin-bottom:26px;line-height:1.75;font-size:15px}
+.industry-panel ul{list-style:none;margin-bottom:32px}
+.industry-panel li{padding:11px 0;padding-left:26px;position:relative;color:#475569;font-size:14px}
+.industry-panel li::before{content:'•';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:18px}
+.industry-buttons{display:flex;gap:12px;margin-top:28px}
+.btn-secondary{background:white;color:#0ea5e9;border:2px solid #0ea5e9;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;font-size:14px}
+.btn-secondary:hover{background:#f0f9ff;transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;box-shadow:0 4px 12px rgba(14,165,233,0.25);font-size:14px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,165,233,0.35)}
+.cases{padding:95px 0;background:white}
+.case-scroll-container{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#0ea5e9 #f1f5f9;margin-top:45px}
+.case-scroll-container::-webkit-scrollbar{height:8px}
+.case-scroll-container::-webkit-scrollbar-track{background:#f1f5f9;border-radius:10px}
+.case-scroll-container::-webkit-scrollbar-thumb{background:#0ea5e9;border-radius:10px}
+.case-scroll-container::-webkit-scrollbar-thumb:hover{background:#0284c7}
+.case-grid{display:flex;gap:28px;padding-bottom:20px;min-width:max-content}
+.case-card{background:#f8fafc;border:1px solid #f1f5f9;border-radius:16px;padding:0;transition:all 0.3s;min-width:320px;max-width:320px;overflow:hidden}
+.case-card:hover{border-color:#0ea5e9;transform:translateY(-4px);box-shadow:0 10px 25px rgba(14,165,233,0.15)}
+.case-image{width:100%;height:180px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
+.case-image::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,0.1) 0%,rgba(6,182,212,0.1) 100%)}
+.case-content{padding:28px}
+.case-industry{color:#0ea5e9;font-size:13px;font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.case-card h4{font-size:18px;margin-bottom:12px;color:#0f172a;font-weight:700}
+.case-card p{color:#64748b;line-height:1.7;margin-bottom:20px;font-size:14px}
+.case-metrics{display:flex;gap:12px}
+.case-metric{flex:1;background:white;border:1px solid #e0f2fe;border-radius:10px;padding:14px;text-align:center}
+.metric-value{font-size:22px;font-weight:800;color:#0ea5e9;display:block;margin-bottom:4px}
+.metric-label{font-size:11px;color:#94a3b8;line-height:1.3}
+.testimonials{padding:95px 0;background:#f8fafc}
+.testimonial-scroll-container{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#0ea5e9 #f1f5f9;margin-top:45px}
+.testimonial-scroll-container::-webkit-scrollbar{height:8px}
+.testimonial-scroll-container::-webkit-scrollbar-track{background:#f1f5f9;border-radius:10px}
+.testimonial-scroll-container::-webkit-scrollbar-thumb{background:#0ea5e9;border-radius:10px}
+.testimonial-grid{display:flex;gap:28px;padding-bottom:20px;min-width:max-content}
+.testimonial-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:32px;min-width:350px;max-width:350px;transition:all 0.3s}
+.testimonial-card:hover{border-color:#0ea5e9;transform:translateY(-4px);box-shadow:0 10px 25px rgba(14,165,233,0.1)}
+.testimonial-quote{color:#64748b;font-size:15px;line-height:1.75;margin-bottom:22px;font-style:italic}
+.testimonial-author h5{font-size:15px;margin-bottom:4px;color:#0f172a;font-weight:600}
+.testimonial-author p{color:#94a3b8;font-size:13px}
+.final-cta{padding:95px 0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white}
+.cta-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start}
+.cta-left h2{font-size:38px;margin-bottom:22px;font-weight:800;line-height:1.2;letter-spacing:-0.5px}
+.cta-benefits{list-style:none;margin:32px 0}
+.cta-benefits li{padding:16px 0;padding-left:32px;position:relative;border-bottom:1px solid rgba(255,255,255,0.15);font-size:15px;line-height:1.6}
+.cta-benefits li::before{content:'✓';position:absolute;left:0;font-weight:bold;font-size:20px}
+.cta-benefits li:last-child{border-bottom:none}
+.cta-form{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:36px}
+.cta-form h3{font-size:20px;margin-bottom:26px;font-weight:700}
+.form-group{margin-bottom:16px}
+.form-group input{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,0.3);border-radius:10px;background:rgba(255,255,255,0.15);color:white;font-size:14px}
+.form-group input::placeholder{color:rgba(255,255,255,0.6)}
+.form-divider{text-align:center;margin:24px 0;color:rgba(255,255,255,0.7);font-size:14px;position:relative}
+.form-divider::before,.form-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:rgba(255,255,255,0.2)}
+.form-divider::before{left:0}
+.form-divider::after{right:0}
+.qr-section{text-align:center;padding:24px;background:rgba(255,255,255,0.08);border-radius:12px;margin-top:20px}
+.qr-section p{font-size:14px;margin-bottom:16px;opacity:0.9}
+.qr-code{width:160px;height:160px;background:white;border-radius:12px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:#64748b;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.submit-btn{width:100%;background:white;color:#0ea5e9;padding:15px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(255,255,255,0.3)}
+@media(max-width:1024px){.industry-content-wrapper{grid-template-columns:1fr}.industry-image{min-height:300px}}
+@media(max-width:768px){.hero-content,.scenario-content,.cta-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.nav-links{display:none}.case-card,.testimonial-card{min-width:280px;max-width:280px}}
+</style>
+</head>
+<body>
+<header><nav class="container"><div class="logo">移山科技 | GEO专家</div><ul class="nav-links"><li><a href="#solutions">解决方案</a></li><li><a href="#cases">成功案例</a></li><li><a href="#insights">观点与洞察</a></li><li><a href="#faq">常见问题</a></li><li><a href="#contact">联系我们</a></li></ul><a href="#cta" class="cta-btn">获取诊断</a></nav></header>
+
+<section class="hero">
+<div class="container">
+<div class="hero-content">
+<div>
+<div class="badge">《2025 GEO 生成引擎优化技术白皮书》发布单位</div>
+<h1>让您的品牌成为<br><span class="highlight">AI 搜索的首选答案</span></h1>
+<p>覆盖百度AI、DeepSeek、豆包等主流AI平台，让AI主动推荐您，而不是您的竞争对手</p>
+<a href="#cta" class="cta-btn">获取专属诊断</a>
+</div>
+<div class="pain-box">
+<div class="pain-item"><h3>我在 AI 搜索中有曝光吗？</h3><p>了解您的品牌在AI平台的可见度</p></div>
+<div class="pain-item"><h3>竞争对手表现怎么样？</h3><p>对比分析行业竞争格局</p></div>
+<div class="pain-item"><h3>我应该怎么提升 AI 搜索排名？</h3><p>获取专业优化建议</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="clients-carousel">
+<div class="container">
+<h3>我们的客户</h3>
+</div>
+<div class="carousel-track">
+<div class="client-logo">可口可乐</div>
+<div class="client-logo">玛氏</div>
+<div class="client-logo">辉瑞中国</div>
+<div class="client-logo">嘉士伯</div>
+<div class="client-logo">泸州老窖</div>
+<div class="client-logo">方太</div>
+<div class="client-logo">水井坊</div>
+<div class="client-logo">中国医药集团</div>
+<div class="client-logo">仁和药业</div>
+<div class="client-logo">平安医保科技</div>
+<div class="client-logo">九州通</div>
+<div class="client-logo">南京医药</div>
+<div class="client-logo">可口可乐</div>
+<div class="client-logo">玛氏</div>
+<div class="client-logo">辉瑞中国</div>
+<div class="client-logo">嘉士伯</div>
+<div class="client-logo">泸州老窖</div>
+<div class="client-logo">方太</div>
+<div class="client-logo">水井坊</div>
+<div class="client-logo">中国医药集团</div>
+<div class="client-logo">仁和药业</div>
+<div class="client-logo">平安医保科技</div>
+<div class="client-logo">九州通</div>
+<div class="client-logo">南京医药</div>
+</div>
+</section>
+
+<section class="solutions" id="solutions">
+<div class="container">
+<h2 class="section-title">从被AI看到，到被用户信任</h2>
+<p class="section-subtitle">一站式GEO优化体系</p>
+<div class="solution-grid">
+<div class="solution-card">
+<div class="solution-icon">🎯</div>
+<h3>让用户更容易找到你</h3>
+<p>洞察AI搜索趋势与用户意图，提前布局用户搜索路径，让你的产品和品牌出现在他们面前。</p>
+<ul>
+<li>找准用户常搜的问题</li>
+<li>占据AI搜索优先推荐位</li>
+<li>提前锁定潜在购买意图</li>
+</ul>
+</div>
+<div class="solution-card">
+<div class="solution-icon">🌐</div>
+<h3>让用户随处看到你</h3>
+<p>一次创作，多平台分发，覆盖主流AI平台，确保用户在各类AI搜索入口都能遇到你。</p>
+<ul>
+<li>多平台曝光与同步更新</li>
+<li>AI引用路径持续追踪</li>
+<li>强化品牌与产品信任感</li>
+</ul>
+</div>
+<div class="solution-card">
+<div class="solution-icon">📈</div>
+<h3>让每次曝光更有价值</h3>
+<p>通过AI推荐数据与转化分析，优化内容方向与呈现方式，让用户从看到你 → 相信你 → 主动点击咨询。</p>
+<ul>
+<li>分析AI推荐与用户行为</li>
+<li>优化内容与产品展示</li>
+<li>实现可持续增长与复购</li>
+</ul>
+</div>
+</div>
+<div style="text-align:center;margin-top:55px"><a href="#cta" class="cta-btn">了解我的专属GEO方案</a></div>
+</div>
+</section>
+
+<section class="scenarios">
+<div class="container">
+<h2 class="section-title">为不同业务目标定制的 GEO 解决方案</h2>
+<div class="scenario-content">
+<div class="scenario-tabs">
+<div class="scenario-tab active" onclick="showScenario(0)">🏢 品牌建设场景</div>
+<div class="scenario-tab" onclick="showScenario(1)">💰 销售转化场景</div>
+<div class="scenario-tab" onclick="showScenario(2)">📝 内容营销场景</div>
+<div class="scenario-tab" onclick="showScenario(3)">🤝 客户服务场景</div>
+<div class="scenario-tab" onclick="showScenario(4)">🚨 危机公关场景</div>
+<div class="scenario-tab" onclick="showScenario(5)">🌍 市场扩张场景</div>
+</div>
+<div>
+<div class="scenario-detail active">
+<h3>品牌建设场景</h3>
+<p>针对品牌建设与影响力塑造需求，GEO 优化帮助企业在 AI 搜索中建立权威形象与可信表达，让品牌被AI优先理解、优先引用。</p>
+<ul>
+<li>构建品牌权威内容体系</li>
+<li>塑造行业领导地位与专业口碑</li>
+<li>打造可被AI理解的品牌故事与价值观</li>
+<li>建立品牌声誉监测与正向反馈机制</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>销售转化场景</h3>
+<p>针对销售线索增长与转化率提升，GEO 技术锁定高意向搜索与AI推荐位，助力品牌实现从认知到成交的闭环增长。</p>
+<ul>
+<li>捕捉高意向关键词与AI问答场景</li>
+<li>优化销售路径与内容匹配度</li>
+<li>提升产品方案在AI搜索中的权威露出</li>
+<li>追踪转化数据并持续优化内容策略</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>内容营销场景</h3>
+<p>针对品牌内容传播与影响力积累，GEO 优化让内容系统性进入 AI 搜索生态，实现长期曝光与信源权重提升。</p>
+<ul>
+<li>将内容主题与搜索热词精准映射</li>
+<li>共建权威媒体与AI平台信源矩阵</li>
+<li>优化内容权重与AI推荐度</li>
+<li>建立内容传播数据追踪与复盘机制</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>客户服务场景</h3>
+<p>针对客户咨询、服务与售后，GEO 优化让企业在 AI 搜索与智能问答中优先呈现标准化、可信赖的服务内容。</p>
+<ul>
+<li>构建服务知识库与常见问题 GEO 化</li>
+<li>优化AI搜索中的官方答复与场景露出</li>
+<li>提升用户自助服务体验与信任度</li>
+<li>监测客户反馈与舆情，持续优化内容</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>危机公关场景</h3>
+<p>针对品牌舆情与危机事件，GEO 技术可迅速介入，提升正向信源权重、压制负面结果、恢复公众信任。</p>
+<ul>
+<li>建立舆情预警与风险监控机制</li>
+<li>替换与优化AI中负面内容引用</li>
+<li>快速布控权威信源与正向内容</li>
+<li>构建品牌声誉修复与复盘机制</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>市场扩张场景</h3>
+<p>针对新市场拓展与本地化曝光需求，GEO 优化帮助品牌在不同地区的AI语境中快速建立可见度与信任感。</p>
+<ul>
+<li>构建本地化关键词与内容体系</li>
+<li>优化区域信源与行业AI曝光度</li>
+<li>分析区域竞争格局与机会区间</li>
+<li>提升多地区品牌认知与口碑积累</li>
+</ul>
+</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:55px"><a href="#cta" class="cta-btn">获取我的场景解决方案</a></div>
+</div>
+</section>
+
+<section class="industries">
+<div class="container">
+<h2 class="section-title">覆盖全行业的 GEO 解决方案</h2>
+<div class="industry-tabs">
+<div class="industry-tab active" onclick="showIndustry(0)">医疗健康</div>
+<div class="industry-tab" onclick="showIndustry(1)">金融投资</div>
+<div class="industry-tab" onclick="showIndustry(2)">教育培训</div>
+<div class="industry-tab" onclick="showIndustry(3)">企业软件</div>
+<div class="industry-tab" onclick="showIndustry(4)">制造业</div>
+<div class="industry-tab" onclick="showIndustry(5)">能源电力</div>
+<div class="industry-tab" onclick="showIndustry(6)">政府机构</div>
+</div>
+<div class="industry-content-wrapper">
+<div class="industry-content">
+<div class="industry-panel active">
+<h3>医疗健康行业</h3>
+<div class="industry-tag">让专业与信任在 AI 搜索中被精准传递</div>
+<p>医疗行业的核心在于科学性、合规性与公众信任。GEO 优化帮助医疗机构与制药企业在 AI 搜索中构建权威内容体系，让专业知识、临床成果与医患沟通被AI准确理解和优先引用。</p>
+<ul>
+<li>打造可被 AI 识别的权威医学内容体系</li>
+<li>让专家团队与真实案例成为可信信源</li>
+<li>优化患者决策链中的健康内容触点</li>
+<li>在 AI 语境中持续塑造品牌专业形象</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>金融投资行业</h3>
+<div class="industry-tag">让复杂决策更透明，让信任更可验证</div>
+<p>金融行业的竞争核心是风险、信任与洞察透明度。GEO 优化帮助银行、证券、基金与保险品牌在AI搜索中建立可信赖的信息结构。</p>
+<ul>
+<li>构建 AI 可识别的金融知识与产品体系</li>
+<li>优化风险披露与合规内容结构</li>
+<li>让投资研究与成功案例在 AI 中被引用</li>
+<li>以智能内容提升客户理解与信任</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>教育培训行业</h3>
+<div class="industry-tag">让 AI 成为品牌的智能招生顾问</div>
+<p>教育培训的关键是信任、教学成果与内容影响力。GEO 优化帮助教育机构让课程、师资、口碑在AI语境中更清晰呈现。</p>
+<ul>
+<li>将课程体系与优势内容结构化呈现</li>
+<li>让 AI 精准理解师资实力与教学成果</li>
+<li>构建持续更新的知识与口碑信源</li>
+<li>在 AI 搜索中强化品牌专业与亲和形象</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>企业软件（SaaS）行业</h3>
+<div class="industry-tag">让 AI 选型搜索优先理解你的产品价值</div>
+<p>SaaS 行业的竞争在于可见度与专业可信度。GEO 优化帮助科技品牌在AI选型场景中被优先推荐。</p>
+<ul>
+<li>重构技术方案与产品优势的语义表达</li>
+<li>优化行业对比内容与 AI 选型信源</li>
+<li>构建产品知识图谱与 AI 推荐逻辑</li>
+<li>提升品牌在 AI 搜索中的专业可见度</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>制造行业</h3>
+<div class="industry-tag">让技术实力与创新成果被 AI 看见</div>
+<p>制造业的品牌竞争已从产品转向技术与可信内容的表达力。GEO 优化帮助企业在AI搜索中展示研发实力。</p>
+<ul>
+<li>构建技术与产品内容的结构化知识库</li>
+<li>让 AI 优先识别行业领先案例与解决方案</li>
+<li>优化多语言内容矩阵，提升全球可见度</li>
+<li>将品牌创新与 ESG 故事融入 AI 推荐体系</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>能源与电力行业</h3>
+<div class="industry-tag">让可持续发展故事在 AI 中持续发声</div>
+<p>能源行业正处在绿色转型与社会信任重构的关键阶段。GEO 优化让ESG成果成为AI搜索中的"权威答案"。</p>
+<ul>
+<li>打造绿色能源知识信源体系</li>
+<li>优化技术专利与项目案例结构</li>
+<li>让 ESG 成果在 AI 中被优先推荐</li>
+<li>构建公众认知与品牌信任闭环</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+<div class="industry-panel">
+<h3>政府与公共机构</h3>
+<div class="industry-tag">让权威信息在 AI 搜索中被精准理解与引用</div>
+<p>政务信息传播的关键是权威、准确与透明。GEO 优化帮助政府与公共机构在AI搜索生态中构建可信内容发布体系。</p>
+<ul>
+<li>构建政务内容结构化与可验证体系</li>
+<li>优化政策问答与 AI 引用逻辑</li>
+<li>建立舆情与谣言监测响应机制</li>
+<li>提升公众对官方内容的触达率与信任度</li>
+</ul>
+<div class="industry-buttons">
+<a href="#" class="btn-secondary">查看详情</a>
+<a href="#" class="btn-primary">获取更多行业报告</a>
+</div>
+</div>
+</div>
+<div class="industry-image" id="industryImage">🏥</div>
+</div>
+</div>
+</section>
+
+<section class="cases" id="cases">
+<div class="container">
+<h2 class="section-title">成功案例</h2>
+<p class="section-subtitle">真实数据，真实成果</p>
+<div class="case-scroll-container">
+<div class="case-grid">
+<div class="case-card">
+<div class="case-image">🧠</div>
+<div class="case-content">
+<div class="case-industry">科技行业</div>
+<h4>移山科技</h4>
+<p>通过关键词矩阵 + 专属AI知识库 + 结构化内容优化，在不到两周时间内实现显著提升。</p>
+<div class="case-metrics">
+<div class="case-metric"><span class="metric-value">+85%</span><span class="metric-label">品牌可见率提升</span></div>
+<div class="case-metric"><span class="metric-value">Top1</span><span class="metric-label">AI推荐率</span></div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">🏠</div>
+<div class="case-content">
+<div class="case-industry">新消费品牌</div>
+<h4>家居行业</h4>
+<p>借助 GEO 内容矩阵与差异化话术，将核心卖点转化为AI可识别语言。</p>
+<div class="case-metrics">
+<div class="case-metric"><span class="metric-value">+30%</span><span class="metric-label">品牌曝光提升</span></div>
+<div class="case-metric"><span class="metric-value">第一</span><span class="metric-label">可见度排名</span></div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">🚴</div>
+<div class="case-content">
+<div class="case-industry">消费品行业</div>
+<h4>儿童骑行品牌</h4>
+<p>通过GEO策略构建权威内容链和问答语义结构，让AI真正"理解"品牌优势。</p>
+<div class="case-metrics">
+<div class="case-metric"><span class="metric-value">+20%</span><span class="metric-label">Top1占比提升</span></div>
+<div class="case-metric"><span class="metric-value">40%+</span><span class="metric-label">领先竞品</span></div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">💻</div>
+<div class="case-content">
+<div class="case-industry">软件服务</div>
+<h4>AI+BI领域</h4>
+<p>以"AI+BI"差异化定位，通过权威背书+语义化优化，成为AI首选推荐。</p>
+<div class="case-metrics">
+<div class="case-metric"><span class="metric-value">50%+</span><span class="metric-label">品牌可见度</span></div>
+<div class="case-metric"><span class="metric-value">2x</span><span class="metric-label">推荐率增长</span></div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">🎓</div>
+<div class="case-content">
+<div class="case-industry">教育培训</div>
+<h4>在线教育平台</h4>
+<p>教育机构通过GEO优化系统性呈现核心优势，成为AI搜索中最具代表性的教育品牌之一。</p>
+<div class="case-metrics">
+<div class="case-metric"><span class="metric-value">3x</span><span class="metric-label">可见率提升</span></div>
+<div class="case-metric"><span class="metric-value">+30%</span><span class="metric-label">信任度提升</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="testimonials">
+<div class="container">
+<h2 class="section-title">客户反馈</h2>
+<p class="section-subtitle">听听他们怎么说</p>
+<div class="testimonial-scroll-container">
+<div class="testimonial-grid">
+<div class="testimonial-card">
+<p class="testimonial-quote">"以前我们花了很多在 SEO 上，却始终上不了 AI 搜索。移山团队用了三周时间让我们的理财内容成为首选答案。"</p>
+<div class="testimonial-author"><h5>刘先生</h5><p>金融行业 · 数字化营销总监</p></div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"他们懂医疗，也懂 AI。帮我们重构药品知识结构，现在 AI 中更容易引用我们的内容。"</p>
+<div class="testimonial-author"><h5>李女士</h5><p>医疗健康行业 · 数字创新部经理</p></div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"课程信息被优化为 AI 能理解的内容。当用户问'哪家课程好'，AI 直接推荐我们。"</p>
+<div class="testimonial-author"><h5>张先生</h5><p>教育行业 · 在线运营负责人</p></div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"经过 GEO 优化后，我们在 AI 选型类问题中被引用最多。这是一次'让 AI 主动推荐我们'的增长。"</p>
+<div class="testimonial-author"><h5>李先生</h5><p>企业软件行业 · 产品副总裁</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="final-cta" id="cta">
+<div class="container">
+<div class="cta-grid">
+<div class="cta-left">
+<h2>获取专属《GEO诊断报告》<br>GEO专家深度解读</h2>
+<ul class="cta-benefits">
+<li>发现品牌曝光盲区 - 精准定位您的品牌在 AI 搜索中的可见度问题</li>
+<li>对标竞争对手 - 清晰了解与竞品的差距，找到超越机会</li>
+<li>获得专属优化方案 - 基于数据分析，提供可执行的提升路径</li>
+</ul>
+</div>
+<div class="cta-form">
+<h3>填写信息，获取专属报告</h3>
+<form>
+<div class="form-group"><input type="text" placeholder="您的姓名" required></div>
+<div class="form-group"><input type="tel" placeholder="您的电话" required></div>
+<div class="form-group"><input type="text" placeholder="您所属公司" required></div>
+<button type="submit" class="submit-btn">获取定制方案</button>
+</form>
+<div class="form-divider">或</div>
+<div class="qr-section">
+<p>扫码添加GEO专家微信<br>立即获取诊断报告</p>
+<div class="qr-code">微信二维码<br>（扫码咨询）</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+function showScenario(i){const d=document.querySelectorAll('.scenario-detail'),t=document.querySelectorAll('.scenario-tab');d.forEach((e,idx)=>e.classList.toggle('active',idx===i));t.forEach((e,idx)=>e.classList.toggle('active',idx===i))}
+function showIndustry(i){
+  const p=document.querySelectorAll('.industry-panel'),t=document.querySelectorAll('.industry-tab');
+  p.forEach((e,idx)=>e.classList.toggle('active',idx===i));
+  t.forEach((e,idx)=>e.classList.toggle('active',idx===i));
+  const icons=['🏥','💰','🎓','💻','🏭','⚡','🏛️'];
+  document.getElementById('industryImage').textContent=icons[i];
+}
+</script>
+</body>
+</html>

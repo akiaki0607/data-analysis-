@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移山科技 | GEO专家 - 让您的品牌成为AI搜索的首选答案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 1000;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 20px; font-weight: 700; color: #1e40af; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { color: #666; text-decoration: none; transition: color 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: #1e40af; }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .cta-button:hover { background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(30, 64, 175, 0.3); }
+
+        /* 首屏 */
+        .hero {
+            margin-top: 80px;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 100%);
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .hero-left { animation: fadeInLeft 0.8s ease-out; }
+        
+        .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .hero h1 { font-size: 52px; line-height: 1.2; margin-bottom: 24px; color: #1e293b; font-weight: 800; }
+        .hero h1 .highlight { color: #1e40af; }
+        .hero p { font-size: 18px; color: #64748b; margin-bottom: 40px; line-height: 1.8; }
+        .hero-right { position: relative; animation: fadeInRight 0.8s ease-out; }
+
+        .report-preview {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .report-card {
+            background: #f8fafc;
+            border-left: 4px solid #1e40af;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .report-card:hover { background: #eff6ff; transform: translateX(8px); box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15); }
+        .report-card h3 { color: #1e293b; font-size: 18px; margin-bottom: 8px; font-weight: 600; }
+        .report-card p { color: #64748b; font-size: 14px; margin: 0; }
+
+        /* 客户Logo轮播区 - 上移到首屏下方 */
+        .clients-carousel {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 50px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .clients-carousel h3 {
+            color: #1e40af;
+            margin-bottom: 32px;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .carousel-track {
+            display: flex;
+            gap: 30px;
+            animation: scroll 30s linear infinite;
+            width: max-content;
+        }
+        .carousel-track:hover { animation-play-state: paused; }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .client-logo {
+            background: white;
+            border: 1px solid #e0f2fe;
+            border-radius: 12px;
+            padding: 20px 35px;
+            min-width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+            transition: all 0.3s;
+        }
+        .client-logo:hover {
+            border-color: #1e40af;
+            box-shadow: 0 4px 16px rgba(30, 64, 175, 0.15);
+            color: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* 解决方案 */
+        .solutions { padding: 100px 0; background: #f8fafc; }
+        .section-title { text-align: center; font-size: 42px; margin-bottom: 20px; color: #1e293b; font-weight: 800; }
+        .section-subtitle { text-align: center; color: #64748b; font-size: 18px; margin-bottom: 60px; }
+        .solution-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+        .solution-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+        .solution-card:hover { border-color: #1e40af; transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 64, 175, 0.15); }
+
+        .solution-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .solution-card h3 { font-size: 22px; margin-bottom: 16px; color: #1e293b; font-weight: 700; }
+        .solution-card p { color: #64748b; margin-bottom: 24px; line-height: 1.8; }
+        .solution-card ul { list-style: none; color: #475569; }
+        .solution-card ul li { padding: 10px 0; padding-left: 28px; position: relative; line-height: 1.6; }
+        .solution-card ul li::before { content: '✓'; position: absolute; left: 0; color: #1e40af; font-weight: bold; font-size: 18px; }
+
+        /* 成功案例 - 横向滚动 */
+        .cases { padding: 100px 0; background: white; }
+        
+        .case-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #1e40af #e0f2fe;
+            margin-top: 50px;
+            padding-bottom: 10px;
+        }
+        
+        .case-scroll-container::-webkit-scrollbar {
+            height: 10px;
+        }
+        
+        .case-scroll-container::-webkit-scrollbar-track {
+            background: #e0f2fe;
+            border-radius: 12px;
+        }
+        
+        .case-scroll-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            border-radius: 12px;
+        }
+        
+        .case-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+        }
+        
+        .case-grid {
+            display: flex;
+            gap: 32px;
+            padding-bottom: 20px;
+            min-width: max-content;
+        }
+
+        .case-card {
+            background: white;
+            border: 2px solid #e0f2fe;
+            border-radius: 20px;
+            padding: 0;
+            transition: all 0.3s;
+            min-width: 340px;
+            max-width: 340px;
+            overflow: hidden;
+        }
+        
+        .case-card:hover {
+            border-color: #1e40af;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(30, 64, 175, 0.18);
+        }
+        
+        .case-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            position: relative;
+        }
+        
+        .case-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(30, 64, 175, 0.2) 0%, transparent 70%);
+        }
+        
+        .case-content {
+            padding: 32px;
+        }
+        
+        .case-industry {
+            color: #1e40af;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .case-card h4 {
+            font-size: 19px;
+            margin-bottom: 14px;
+            color: #1e293b;
+            font-weight: 800;
+        }
+        
+        .case-card p {
+            color: #64748b;
+            line-height: 1.75;
+            margin-bottom: 22px;
+            font-size: 14px;
+        }
+        
+        .case-metrics {
+            display: flex;
+            gap: 14px;
+        }
+        
+        .case-metric {
+            flex: 1;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
+            border: 1px solid #e0f2fe;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .case-metric:hover {
+            border-color: #bfdbfe;
+            transform: translateY(-2px);
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 6px;
+        }
+        
+        .metric-label {
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* 客户反馈 */
+        .testimonials { padding: 100px 0; background: #f8fafc; }
+        
+        .testimonial-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #1e40af #e0f2fe;
+            margin-top: 50px;
+            padding-bottom: 10px;
+        }
+        
+        .testimonial-scroll-container::-webkit-scrollbar {
+            height: 10px;
+        }
+        
+        .testimonial-scroll-container::-webkit-scrollbar-track {
+            background: #e0f2fe;
+            border-radius: 12px;
+        }
+        
+        .testimonial-scroll-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            border-radius: 12px;
+        }
+        
+        .testimonial-grid {
+            display: flex;
+            gap: 32px;
+            padding-bottom: 20px;
+            min-width: max-content;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border: 2px solid #e0f2fe;
+            border-radius: 20px;
+            padding: 36px;
+            min-width: 370px;
+            max-width: 370px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 80px;
+            color: #e0f2fe;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-card:hover {
+            border-color: #1e40af;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(30, 64, 175, 0.15);
+        }
+        
+        .testimonial-quote {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author h5 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+        
+        .testimonial-author p {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* CTA区域 */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 70px;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-left h2 {
+            font-size: 42px;
+            margin-bottom: 26px;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        
+        .cta-benefits {
+            list-style: none;
+            margin: 36px 0;
+        }
+        
+        .cta-benefits li {
+            padding: 18px 0;
+            padding-left: 36px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .cta-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .cta-benefits li:last-child {
+            border-bottom: none;
+        }
+        
+        .cta-form {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-form h3 {
+            font-size: 22px;
+            margin-bottom: 28px;
+            font-weight: 800;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.25);
+            outline: none;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: white;
+            color: #1e40af;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 动画 */
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero-content, .cta-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 36px; }
+            .nav-links { display: none; }
+            .case-card { min-width: 300px; max-width: 300px; }
+            .testimonial-card { min-width: 320px; max-width: 320px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">移山科技 | GEO专家</div>
+            <ul class="nav-links">
+                <li><a href="#solutions">解决方案</a></li>
+                <li><a href="#cases">成功案例</a></li>
+                <li><a href="#testimonials">客户反馈</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <a href="#contact" class="cta-button">获取诊断</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="badge">《2025 GEO 生成引擎优化技术白皮书》发布单位</div>
+                    <h1>让您的品牌成为<br><span class="highlight">AI 搜索的首选答案</span></h1>
+                    <p>覆盖百度AI、DeepSeek、豆包等主流AI平台，让AI主动推荐您，而不是您的竞争对手</p>
+                    <a href="#contact" class="cta-button">获取专属诊断</a>
+                </div>
+                <div class="hero-right">
+                    <div class="report-preview">
+                        <div class="report-card">
+                            <h3>我在 AI 搜索中有曝光吗？</h3>
+                            <p>了解您的品牌在AI平台的可见度</p>
+                        </div>
+                        <div class="report-card">
+                            <h3>竞争对手表现怎么样？</h3>
+                            <p>对比分析行业竞争格局</p>
+                        </div>
+                        <div class="report-card">
+                            <h3>我应该怎么提升 AI 搜索排名？</h3>
+                            <p>获取专业优化建议</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="clients-carousel">
+        <div class="container">
+            <h3>我们的客户</h3>
+        </div>
+        <div class="carousel-track">
+            <div class="client-logo">可口可乐</div>
+            <div class="client-logo">玛氏</div>
+            <div class="client-logo">辉瑞中国</div>
+            <div class="client-logo">嘉士伯</div>
+            <div class="client-logo">泸州老窖</div>
+            <div class="client-logo">方太</div>
+            <div class="client-logo">水井坊</div>
+            <div class="client-logo">中国医药集团</div>
+            <div class="client-logo">仁和药业</div>
+            <div class="client-logo">平安医保科技</div>
+            <div class="client-logo">九州通</div>
+            <div class="client-logo">南京医药</div>
+            <!-- 重复一遍实现无缝循环 -->
+            <div class="client-logo">可口可乐</div>
+            <div class="client-logo">玛氏</div>
+            <div class="client-logo">辉瑞中国</div>
+            <div class="client-logo">嘉士伯</div>
+            <div class="client-logo">泸州老窖</div>
+            <div class="client-logo">方太</div>
+        </div>
+    </section>
+
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <h2 class="section-title">一站式 GEO 优化体系</h2>
+            <p class="section-subtitle">从可见到推荐，全链路提升品牌在AI搜索中的表现</p>
+            <div class="solution-cards">
+                <div class="solution-card">
+                    <div class="solution-icon">🔍</div>
+                    <h3>让用户更容易找到你</h3>
+                    <p>洞察AI搜索趋势与用户意图，提前布局用户搜索路径，让你的产品和品牌出现在他们面前。</p>
+                    <ul>
+                        <li>找准用户常搜的问题</li>
+                        <li>占据AI搜索优先推荐位</li>
+                        <li>提前锁定潜在购买意图</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🌐</div>
+                    <h3>让用户随处看到你</h3>
+                    <p>一次创作，多平台分发，覆盖主流AI平台，确保用户在各类AI搜索入口都能遇到你。</p>
+                    <ul>
+                        <li>多平台曝光与同步更新</li>
+                        <li>AI引用路径持续追踪</li>
+                        <li>强化品牌与产品信任感</li>
+                    </ul>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3>让每次曝光更有价值</h3>
+                    <p>通过AI推荐数据与转化分析，优化内容方向与呈现方式，让用户从看到你 → 相信你 → 主动点击咨询。</p>
+                    <ul>
+                        <li>分析AI推荐与用户反应</li>
+                        <li>优化内容与产品展示</li>
+                        <li>实现可持续增长与复购</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cases" id="cases">
+        <div class="container">
+            <h2 class="section-title">成功案例</h2>
+            <p class="section-subtitle">真实数据，验证效果</p>
+            <div class="case-scroll-container">
+                <div class="case-grid">
+                    <div class="case-card">
+                        <div class="case-image">🏭</div>
+                        <div class="case-content">
+                            <div class="case-industry">科技行业</div>
+                            <h4>移山科技</h4>
+                            <p>14天内实现品牌可见率从0到85%，覆盖4+主流AI平台</p>
+                            <div class="case-metrics">
+                                <div class="case-metric">
+                                    <span class="metric-value">85%</span>
+                                    <span class="metric-label">品牌可见率</span>
+                                </div>
+                                <div class="case-metric">
+                                    <span class="metric-value">4+</span>
+                                    <span class="metric-label">覆盖平台</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-image">🏠</div>
+                        <div class="case-content">
+                            <div class="case-industry">消费行业</div>
+                            <h4>家居品牌</h4>
+                            <p>AI推荐率提升300%，有效询盘增长150%</p>
+                            <div class="case-metrics">
+                                <div class="case-metric">
+                                    <span class="metric-value">300%</span>
+                                    <span class="metric-label">推荐率提升</span>
+                                </div>
+                                <div class="case-metric">
+                                    <span class="metric-value">150%</span>
+                                    <span class="metric-label">询盘增长</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-image">💊</div>
+                        <div class="case-content">
+                            <div class="case-industry">医疗行业</div>
+                            <h4>健康科技公司</h4>
+                            <p>专业内容覆盖率提升200%，品牌信任度显著增强</p>
+                            <div class="case-metrics">
+                                <div class="case-metric">
+                                    <span class="metric-value">200%</span>
+                                    <span class="metric-label">内容覆盖</span>
+                                </div>
+                                <div class="case-metric">
+                                    <span class="metric-value">Top3</span>
+                                    <span class="metric-label">行业排名</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-image">🎓</div>
+                        <div class="case-content">
+                            <div class="case-industry">教育行业</div>
+                            <h4>在线教育平台</h4>
+                            <p>AI搜索流量增长180%，课程咨询量提升120%</p>
+                            <div class="case-metrics">
+                                <div class="case-metric">
+                                    <span class="metric-value">180%</span>
+                                    <span class="metric-label">流量增长</span>
+                                </div>
+                                <div class="case-metric">
+                                    <span class="metric-value">120%</span>
+                                    <span class="metric-label">咨询提升</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-card">
+                        <div class="case-image">💰</div>
+                        <div class="case-content">
+                            <div class="case-industry">金融行业</div>
+                            <h4>金融科技平台</h4>
+                            <p>品牌专业度提升，AI推荐准确率达90%+</p>
+                            <div class="case-metrics">
+                                <div class="case-metric">
+                                    <span class="metric-value">90%+</span>
+                                    <span class="metric-label">推荐准确率</span>
+                                </div>
+                                <div class="case-metric">
+                                    <span class="metric-value">Top5</span>
+                                    <span class="metric-label">行业排名</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">客户反馈</h2>
+            <p class="section-subtitle">听听他们怎么说</p>
+            <div class="testimonial-scroll-container">
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"移山科技的GEO服务让我们在AI搜索中的表现有了质的飞跃。14天内，我们的品牌可见率从0提升到85%，效果远超预期。"</p>
+                        <div class="testimonial-author">
+                            <h5>张总</h5>
+                            <p>科技公司 CEO</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"专业的团队，清晰的策略，可量化的效果。我们的AI推荐率提升了300%，询盘质量也明显提高。强烈推荐！"</p>
+                        <div class="testimonial-author">
+                            <h5>李经理</h5>
+                            <p>消费品牌 市场总监</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"在医疗行业做AI搜索优化需要非常专业和谨慎。移山科技在合规前提下，帮我们建立了专业可信的品牌形象。"</p>
+                        <div class="testimonial-author">
+                            <h5>王院长</h5>
+                            <p>医疗机构 负责人</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"数据驱动的优化方法让我们看到了实实在在的增长。AI搜索流量增长180%，课程咨询量提升120%。"</p>
+                        <div class="testimonial-author">
+                            <h5>刘老师</h5>
+                            <p>教育平台 运营负责人</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta" id="contact">
+        <div class="container">
+            <div class="cta-grid">
+                <div class="cta-left">
+                    <h2>准备好提升您的AI搜索表现了吗？</h2>
+                    <ul class="cta-benefits">
+                        <li>免费GEO现状诊断</li>
+                        <li>竞品对比分析报告</li>
+                        <li>定制化优化方案</li>
+                        <li>24小时内响应</li>
+                    </ul>
+                </div>
+                <div class="cta-form">
+                    <h3>立即获取免费诊断</h3>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <input type="text" placeholder="您的姓名 *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="联系电话 *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="公司名称 *" required>
+                        </div>
+                        <button type="submit" class="submit-btn">提交申请</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('感谢您的提交！我们的团队将在24小时内与您联系。');
+        }
+    </script>
+</body>
+</html>

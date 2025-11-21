@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO解决方案与服务 - 移山科技 | 一站式AI搜索优化体系</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;line-height:1.6;color:#1e293b;background:#fff;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* 导航栏 */
+header{position:fixed;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);border-bottom:1px solid #f1f5f9;z-index:1000;padding:18px 0;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:19px;font-weight:700;color:#0ea5e9}
+.nav-links{display:flex;gap:35px;list-style:none}
+.nav-links a{color:#64748b;text-decoration:none;transition:color 0.3s;font-weight:500;font-size:15px}
+.nav-links a:hover{color:#0ea5e9}
+.cta-btn{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:11px 28px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block;box-shadow:0 4px 12px rgba(14,165,233,0.25)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,165,233,0.35)}
+
+/* 页面头部 */
+.page-hero{margin-top:80px;padding:80px 0 60px;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 50%,#f0f9ff 100%);position:relative}
+.breadcrumb{font-size:14px;color:#64748b;margin-bottom:20px}
+.breadcrumb a{color:#0ea5e9;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.page-hero-content{text-align:center;max-width:800px;margin:0 auto}
+.hero-badge{background:#e0f2fe;color:#0369a1;padding:10px 24px;border-radius:22px;font-size:14px;margin-bottom:25px;display:inline-block;font-weight:600;border:1px solid #bae6fd}
+.page-hero h1{font-size:52px;line-height:1.2;margin-bottom:20px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.page-hero .subtitle{font-size:19px;color:#64748b;line-height:1.75;max-width:700px;margin:0 auto}
+
+/* 通用section */
+.section{padding:90px 0}
+.section-white{background:white}
+.section-gray{background:#f8fafc}
+.section-gradient{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%)}
+.section-header{text-align:center;margin-bottom:55px}
+.section-title{font-size:40px;margin-bottom:18px;color:#0f172a;font-weight:800;letter-spacing:-0.5px}
+.section-subtitle{font-size:17px;color:#64748b;max-width:700px;margin:0 auto}
+
+/* 解决方案卡片 */
+.solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:45px}
+.solution-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:40px;transition:all 0.3s;position:relative;overflow:hidden}
+.solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);transform:scaleX(0);transition:transform 0.3s}
+.solution-card:hover::before{transform:scaleX(1)}
+.solution-card:hover{border-color:#0ea5e9;transform:translateY(-8px);box-shadow:0 15px 35px rgba(14,165,233,0.12)}
+.solution-icon{width:65px;height:65px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:24px}
+.solution-card h3{font-size:22px;margin-bottom:16px;color:#0f172a;font-weight:700}
+.solution-card p{color:#64748b;margin-bottom:24px;line-height:1.75;font-size:15px}
+.solution-card ul{list-style:none}
+.solution-card li{padding:10px 0;padding-left:28px;position:relative;color:#475569;font-size:14px;line-height:1.6}
+.solution-card li::before{content:'✓';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:17px}
+
+/* 商业决策引擎 */
+.engine-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:35px;margin-top:45px}
+.engine-card{background:white;border:1px solid #f1f5f9;border-radius:20px;padding:45px;transition:all 0.3s;position:relative}
+.engine-card:hover{border-color:#0ea5e9;transform:translateY(-6px);box-shadow:0 20px 45px rgba(14,165,233,0.15)}
+.engine-number{position:absolute;top:20px;right:25px;width:50px;height:50px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#0ea5e9}
+.engine-icon{width:70px;height:70px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:25px;box-shadow:0 8px 20px rgba(14,165,233,0.25)}
+.engine-card h3{font-size:24px;margin-bottom:12px;color:#0f172a;font-weight:700}
+.engine-subtitle{font-size:15px;color:#0ea5e9;margin-bottom:20px;font-weight:600}
+.engine-card p{color:#64748b;margin-bottom:20px;line-height:1.8;font-size:15px}
+.engine-features{background:#f8fafc;border-radius:12px;padding:20px;margin-top:20px}
+.engine-features ul{list-style:none}
+.engine-features li{padding:8px 0;padding-left:24px;position:relative;color:#475569;font-size:14px}
+.engine-features li::before{content:'→';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:16px}
+.engine-value{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border-left:4px solid #0ea5e9;border-radius:10px;padding:18px 20px;margin-top:20px}
+.engine-value strong{color:#0369a1;font-weight:600}
+
+/* 服务流程 */
+.process-container{max-width:1000px;margin:45px auto 0;background:white;border:1px solid #f1f5f9;border-radius:20px;padding:50px;box-shadow:0 10px 40px rgba(0,0,0,0.06)}
+.process-image{width:100%;border-radius:12px;overflow:hidden;margin-bottom:30px}
+.process-image img{width:100%;height:auto;display:block}
+.process-placeholder{width:100%;height:500px;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;border:2px dashed #bae6fd}
+.process-placeholder-icon{font-size:80px}
+.process-placeholder-text{font-size:18px;color:#64748b;font-weight:500}
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:35px}
+.process-step{text-align:center;padding:25px;background:#f8fafc;border-radius:12px;transition:all 0.3s}
+.process-step:hover{background:#e0f2fe;transform:translateY(-3px)}
+.step-number{width:45px;height:45px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:800;margin:0 auto 15px}
+.process-step h4{font-size:16px;color:#0f172a;margin-bottom:8px;font-weight:700}
+.process-step p{font-size:13px;color:#64748b;line-height:1.6}
+
+/* 特色优势 */
+.advantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin-top:45px}
+.advantage-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:35px;text-align:center;transition:all 0.3s}
+.advantage-card:hover{border-color:#0ea5e9;transform:translateY(-5px);box-shadow:0 12px 30px rgba(14,165,233,0.12)}
+.advantage-icon{width:60px;height:60px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px}
+.advantage-card h4{font-size:18px;color:#0f172a;margin-bottom:12px;font-weight:700}
+.advantage-card p{color:#64748b;font-size:14px;line-height:1.7}
+
+/* 数据展示 */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:25px;margin-top:45px}
+.stat-card{background:white;border:1px solid #f1f5f9;border-radius:16px;padding:35px;text-align:center;transition:all 0.3s}
+.stat-card:hover{border-color:#0ea5e9;transform:translateY(-5px);box-shadow:0 10px 25px rgba(14,165,233,0.1)}
+.stat-value{font-size:48px;font-weight:800;color:#0ea5e9;display:block;margin-bottom:10px;line-height:1}
+.stat-label{font-size:15px;color:#64748b;font-weight:500}
+
+/* CTA区域 */
+.final-cta{padding:90px 0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;text-align:center}
+.final-cta h2{font-size:42px;margin-bottom:20px;font-weight:800;letter-spacing:-0.5px}
+.final-cta p{font-size:19px;margin-bottom:40px;opacity:0.95;max-width:700px;margin-left:auto;margin-right:auto}
+.cta-form-container{max-width:600px;margin:0 auto;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:45px}
+.cta-form-container h3{font-size:22px;margin-bottom:30px;font-weight:700}
+.form-group{margin-bottom:18px}
+.form-group input,.form-group textarea{width:100%;padding:15px 18px;border:1px solid rgba(255,255,255,0.3);border-radius:10px;background:rgba(255,255,255,0.15);color:white;font-size:15px;font-family:inherit}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,0.6)}
+.form-group textarea{resize:vertical;min-height:100px}
+.submit-btn{width:100%;background:white;color:#0ea5e9;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(255,255,255,0.3)}
+.cta-note{margin-top:25px;font-size:14px;opacity:0.85}
+
+/* FAQ */
+.faq-container{max-width:900px;margin:45px auto 0}
+.faq-item{background:white;border:1px solid #f1f5f9;border-radius:12px;margin-bottom:15px;overflow:hidden;transition:all 0.3s}
+.faq-item:hover{border-color:#0ea5e9}
+.faq-question{padding:22px 25px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;color:#0f172a;font-size:16px}
+.faq-question:hover{background:#f8fafc}
+.faq-icon{font-size:20px;color:#0ea5e9;transition:transform 0.3s}
+.faq-item.active .faq-icon{transform:rotate(180deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.faq-item.active .faq-answer{max-height:500px}
+.faq-answer-content{padding:0 25px 22px;color:#64748b;line-height:1.8;font-size:15px}
+
+/* 响应式 */
+@media(max-width:768px){
+  .page-hero h1{font-size:36px}
+  .section-title{font-size:32px}
+  .nav-links{display:none}
+  .engine-grid,.solution-grid{grid-template-columns:1fr}
+  .process-placeholder{height:300px}
+  .process-placeholder-icon{font-size:50px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <div class="logo">移山科技 | GEO专家</div>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#solutions">解决方案</a></li>
+      <li><a href="#process">服务流程</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <a href="#contact" class="cta-btn">免费咨询</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a> / 解决方案与服务
+    </div>
+    <div class="page-hero-content">
+      <div class="hero-badge">一站式GEO优化体系</div>
+      <h1>让AI主动推荐您的品牌</h1>
+      <p class="subtitle">从被AI看到，到被用户信任。覆盖百度AI、DeepSeek、豆包等主流AI平台，系统化提升品牌在AI搜索中的可见度与推荐度</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white" id="solutions">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">一站式GEO优化体系</h2>
+      <p class="section-subtitle">以客户价值为导向，三大核心方案助力品牌AI搜索增长</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-icon">🎯</div>
+        <h3>让用户更容易找到你</h3>
+        <p>洞察AI搜索趋势与用户意图，提前布局用户搜索路径，让你的产品和品牌出现在他们面前。</p>
+        <ul>
+          <li>找准用户常搜的问题</li>
+          <li>占据AI搜索优先推荐位</li>
+          <li>提前锁定潜在购买意图</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">🌐</div>
+        <h3>让用户随处看到你</h3>
+        <p>一次创作，多平台分发，覆盖主流AI平台，确保用户在各类AI搜索入口都能遇到你。</p>
+        <ul>
+          <li>多平台曝光与同步更新</li>
+          <li>AI引用路径持续追踪</li>
+          <li>强化品牌与产品信任感</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">📈</div>
+        <h3>让每次曝光更有价值</h3>
+        <p>通过AI推荐数据与转化分析，优化内容方向与呈现方式，让用户从看到你 → 相信你 → 主动点击咨询。</p>
+        <ul>
+          <li>分析AI推荐与用户反应</li>
+          <li>优化内容与产品展示</li>
+          <li>实现可持续增长与复购</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">商业决策引擎</h2>
+      <p class="section-subtitle">三大核心系统，驱动AI搜索增长</p>
+    </div>
+    <div class="engine-grid">
+      <div class="engine-card">
+        <div class="engine-number">01</div>
+        <div class="engine-icon">📊</div>
+        <h3>全网数据整合系统</h3>
+        <p class="engine-subtitle"></p>
+        <p>跨平台AI搜索表现实时监控系统，让您随时掌握品牌在AI世界的真实表现。</p>
+        <div class="engine-features">
+          <ul>
+            <li>覆盖百度AI、DeepSeek、豆包、元宝、Kimi等主流AI平台</li>
+            <li>同步监控知乎/公众号/百家号等信源影响</li>
+            <li>自动发现信源断层、权重缺口与情绪风险</li>
+            <li>可视化仪表盘呈现品牌"AI可见性健康指数"</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>实时知道品牌是否被看见、被推荐、被信任
+        </div>
+      </div>
+
+      <div class="engine-card">
+        <div class="engine-number">02</div>
+        <div class="engine-icon">🎯</div>
+        <h3>Gen-Strategic Core</h3>
+        <p class="engine-subtitle">商业决策引擎</p>
+        <p>AI搜索增长战略中枢系统，用数据驱动每一个增长决策。</p>
+        <div class="engine-features">
+          <ul>
+            <li>构建品牌在AI搜索领域的竞争格局模型</li>
+            <li>识别可见度/推荐度/信源权重等关键差异因子</li>
+            <li>自动生成阶段性增长策略与优先落点</li>
+            <li>以数据驱动资源投入，减少试错成本</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>明确"做什么最重要，先做什么最有效"
+        </div>
+      </div>
+
+      <div class="engine-card">
+        <div class="engine-number">03</div>
+        <div class="engine-icon">💡</div>
+        <h3>AI知识浇灌系统</h3>
+        <p class="engine-subtitle"></p>
+        <p>品牌可被AI记住与调用的内容增强系统，让AI成为您的品牌传播者。</p>
+        <div class="engine-features">
+          <ul>
+            <li>生成符合AI调用标准的文本/视频/图文内容</li>
+            <li>自动匹配高权重信源并智能分发</li>
+            <li>构建可被AI长期引用的"品牌知识权威库"</li>
+            <li>形成写→发→引用→优化的智能增长闭环</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>让AI选择你、说你、推你
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white" id="process">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">服务流程</h2>
+      <p class="section-subtitle">标准化流程，确保每个环节精准高效</p>
+    </div>
+    <div class="process-container">
+      <div class="process-image">
+        <img src="需求/服务流程.png" alt="移山科技GEO服务流程" style="width:100%;height:auto;display:block;border-radius:12px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gradient">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">我们的核心优势</h2>
+      <p class="section-subtitle">为什么选择移山科技</p>
+    </div>
+    <div class="advantages-grid">
+      <div class="advantage-card">
+        <div class="advantage-icon">🏆</div>
+        <h4>行业先行者</h4>
+        <p>中国GEO领域先行者，15年+营销技术经验，深度理解AI搜索机制</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🔬</div>
+        <h4>技术驱动</h4>
+        <p>自研商业决策引擎，数据驱动每一个优化决策，科学高效</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🌐</div>
+        <h4>全平台覆盖</h4>
+        <p>覆盖百度AI、DeepSeek、豆包、元宝、Kimi等主流AI平台</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">📈</div>
+        <h4>效果可见</h4>
+        <p>平均品牌可见率提升85%+，客户案例遍布多个行业</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">⚡</div>
+        <h4>快速见效</h4>
+        <p>T+3上线，T+14看拐点，最快14天实现从0到1的突破</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🤝</div>
+        <h4>一站式服务</h4>
+        <p>从诊断到执行，从内容到分发，全流程专业服务支持</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">常见问题</h2>
+      <p class="section-subtitle">关于GEO服务的常见疑问解答</p>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>什么是GEO（生成式引擎优化）？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            GEO（Generative Engine Optimization）是针对AI搜索引擎和大语言模型的优化策略。与传统SEO不同，GEO专注于让品牌内容被AI理解、记忆和主动推荐，确保在用户使用AI搜索时，您的品牌能够出现在答案中。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>GEO优化需要多长时间见效？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            根据我们的经验，通常T+3可以上线优化内容，T+14可以看到明显的数据拐点。最快的案例在14天内实现了品牌可见率从0到85%的突破。具体时间取决于行业竞争度、现有内容基础等因素。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>你们覆盖哪些AI平台？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            我们覆盖国内主流AI平台，包括百度AI、DeepSeek、豆包、腾讯元宝、Kimi等。同时也监控知乎、公众号、百家号等重要信源平台，确保全方位提升品牌在AI搜索生态中的表现。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>GEO优化的费用是多少？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            我们提供定制化服务方案，费用根据企业规模、行业特点、优化目标等因素而定。建议先进行免费的GEO现状诊断，我们会根据诊断结果为您提供最适合的方案和报价。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>如何衡量GEO优化的效果？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            我们通过三大核心指标衡量效果：AOR（答案位占比）、RR（推荐提及率）、CVR（有效询盘转化率）。同时提供可视化仪表盘，实时展示品牌在各AI平台的可见度、推荐度、信源权重等关键数据。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>我们公司适合做GEO优化吗？</span>
+          <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            如果您的目标客户会使用AI搜索来了解产品、对比品牌或寻找解决方案，那么GEO优化就非常适合您。我们服务过科技、消费、教育、金融、医疗等多个行业的客户。建议先进行免费诊断，了解您在AI搜索中的现状。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="contact">
+  <div class="container">
+    <h2>准备好提升您的AI搜索表现了吗？</h2>
+    <p>立即联系我们，获取免费的GEO现状诊断和优化方案</p>
+    <div class="cta-form-container">
+      <h3>填写信息，获取免费诊断</h3>
+      <form>
+        <div class="form-group">
+          <input type="text" placeholder="您的姓名 *" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" placeholder="您的电话 *" required>
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="您的邮箱" >
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="公司名称 *" required>
+        </div>
+        <div class="form-group">
+          <textarea placeholder="您的需求描述（选填）"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">立即获取免费诊断</button>
+      </form>
+      <p class="cta-note">我们将在24小时内与您联系，为您提供专业的GEO诊断报告</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// FAQ切换
+function toggleFaq(element) {
+  const faqItem = element.parentElement;
+  const isActive = faqItem.classList.contains('active');
+  
+  // 关闭所有FAQ
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  // 如果当前不是激活状态，则激活
+  if (!isActive) {
+    faqItem.classList.add('active');
+  }
+}
+
+// 平滑滚动
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// 表单提交
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('感谢您的咨询！我们将在24小时内与您联系。');
+  this.reset();
+});
+</script>
+</body>
+</html>

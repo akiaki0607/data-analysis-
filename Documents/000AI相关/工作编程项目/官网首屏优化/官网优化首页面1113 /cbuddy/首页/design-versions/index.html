@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移山科技官网设计方案 - 5个版本预览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .version-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .version-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .version-preview {
+            height: 300px;
+            background: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .version-preview iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            transform: scale(0.5);
+            transform-origin: 0 0;
+        }
+
+        .version-info {
+            padding: 30px;
+        }
+
+        .version-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+        }
+
+        .version-desc {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .version-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .version-features li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .version-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-preview {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-preview:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>移山科技官网设计方案</h1>
+        <p class="subtitle">5个不同风格的设计版本，点击预览完整页面</p>
+
+        <div class="version-grid">
+            <div class="version-card">
+                <div class="version-preview">
+                    <iframe src="version1-modern-tech.html"></iframe>
+                </div>
+                <div class="version-info">
+                    <h2 class="version-title">版本1：现代科技风格</h2>
+                    <p class="version-desc">深色背景配合紫色渐变，科技感十足，适合展示技术实力和创新能力。</p>
+                    <ul class="version-features">
+                        <li>深色主题，高端大气</li>
+                        <li>紫色渐变，科技感强</li>
+                        <li>动画效果丰富</li>
+                        <li>适合科技类企业</li>
+                    </ul>
+                    <a href="version1-modern-tech.html" target="_blank" class="btn-preview">查看完整页面</a>
+                </div>
+            </div>
+
+            <div class="version-card">
+                <div class="version-preview">
+                    <iframe src="version2-minimal-elegant.html"></iframe>
+                </div>
+                <div class="version-info">
+                    <h2 class="version-title">版本2：极简优雅风格</h2>
+                    <p class="version-desc">简洁明快的设计，浅色系配色，强调内容的可读性和专业性。</p>
+                    <ul class="version-features">
+                        <li>极简设计，清爽干净</li>
+                        <li>浅色系，易于阅读</li>
+                        <li>专业商务感</li>
+                        <li>适合B2B企业</li>
+                    </ul>
+                    <a href="version2-minimal-elegant.html" target="_blank" class="btn-preview">查看完整页面</a>
+                </div>
+            </div>
+
+            <div class="version-card">
+                <div class="version-preview">
+                    <iframe src="version3-vibrant-gradient.html"></iframe>
+                </div>
+                <div class="version-info">
+                    <h2 class="version-title">版本3：活力渐变风格</h2>
+                    <p class="version-desc">多彩渐变背景，充满活力和创意，适合展示品牌的年轻化和创新性。</p>
+                    <ul class="version-features">
+                        <li>多彩渐变，视觉冲击力强</li>
+                        <li>年轻化设计</li>
+                        <li>富有创意和活力</li>
+                        <li>适合创新型企业</li>
+                    </ul>
+                    <a href="version3-vibrant-gradient.html" target="_blank" class="btn-preview">查看完整页面</a>
+                </div>
+            </div>
+
+            <div class="version-card">
+                <div class="version-preview">
+                    <iframe src="version4-corporate-blue.html"></iframe>
+                </div>
+                <div class="version-info">
+                    <h2 class="version-title">版本4：企业蓝色风格</h2>
+                    <p class="version-desc">经典蓝色主题，稳重专业，适合传统企业和金融行业。</p>
+                    <ul class="version-features">
+                        <li>经典蓝色，稳重可靠</li>
+                        <li>企业级设计</li>
+                        <li>专业权威感</li>
+                        <li>适合传统行业</li>
+                    </ul>
+                    <a href="version4-corporate-blue.html" target="_blank" class="btn-preview">查看完整页面</a>
+                </div>
+            </div>
+
+            <div class="version-card">
+                <div class="version-preview">
+                    <iframe src="version5-modern-card.html"></iframe>
+                </div>
+                <div class="version-info">
+                    <h2 class="version-title">版本5：现代卡片风格</h2>
+                    <p class="version-desc">卡片式布局，层次分明，现代感强，适合内容丰富的展示。</p>
+                    <ul class="version-features">
+                        <li>卡片式设计，层次清晰</li>
+                        <li>现代简约风格</li>
+                        <li>信息组织有序</li>
+                        <li>适合内容型网站</li>
+                    </ul>
+                    <a href="version5-modern-card.html" target="_blank" class="btn-preview">查看完整页面</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>所有版本均基于《官网首页方案设计 V4 1113》文档内容制作</p>
+            <p style="margin-top: 10px;">包含完整的导航、首屏、解决方案、场景、行业、案例、反馈和CTA模块</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>移山科技 | GEO专家 - 让您的品牌成为AI搜索的首选答案</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;line-height:1.6;color:#1e293b;background:#fff;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+header{position:fixed;width:100%;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border-bottom:1px solid #e0f2fe;z-index:1000;padding:20px 0;box-shadow:0 2px 8px rgba(14,165,233,0.08)}
+nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:800;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{color:#64748b;text-decoration:none;transition:all 0.3s;font-weight:500;font-size:15px;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);transition:width 0.3s}
+.nav-links a:hover{color:#0ea5e9}
+.nav-links a:hover::after{width:100%}
+.cta-btn{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:12px 32px;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s;display:inline-block;box-shadow:0 4px 16px rgba(14,165,233,0.3);position:relative;overflow:hidden}
+.cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#06b6d4 0%,#0ea5e9 100%);opacity:0;transition:opacity 0.3s}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(14,165,233,0.4)}
+.cta-btn:hover::before{opacity:1}
+.cta-btn span{position:relative;z-index:1}
+.hero{margin-top:80px;min-height:88vh;display:flex;align-items:center;background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 30%,#f0f9ff 70%,#e0f2fe 100%);position:relative;padding:60px 0 30px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;right:0;width:600px;height:600px;background:radial-gradient(circle,rgba(14,165,233,0.1) 0%,transparent 70%);border-radius:50%}
+.hero-content{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.badge{background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);color:#0369a1;padding:10px 24px;border-radius:24px;font-size:13px;margin-bottom:32px;display:inline-block;font-weight:600;border:1px solid #bae6fd;box-shadow:0 2px 8px rgba(14,165,233,0.1)}
+.hero h1{font-size:54px;line-height:1.12;margin-bottom:24px;color:#0f172a;font-weight:900;letter-spacing:-1px}
+.hero h1 .highlight{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero>div>div>p{font-size:18px;color:#64748b;margin-bottom:42px;line-height:1.8}
+.pain-box{background:white;border-radius:24px;padding:40px;box-shadow:0 12px 48px rgba(14,165,233,0.12);border:1px solid #e0f2fe}
+.pain-item{background:linear-gradient(135deg,#f8fafc 0%,#f0f9ff 100%);border-left:4px solid #0ea5e9;border-radius:12px;padding:22px;margin-bottom:16px;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+.pain-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);transition:width 0.3s;z-index:0}
+.pain-item:hover{transform:translateX(8px);box-shadow:0 4px 16px rgba(14,165,233,0.15)}
+.pain-item:hover::before{width:100%}
+.pain-item h3,.pain-item p{position:relative;z-index:1}
+.pain-item h3{color:#0f172a;font-size:18px;margin-bottom:8px;font-weight:700}
+.pain-item p{color:#64748b;font-size:14px;margin:0}
+.clients-carousel{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);padding:55px 0;overflow:hidden;position:relative}
+.clients-carousel::before,.clients-carousel::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.clients-carousel::before{left:0;background:linear-gradient(90deg,#0ea5e9 0%,transparent 100%)}
+.clients-carousel::after{right:0;background:linear-gradient(270deg,#06b6d4 0%,transparent 100%)}
+.clients-carousel h3{color:rgba(255,255,255,0.9);margin-bottom:36px;font-size:14px;text-align:center;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+.carousel-track{display:flex;gap:35px;animation:scroll 35s linear infinite;width:max-content}
+.carousel-track:hover{animation-play-state:paused}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.client-logo{background:rgba(255,255,255,0.95);border:2px solid rgba(255,255,255,0.3);border-radius:14px;padding:22px 40px;min-width:170px;display:flex;align-items:center;justify-content:center;color:#0ea5e9;font-size:15px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,0.1);transition:all 0.3s;backdrop-filter:blur(10px)}
+.client-logo:hover{background:white;border-color:white;transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+.solutions{padding:100px 0;background:#f8fafc}
+.section-title{text-align:center;font-size:44px;margin-bottom:20px;color:#0f172a;font-weight:900;letter-spacing:-1px}
+.section-subtitle{text-align:center;color:#64748b;font-size:18px;margin-bottom:60px}
+.solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px}
+.solution-card{background:white;border:2px solid #e0f2fe;border-radius:20px;padding:42px;transition:all 0.3s;position:relative;overflow:hidden}
+.solution-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.solution-card:hover{border-color:#0ea5e9;transform:translateY(-8px);box-shadow:0 16px 40px rgba(14,165,233,0.15)}
+.solution-card:hover::before{transform:scaleX(1)}
+.solution-icon{width:68px;height:68px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:24px;box-shadow:0 4px 12px rgba(14,165,233,0.15)}
+.solution-card h3{font-size:22px;margin-bottom:16px;color:#0f172a;font-weight:800}
+.solution-card p{color:#64748b;margin-bottom:24px;line-height:1.75;font-size:15px}
+.solution-card ul{list-style:none}
+.solution-card li{padding:10px 0;padding-left:28px;position:relative;color:#475569;font-size:14px}
+.solution-card li::before{content:'✓';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:18px}
+.scenarios{padding:100px 0;background:white}
+.scenario-content{display:grid;grid-template-columns:280px 1fr;gap:60px;margin-top:60px}
+.scenario-tabs{display:flex;flex-direction:column;gap:12px}
+.scenario-tab{background:#f8fafc;border:2px solid transparent;border-radius:14px;padding:20px 24px;cursor:pointer;transition:all 0.3s;color:#475569;font-weight:600;text-align:left;font-size:15px;position:relative}
+.scenario-tab::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:14px;transition:width 0.3s}
+.scenario-tab:hover{background:#e0f2fe;border-color:#bae6fd}
+.scenario-tab.active{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-color:transparent;color:white;box-shadow:0 6px 16px rgba(14,165,233,0.35)}
+.scenario-detail{background:linear-gradient(135deg,#f8fafc 0%,#f0f9ff 100%);border:2px solid #e0f2fe;border-radius:20px;padding:50px;display:none}
+.scenario-detail.active{display:block}
+.scenario-detail h3{font-size:32px;margin-bottom:20px;color:#0f172a;font-weight:800}
+.scenario-detail p{color:#64748b;margin-bottom:32px;line-height:1.8;font-size:16px}
+.scenario-detail ul{list-style:none}
+.scenario-detail li{padding:14px 0;padding-left:32px;position:relative;color:#475569;font-size:15px}
+.scenario-detail li::before{content:'→';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:18px}
+.industries{padding:100px 0;background:#f8fafc}
+.industry-tabs{display:flex;justify-content:center;gap:14px;margin-bottom:52px;flex-wrap:wrap}
+.industry-tab{background:white;border:2px solid #e0f2fe;border-radius:24px;padding:12px 28px;cursor:pointer;transition:all 0.3s;color:#475569;font-weight:600;font-size:14px;position:relative;overflow:hidden}
+.industry-tab::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);opacity:0;transition:opacity 0.3s}
+.industry-tab:hover{border-color:#bae6fd;background:#f0f9ff}
+.industry-tab.active{border-color:transparent;color:white;box-shadow:0 4px 14px rgba(14,165,233,0.35)}
+.industry-tab.active::before{opacity:1}
+.industry-tab span{position:relative;z-index:1}
+.industry-content-wrapper{display:grid;grid-template-columns:1fr 420px;gap:50px;align-items:start}
+.industry-content{background:white;border:2px solid #e0f2fe;border-radius:20px;padding:50px}
+.industry-image{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border:2px solid #bae6fd;border-radius:20px;height:100%;min-height:420px;display:flex;align-items:center;justify-content:center;transition:all 0.3s;overflow:hidden;position:relative;box-shadow:0 8px 24px rgba(14,165,233,0.12)}
+.industry-image img{width:100%;height:100%;object-fit:cover;border-radius:18px}
+.industry-image::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(14,165,233,0.15) 0%,transparent 70%);z-index:1;pointer-events:none}
+.industry-panel{display:none}
+.industry-panel.active{display:block}
+.industry-panel h3{font-size:32px;margin-bottom:12px;color:#0f172a;font-weight:800}
+.industry-tag{display:inline-block;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);color:#0369a1;padding:8px 18px;border-radius:20px;font-size:12px;margin-bottom:24px;font-weight:600;border:1px solid #bae6fd}
+.industry-panel>p{color:#64748b;margin-bottom:28px;line-height:1.8;font-size:16px}
+.industry-panel ul{list-style:none;margin-bottom:36px}
+.industry-panel li{padding:12px 0;padding-left:28px;position:relative;color:#475569;font-size:14px}
+.industry-panel li::before{content:'•';position:absolute;left:0;color:#0ea5e9;font-weight:bold;font-size:20px}
+.industry-buttons{display:flex;gap:14px;margin-top:32px}
+.btn-primary{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700;transition:all 0.3s;display:inline-block;box-shadow:0 4px 14px rgba(14,165,233,0.3);font-size:14px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,165,233,0.4)}
+.cases{padding:100px 0;background:white}
+.case-scroll-container{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#0ea5e9 #e0f2fe;margin-top:50px;padding-bottom:10px}
+.case-scroll-container::-webkit-scrollbar{height:10px}
+.case-scroll-container::-webkit-scrollbar-track{background:#e0f2fe;border-radius:12px}
+.case-scroll-container::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:12px}
+.case-scroll-container::-webkit-scrollbar-thumb:hover{background:linear-gradient(135deg,#0284c7 0%,#0891b2 100%)}
+.case-grid{display:flex;gap:32px;padding-bottom:20px;min-width:max-content}
+.case-card{background:white;border:2px solid #e0f2fe;border-radius:20px;padding:0;transition:all 0.3s;min-width:340px;max-width:340px;overflow:hidden}
+.case-card:hover{border-color:#0ea5e9;transform:translateY(-6px);box-shadow:0 12px 32px rgba(14,165,233,0.18)}
+.case-image{width:100%;height:200px;background:linear-gradient(135deg,#e0f2fe 0%,#bae6fd 100%);display:flex;align-items:center;justify-content:center;font-size:70px;position:relative}
+.case-image::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(14,165,233,0.2) 0%,transparent 70%)}
+.case-content{padding:32px}
+.case-industry{color:#0ea5e9;font-size:13px;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.case-card h4{font-size:19px;margin-bottom:14px;color:#0f172a;font-weight:800}
+.case-card p{color:#64748b;line-height:1.75;margin-bottom:22px;font-size:14px}
+.case-metrics{display:flex;gap:14px}
+.case-metric{flex:1;background:linear-gradient(135deg,#f8fafc 0%,#f0f9ff 100%);border:1px solid #e0f2fe;border-radius:12px;padding:16px;text-align:center;transition:all 0.3s}
+.case-metric:hover{border-color:#bae6fd;transform:translateY(-2px)}
+.metric-value{font-size:24px;font-weight:900;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:6px}
+.metric-label{font-size:11px;color:#94a3b8;line-height:1.4}
+.testimonials{padding:100px 0;background:#f8fafc}
+.testimonial-scroll-container{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#0ea5e9 #e0f2fe;margin-top:50px;padding-bottom:10px}
+.testimonial-scroll-container::-webkit-scrollbar{height:10px}
+.testimonial-scroll-container::-webkit-scrollbar-track{background:#e0f2fe;border-radius:12px}
+.testimonial-scroll-container::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);border-radius:12px}
+.testimonial-grid{display:flex;gap:32px;padding-bottom:20px;min-width:max-content}
+.testimonial-card{background:white;border:2px solid #e0f2fe;border-radius:20px;padding:36px;min-width:370px;max-width:370px;transition:all 0.3s;position:relative}
+.testimonial-card::before{content:'"';position:absolute;top:20px;left:20px;font-size:80px;color:#e0f2fe;font-family:Georgia,serif;line-height:1}
+.testimonial-card:hover{border-color:#0ea5e9;transform:translateY(-6px);box-shadow:0 12px 32px rgba(14,165,233,0.15)}
+.testimonial-quote{color:#64748b;font-size:15px;line-height:1.8;margin-bottom:24px;font-style:italic;position:relative;z-index:1}
+.testimonial-author h5{font-size:16px;margin-bottom:6px;color:#0f172a;font-weight:700}
+.testimonial-author p{color:#94a3b8;font-size:13px}
+.final-cta{padding:100px 0;background:linear-gradient(135deg,#0ea5e9 0%,#06b6d4 100%);color:white;position:relative;overflow:hidden}
+.final-cta::before{content:'';position:absolute;top:-50%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);border-radius:50%}
+.cta-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:70px;align-items:start;position:relative;z-index:1}
+.cta-left h2{font-size:42px;margin-bottom:26px;font-weight:900;line-height:1.2;letter-spacing:-1px}
+.cta-benefits{list-style:none;margin:36px 0}
+.cta-benefits li{padding:18px 0;padding-left:36px;position:relative;border-bottom:1px solid rgba(255,255,255,0.2);font-size:16px;line-height:1.7}
+.cta-benefits li::before{content:'✓';position:absolute;left:0;font-weight:bold;font-size:22px}
+.cta-benefits li:last-child{border-bottom:none}
+.cta-form{background:rgba(255,255,255,0.15);backdrop-filter:blur(20px);border:2px solid rgba(255,255,255,0.25);border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.cta-form h3{font-size:22px;margin-bottom:28px;font-weight:800}
+.form-group{margin-bottom:18px}
+.form-group input{width:100%;padding:16px 18px;border:2px solid rgba(255,255,255,0.3);border-radius:12px;background:rgba(255,255,255,0.2);color:white;font-size:15px;transition:all 0.3s}
+.form-group input:focus{border-color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.25);outline:none}
+.form-group input::placeholder{color:rgba(255,255,255,0.7)}
+.form-divider{text-align:center;margin:28px 0;color:rgba(255,255,255,0.8);font-size:15px;position:relative;font-weight:600}
+.form-divider::before,.form-divider::after{content:'';position:absolute;top:50%;width:38%;height:2px;background:rgba(255,255,255,0.25)}
+.form-divider::before{left:0}
+.form-divider::after{right:0}
+.qr-section{text-align:center;padding:28px;background:rgba(255,255,255,0.1);border-radius:16px;margin-top:24px;border:1px solid rgba(255,255,255,0.2)}
+.qr-section p{font-size:15px;margin-bottom:18px;opacity:0.95;font-weight:600}
+.qr-code{width:180px;height:180px;background:white;border-radius:16px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:13px;color:#64748b;box-shadow:0 8px 24px rgba(0,0,0,0.15);font-weight:600}
+.submit-btn{width:100%;background:white;color:#0ea5e9;padding:16px;border:none;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+@media(max-width:1024px){.industry-content-wrapper{grid-template-columns:1fr}.industry-image{min-height:320px}}
+@media(max-width:768px){.hero-content,.scenario-content,.cta-grid{grid-template-columns:1fr}.hero h1{font-size:36px}.nav-links{display:none}.case-card{min-width:300px;max-width:300px}.testimonial-card{min-width:320px;max-width:320px}}
+</style>
+</head>
+<body>
+<header><nav class="container"><div class="logo">移山科技 | GEO专家</div><ul class="nav-links"><li><a href="#solutions">解决方案</a></li><li><a href="#cases">成功案例</a></li><li><a href="#insights">观点与洞察</a></li><li><a href="#faq">常见问题</a></li><li><a href="#contact">联系我们</a></li></ul><a href="#cta" class="cta-btn"><span>获取诊断</span></a></nav></header>
+
+<section class="hero">
+<div class="container">
+<div class="hero-content">
+<div>
+<div class="badge">《2025 GEO 生成引擎优化技术白皮书》发布单位</div>
+<h1>让您的品牌成为<br><span class="highlight">AI 搜索的首选答案</span></h1>
+<p>覆盖百度AI、DeepSeek、豆包等主流AI平台,让AI主动推荐您,而不是您的竞争对手</p>
+<a href="#cta" class="cta-btn"><span>获取专属诊断</span></a>
+</div>
+<div class="pain-box">
+<div class="pain-item"><h3>我在 AI 搜索中有曝光吗？</h3><p>了解您的品牌在AI平台的可见度</p></div>
+<div class="pain-item"><h3>竞争对手表现怎么样？</h3><p>对比分析行业竞争格局</p></div>
+<div class="pain-item"><h3>我应该怎么提升 AI 搜索排名？</h3><p>获取专业优化建议</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="clients-carousel">
+<div class="container">
+<h3>我们的客户</h3>
+</div>
+<div class="carousel-track">
+<div class="client-logo">可口可乐</div>
+<div class="client-logo">玛氏</div>
+<div class="client-logo">辉瑞中国</div>
+<div class="client-logo">嘉士伯</div>
+<div class="client-logo">泸州老窖</div>
+<div class="client-logo">方太</div>
+<div class="client-logo">水井坊</div>
+<div class="client-logo">中国医药集团</div>
+<div class="client-logo">仁和药业</div>
+<div class="client-logo">平安医保科技</div>
+<div class="client-logo">九州通</div>
+<div class="client-logo">南京医药</div>
+<div class="client-logo">可口可乐</div>
+<div class="client-logo">玛氏</div>
+<div class="client-logo">辉瑞中国</div>
+<div class="client-logo">嘉士伯</div>
+<div class="client-logo">泸州老窖</div>
+<div class="client-logo">方太</div>
+</div>
+</section>
+
+<section class="solutions" id="solutions">
+<div class="container">
+<h2 class="section-title">一站式 GEO 优化体系</h2>
+<p class="section-subtitle">从可见到推荐,全链路提升品牌在AI搜索中的表现</p>
+<div class="solution-grid">
+<div class="solution-card">
+<div class="solution-icon">🔍</div>
+<h3>让用户更容易找到你</h3>
+<p>洞察AI搜索趋势与用户意图,提前布局用户搜索路径,让你的产品和品牌出现在他们面前。</p>
+<ul>
+<li>找准用户常搜的问题</li>
+<li>占据AI搜索优先推荐位</li>
+<li>提前锁定潜在购买意图</li>
+</ul>
+</div>
+<div class="solution-card">
+<div class="solution-icon">🌐</div>
+<h3>让用户随处看到你</h3>
+<p>一次创作,多平台分发,覆盖主流AI平台,确保用户在各类AI搜索入口都能遇到你。</p>
+<ul>
+<li>多平台曝光与同步更新</li>
+<li>AI引用路径持续追踪</li>
+<li>强化品牌与产品信任感</li>
+</ul>
+</div>
+<div class="solution-card">
+<div class="solution-icon">📈</div>
+<h3>让每次曝光更有价值</h3>
+<p>通过AI推荐数据与转化分析,优化内容方向与呈现方式,让用户从看到你 → 相信你 → 主动点击咨询。</p>
+<ul>
+<li>分析AI推荐与用户反应</li>
+<li>优化内容与产品展示</li>
+<li>实现可持续增长与复购</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="scenarios">
+<div class="container">
+<h2 class="section-title">适用场景</h2>
+<p class="section-subtitle">无论您处于哪个阶段,我们都有对应的解决方案</p>
+<div class="scenario-content">
+<div class="scenario-tabs">
+<div class="scenario-tab active" onclick="switchScenario(0)">品牌从0到1</div>
+<div class="scenario-tab" onclick="switchScenario(1)">竞品压制突围</div>
+<div class="scenario-tab" onclick="switchScenario(2)">持续增长优化</div>
+<div class="scenario-tab" onclick="switchScenario(3)">危机公关应对</div>
+</div>
+<div>
+<div class="scenario-detail active">
+<h3>品牌从0到1</h3>
+<p>新品牌、新产品在AI搜索中完全没有曝光?我们帮您快速建立AI搜索存在感。</p>
+<ul>
+<li>14天内实现品牌可见率从0到85%</li>
+<li>覆盖4+主流AI平台</li>
+<li>建立品牌知识库,让AI记住您</li>
+<li>抢占行业关键词推荐位</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>竞品压制突围</h3>
+<p>AI总是推荐竞争对手?我们帮您分析竞品策略,制定差异化突围方案。</p>
+<ul>
+<li>竞品AI搜索表现深度分析</li>
+<li>识别竞品弱点与机会点</li>
+<li>差异化内容策略制定</li>
+<li>快速提升相对排名</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>持续增长优化</h3>
+<p>已有一定曝光,但希望进一步提升转化?我们提供精细化运营方案。</p>
+<ul>
+<li>AI推荐数据深度分析</li>
+<li>用户意图与转化路径优化</li>
+<li>内容质量持续提升</li>
+<li>ROI最大化策略</li>
+</ul>
+</div>
+<div class="scenario-detail">
+<h3>危机公关应对</h3>
+<p>负面信息在AI搜索中出现?我们帮您快速应对,重塑品牌形象。</p>
+<ul>
+<li>负面信息监控与预警</li>
+<li>正面内容快速覆盖</li>
+<li>AI推荐结果优化</li>
+<li>品牌声誉修复</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="industries" id="industries">
+<div class="container">
+<h2 class="section-title">覆盖全行业的 GEO 解决方案</h2>
+<p class="section-subtitle">深耕多个行业,积累丰富实战经验</p>
+<div class="industry-tabs">
+<div class="industry-tab active" onclick="switchIndustry(0)"><span>能源与电力</span></div>
+<div class="industry-tab" onclick="switchIndustry(1)"><span>制造业</span></div>
+<div class="industry-tab" onclick="switchIndustry(2)"><span>医疗健康</span></div>
+<div class="industry-tab" onclick="switchIndustry(3)"><span>金融服务</span></div>
+<div class="industry-tab" onclick="switchIndustry(4)"><span>教育培训</span></div>
+<div class="industry-tab" onclick="switchIndustry(5)"><span>SaaS服务</span></div>
+</div>
+<div class="industry-content-wrapper">
+<div class="industry-content">
+<div class="industry-panel active">
+<span class="industry-tag">能源与电力</span>
+<h3>能源与电力行业</h3>
+<p>帮助能源企业在AI搜索中建立技术领先形象,提升品牌可信度与行业影响力。</p>
+<ul>
+<li>新能源技术与解决方案推广</li>
+<li>行业政策解读与趋势分析</li>
+<li>企业社会责任形象塑造</li>
+<li>技术创新成果展示</li>
+<li>客户案例与成功故事传播</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+<div class="industry-panel">
+<span class="industry-tag">制造业</span>
+<h3>制造业</h3>
+<p>助力制造企业在AI搜索中展示技术实力,吸引潜在客户与合作伙伴。</p>
+<ul>
+<li>产品技术参数优化展示</li>
+<li>行业解决方案内容营销</li>
+<li>供应链优势突出</li>
+<li>质量认证与资质展示</li>
+<li>客户成功案例传播</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+<div class="industry-panel">
+<span class="industry-tag">医疗健康</span>
+<h3>医疗健康</h3>
+<p>在严格合规前提下,提升医疗机构与健康品牌在AI搜索中的专业形象。</p>
+<ul>
+<li>专业医疗知识科普</li>
+<li>疾病预防与健康管理</li>
+<li>医疗技术与设备介绍</li>
+<li>患者教育与服务指南</li>
+<li>医生团队与专业资质展示</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+<div class="industry-panel">
+<span class="industry-tag">金融服务</span>
+<h3>金融服务</h3>
+<p>帮助金融机构在AI搜索中建立专业可信形象,吸引高质量客户。</p>
+<ul>
+<li>金融产品与服务介绍</li>
+<li>投资理财知识教育</li>
+<li>风险管理与合规展示</li>
+<li>客户案例与成功故事</li>
+<li>行业洞察与市场分析</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+<div class="industry-panel">
+<span class="industry-tag">教育培训</span>
+<h3>教育培训</h3>
+<p>提升教育机构在AI搜索中的品牌影响力,吸引更多学员与家长关注。</p>
+<ul>
+<li>课程体系与教学特色展示</li>
+<li>师资力量与教学成果</li>
+<li>学员成功案例分享</li>
+<li>教育理念与方法论传播</li>
+<li>行业资讯与学习指南</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+<div class="industry-panel">
+<span class="industry-tag">SaaS服务</span>
+<h3>SaaS服务</h3>
+<p>帮助SaaS企业在AI搜索中突出产品优势,加速客户获取与转化。</p>
+<ul>
+<li>产品功能与价值展示</li>
+<li>行业解决方案营销</li>
+<li>客户成功案例传播</li>
+<li>产品对比与差异化</li>
+<li>使用教程与最佳实践</li>
+</ul>
+<div class="industry-buttons">
+<a href="#cta" class="btn-primary">获取行业方案</a>
+</div>
+</div>
+</div>
+<div class="industry-image">
+<img src="../../行业解决方案图片/能源行业.webp" alt="能源与电力行业" id="industryImage">
+</div>
+</div>
+</div>
+</section>
+
+<section class="cases" id="cases">
+<div class="container">
+<h2 class="section-title">成功案例</h2>
+<p class="section-subtitle">真实数据,验证效果</p>
+<div class="case-scroll-container">
+<div class="case-grid">
+<div class="case-card">
+<div class="case-image">🏭</div>
+<div class="case-content">
+<div class="case-industry">科技行业</div>
+<h4>移山科技</h4>
+<p>14天内实现品牌可见率从0到85%,覆盖4+主流AI平台</p>
+<div class="case-metrics">
+<div class="case-metric">
+<span class="metric-value">85%</span>
+<span class="metric-label">品牌可见率</span>
+</div>
+<div class="case-metric">
+<span class="metric-value">4+</span>
+<span class="metric-label">覆盖平台</span>
+</div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">🏠</div>
+<div class="case-content">
+<div class="case-industry">消费行业</div>
+<h4>家居品牌</h4>
+<p>AI推荐率提升300%,有效询盘增长150%</p>
+<div class="case-metrics">
+<div class="case-metric">
+<span class="metric-value">300%</span>
+<span class="metric-label">推荐率提升</span>
+</div>
+<div class="case-metric">
+<span class="metric-value">150%</span>
+<span class="metric-label">询盘增长</span>
+</div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">💊</div>
+<div class="case-content">
+<div class="case-industry">医疗行业</div>
+<h4>健康科技公司</h4>
+<p>专业内容覆盖率提升200%,品牌信任度显著增强</p>
+<div class="case-metrics">
+<div class="case-metric">
+<span class="metric-value">200%</span>
+<span class="metric-label">内容覆盖</span>
+</div>
+<div class="case-metric">
+<span class="metric-value">Top3</span>
+<span class="metric-label">行业排名</span>
+</div>
+</div>
+</div>
+</div>
+<div class="case-card">
+<div class="case-image">🎓</div>
+<div class="case-content">
+<div class="case-industry">教育行业</div>
+<h4>在线教育平台</h4>
+<p>AI搜索流量增长180%,课程咨询量提升120%</p>
+<div class="case-metrics">
+<div class="case-metric">
+<span class="metric-value">180%</span>
+<span class="metric-label">流量增长</span>
+</div>
+<div class="case-metric">
+<span class="metric-value">120%</span>
+<span class="metric-label">咨询提升</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="testimonials">
+<div class="container">
+<h2 class="section-title">客户反馈</h2>
+<p class="section-subtitle">听听他们怎么说</p>
+<div class="testimonial-scroll-container">
+<div class="testimonial-grid">
+<div class="testimonial-card">
+<p class="testimonial-quote">"移山科技的GEO服务让我们在AI搜索中的表现有了质的飞跃。14天内,我们的品牌可见率从0提升到85%,效果远超预期。"</p>
+<div class="testimonial-author">
+<h5>张总</h5>
+<p>科技公司 CEO</p>
+</div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"专业的团队,清晰的策略,可量化的效果。我们的AI推荐率提升了300%,询盘质量也明显提高。强烈推荐!"</p>
+<div class="testimonial-author">
+<h5>李经理</h5>
+<p>消费品牌 市场总监</p>
+</div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"在医疗行业做AI搜索优化需要非常专业和谨慎。移山科技在合规前提下,帮我们建立了专业可信的品牌形象。"</p>
+<div class="testimonial-author">
+<h5>王院长</h5>
+<p>医疗机构 负责人</p>
+</div>
+</div>
+<div class="testimonial-card">
+<p class="testimonial-quote">"数据驱动的优化方法让我们看到了实实在在的增长。AI搜索流量增长180%,课程咨询量提升120%。"</p>
+<div class="testimonial-author">
+<h5>刘老师</h5>
+<p>教育平台 运营负责人</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="final-cta" id="cta">
+<div class="container">
+<div class="cta-grid">
+<div class="cta-left">
+<h2>准备好提升您的AI搜索表现了吗?</h2>
+<ul class="cta-benefits">
+<li>免费GEO现状诊断</li>
+<li>竞品对比分析报告</li>
+<li>定制化优化方案</li>
+<li>24小时内响应</li>
+</ul>
+</div>
+<div class="cta-form">
+<h3>立即获取免费诊断</h3>
+<form onsubmit="handleSubmit(event)">
+<div class="form-group">
+<input type="text" placeholder="您的姓名 *" required>
+</div>
+<div class="form-group">
+<input type="tel" placeholder="联系电话 *" required>
+</div>
+<div class="form-group">
+<input type="text" placeholder="公司名称 *" required>
+</div>
+<button type="submit" class="submit-btn">提交申请</button>
+</form>
+<div class="form-divider">或</div>
+<div class="qr-section">
+<p>扫码添加专属顾问</p>
+<div class="qr-code">微信二维码</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+function switchScenario(index){
+const tabs=document.querySelectorAll('.scenario-tab');
+const details=document.querySelectorAll('.scenario-detail');
+tabs.forEach((tab,i)=>{
+tab.classList.toggle('active',i===index);
+});
+details.forEach((detail,i)=>{
+detail.classList.toggle('active',i===index);
+});
+}
+
+const industryImages = [
+'../../行业解决方案图片/能源行业.webp',
+'../../行业解决方案图片/制造业.webp',
+'../../行业解决方案图片/医疗健康.webp',
+'../../行业解决方案图片/金融.webp',
+'../../行业解决方案图片/教育.webp',
+'../../行业解决方案图片/saas服务.webp'
+];
+
+function switchIndustry(index){
+const tabs=document.querySelectorAll('.industry-tab');
+const panels=document.querySelectorAll('.industry-panel');
+const imageEl=document.getElementById('industryImage');
+tabs.forEach((tab,i)=>{
+tab.classList.toggle('active',i===index);
+});
+panels.forEach((panel,i)=>{
+panel.classList.toggle('active',i===index);
+});
+if(imageEl){
+imageEl.src=industryImages[index];
+imageEl.alt=tabs[index].textContent.trim();
+}
+}
+
+function handleSubmit(e){
+e.preventDefault();
+alert('感谢您的提交!我们的团队将在24小时内与您联系。');
+}
+</script>
+</body>
+</html>

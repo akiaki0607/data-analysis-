@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移山科技 | GEO专家 - 让您的品牌成为AI搜索的首选答案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 首屏 */
+        .hero {
+            margin-top: 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-left {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .badge {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #667eea;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+        }
+
+        .hero-right {
+            position: relative;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .phone-mockup {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .phone-mockup:hover {
+            transform: scale(1.05);
+        }
+
+        .phone-screen {
+            background: #1a1a2e;
+            border-radius: 30px;
+            padding: 30px;
+            min-height: 500px;
+        }
+
+        .pain-point-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .pain-point-card:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+            transform: translateX(10px);
+        }
+
+        .pain-point-card h3 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* 客户Logo区 */
+        .clients {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .clients h3 {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .client-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            opacity: 0.6;
+        }
+
+        .client-logo {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* 解决方案 */
+        .solutions {
+            padding: 100px 0;
+            background: #0f0f0f;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .solution-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .solution-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .solution-card:hover {
+            background: rgba(102, 126, 234, 0.05);
+            border-color: #667eea;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .solution-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .solution-card p {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .solution-card ul {
+            list-style: none;
+            color: #888;
+        }
+
+        .solution-card ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .solution-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* 场景方案 */
+        .scenarios {
+            padding: 100px 0;
+            background: #0a0a0a;
+        }
+
+        .scenario-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .scenario-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .scenario-tab {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #b0b0b0;
+        }
+
+        .scenario-tab:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+
+        .scenario-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .scenario-detail {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 50px;
+        }
+
+        .scenario-detail h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .scenario-detail p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .scenario-detail ul {
+            list-style: none;
+            color: #888;
+        }
+
+        .scenario-detail ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .scenario-detail ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .scenario-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav class="container">
+            <div class="logo">移山科技 | GEO专家</div>
+            <ul class="nav-links">
+                <li><a href="#solutions">解决方案</a></li>
+                <li><a href="#cases">成功案例</a></li>
+                <li><a href="#insights">观点与洞察</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <a href="#diagnosis" class="cta-button">获取诊断</a>
+        </nav>
+    </header>
+
+    <!-- 首屏 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="badge">《2025 GEO 生成引擎优化技术白皮书》发布单位</div>
+                    <h1>让您的品牌成为 AI 搜索的首选答案</h1>
+                    <p>覆盖百度AI、DeepSeek、豆包等主流AI平台，让AI主动推荐您，而不是您的竞争对手</p>
+                    <a href="#diagnosis" class="cta-button">获取专属诊断</a>
+                    
+                    <div class="clients">
+                        <h3>我们的客户</h3>
+                        <div class="client-logos">
+                            <div class="client-logo">[客户Logo 1]</div>
+                            <div class="client-logo">[客户Logo 2]</div>
+                            <div class="client-logo">[客户Logo 3]</div>
+                            <div class="client-logo">[客户Logo 4]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="pain-point-card">
+                                <h3>我在 AI 搜索中有曝光吗？</h3>
+                                <p style="color: #888; font-size: 14px;">了解您的品牌在AI平台的可见度</p>
+                            </div>
+                            <div class="pain-point-card">
+                                <h3>竞争对手表现怎么样？</h3>
+                                <p style="color: #888; font-size: 14px;">对比分析行业竞争格局</p>
+                            </div>
+                            <div class="pain-point-card">
+                                <h3>我应该怎么提升 AI 搜索排名？</h3>
+                                <p style="color: #888; font-size: 14px;">获取专业优化建议</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 解决方案 -->
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <h2 class="section-title">从被AI看到，到被用户信任——一站式GEO优化体系</h2>
+            <div class="solution-cards">
+                <div class="solution-card">
+                    <div class="solution-icon">🎯</div>
+                    <h3>让用户更容易找到你</h3>
+                    <p>洞察AI搜索趋势与用户意图，提前布局用户搜索路径，让你的产品和品牌出现在他们面前。</p>
+                    <ul>
+                        <li>找准用户常搜的问题</li>
+                        <li>占据AI搜索优先推荐位</li>
+                        <li>提前锁定潜在购买意图</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">🌐</div>
+                    <h3>让用户随处看到你</h3>
+                    <p>一次创作，多平台分发，覆盖主流AI平台，确保用户在各类AI搜索入口都能遇到你。</p>
+                    <ul>
+                        <li>多平台曝光与同步更新</li>
+                        <li>AI引用路径持续追踪</li>
+                        <li>强化品牌与产品信任感</li>
+                    </ul>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">📈</div>
+                    <h3>让每次曝光更有价值</h3>
+                    <p>通过AI推荐数据与转化分析，优化内容方向与呈现方式，让用户从看到你 → 相信你 → 主动点击咨询。</p>
+                    <ul>
+                        <li>分析AI推荐与用户行为</li>
+                        <li>优化内容与产品展示</li>
+                        <li>实现可持续增长与复购</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#contact" class="cta-button">了解我的专属GEO方案</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 场景方案 -->
+    <section class="scenarios">
+        <div class="container">
+            <h2 class="section-title">为不同业务目标定制的 GEO 解决方案</h2>
+            <div class="scenario-content">
+                <div class="scenario-tabs">
+                    <div class="scenario-tab active" onclick="showScenario(0)">🏢 品牌建设场景</div>
+                    <div class="scenario-tab" onclick="showScenario(1)">💰 销售转化场景</div>
+                    <div class="scenario-tab" onclick="showScenario(2)">📝 内容营销场景</div>
+                    <div class="scenario-tab" onclick="showScenario(3)">🤝 客户服务场景</div>
+                    <div class="scenario-tab" onclick="showScenario(4)">🚨 危机公关场景</div>
+                    <div class="scenario-tab" onclick="showScenario(5)">🌍 市场扩张场景</div>
+                </div>
+
+                <div class="scenario-detail" id="scenario-0">
+                    <h3>品牌建设场景</h3>
+                    <p>针对品牌建设与影响力塑造需求，GEO 优化帮助企业在 AI 搜索中建立权威形象与可信表达，让品牌被AI优先理解、优先引用。</p>
+                    <ul>
+                        <li>构建品牌权威内容体系</li>
+                        <li>塑造行业领导地位与专业口碑</li>
+                        <li>打造可被AI理解的品牌故事与价值观</li>
+                        <li>建立品牌声誉监测与正向反馈机制</li>
+                    </ul>
+                </div>
+
+                <div class="scenario-detail" id="scenario-1" style="display: none;">
+                    <h3>销售转化场景</h3>
+                    <p>针对销售线索增长与转化率提升，GEO 技术锁定高意向搜索与AI推荐位，助力品牌实现从认知到成交的闭环增长。</p>
+                    <ul>
+                        <li>捕捉高意向关键词与AI问答场景</li>
+                        <li>优化销售路径与内容匹配度</li>
+                        <li>提升产品方案在AI搜索中的权威露出</li>
+                        <li>追踪转化数据并持续优化内容策略</li>
+                    </ul>
+                </div>
+
+                <div class="scenario-detail" id="scenario-2" style="display: none;">
+                    <h3>内容营销场景</h3>
+                    <p>针对品牌内容传播与影响力积累，GEO 优化让内容系统性进入 AI 搜索生态，实现长期曝光与信源权重提升。</p>
+                    <ul>
+                        <li>将内容主题与搜索热词精准映射</li>
+                        <li>共建权威媒体与AI平台信源矩阵</li>
+                        <li>优化内容权重与AI推荐度</li>
+                        <li>建立内容传播数据追踪与复盘机制</li>
+                    </ul>
+                </div>
+
+                <div class="scenario-detail" id="scenario-3" style="display: none;">
+                    <h3>客户服务场景</h3>
+                    <p>针对客户咨询、服务与售后，GEO 优化让企业在 AI 搜索与智能问答中优先呈现标准化、可信赖的服务内容。</p>
+                    <ul>
+                        <li>构建服务知识库与常见问题 GEO 化</li>
+                        <li>优化AI搜索中的官方答复与场景露出</li>
+                        <li>提升用户自助服务体验与信任度</li>
+                        <li>监测客户反馈与舆情，持续优化内容</li>
+                    </ul>
+                </div>
+
+                <div class="scenario-detail" id="scenario-4" style="display: none;">
+                    <h3>危机公关场景</h3>
+                    <p>针对品牌舆情与危机事件，GEO 技术可迅速介入，提升正向信源权重、压制负面结果、恢复公众信任。</p>
+                    <ul>
+                        <li>建立舆情预警与风险监控机制</li>
+                        <li>替换与优化AI中负面内容引用</li>
+                        <li>快速布控权威信源与正向内容</li>
+                        <li>构建品牌声誉修复与复盘机制</li>
+                    </ul>
+                </div>
+
+                <div class="scenario-detail" id="scenario-5" style="display: none;">
+                    <h3>市场扩张场景</h3>
+                    <p>针对新市场拓展与本地化曝光需求，GEO 优化帮助品牌在不同地区的AI语境中快速建立可见度与信任感。</p>
+                    <ul>
+                        <li>构建本地化关键词与内容体系</li>
+                        <li>优化区域信源与行业AI曝光度</li>
+                        <li>分析区域竞争格局与机会区间</li>
+                        <li>提升多地区品牌认知与口碑积累</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#contact" class="cta-button">获取我的场景解决方案</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showScenario(index) {
+            // 隐藏所有场景
+            for (let i = 0; i < 6; i++) {
+                document.getElementById('scenario-' + i).style.display = 'none';
+            }
+            
+            // 移除所有active类
+            const tabs = document.querySelectorAll('.scenario-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 显示选中的场景
+            document.getElementById('scenario-' + index).style.display = 'block';
+            tabs[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>

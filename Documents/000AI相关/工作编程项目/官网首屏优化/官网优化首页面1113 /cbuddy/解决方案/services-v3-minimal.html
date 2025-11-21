@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO解决方案与服务 - 移山科技 | 一站式AI搜索优化体系</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;line-height:1.6;color:#0f172a;background:#fff;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* 导航栏 */
+header{position:fixed;width:100%;background:rgba(255,255,255,0.92);backdrop-filter:blur(25px);border-bottom:1px solid #e5e7eb;z-index:1000;padding:22px 0}
+nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:21px;font-weight:700;color:#1e3a8a;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:42px;list-style:none}
+.nav-links a{color:#64748b;text-decoration:none;transition:color 0.3s;font-weight:500;font-size:15px}
+.nav-links a:hover{color:#1e3a8a}
+.cta-btn{background:#1e3a8a;color:white;padding:12px 32px;border-radius:10px;text-decoration:none;font-weight:600;transition:all 0.3s;display:inline-block}
+.cta-btn:hover{background:#0f172a;transform:translateY(-1px)}
+
+/* 页面头部 */
+.page-hero{margin-top:90px;padding:85px 0 65px;background:#ffffff;position:relative}
+.breadcrumb{font-size:14px;color:#64748b;margin-bottom:20px}
+.breadcrumb a{color:#1e3a8a;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.page-hero-content{text-align:center;max-width:800px;margin:0 auto}
+.hero-badge{background:#f1f5f9;color:#1e3a8a;padding:10px 22px;border-radius:8px;font-size:13px;margin-bottom:26px;display:inline-block;font-weight:600;letter-spacing:0.2px}
+.page-hero h1{font-size:52px;line-height:1.1;margin-bottom:20px;color:#0f172a;font-weight:800;letter-spacing:-1.5px}
+.page-hero .subtitle{font-size:18px;color:#64748b;line-height:1.75;max-width:700px;margin:0 auto}
+
+/* 通用section */
+.section{padding:90px 0}
+.section-white{background:white}
+.section-gray{background:#fafbfc}
+.section-gradient{background:#f8fafc}
+.section-header{text-align:center;margin-bottom:55px}
+.section-title{font-size:40px;margin-bottom:18px;color:#0f172a;font-weight:800;letter-spacing:-1.2px}
+.section-subtitle{font-size:17px;color:#64748b;max-width:700px;margin:0 auto}
+
+/* 解决方案卡片 */
+.solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:45px}
+.solution-card{background:#fafbfc;border:1px solid #e5e7eb;border-radius:16px;padding:40px;transition:all 0.3s}
+.solution-card:hover{border-color:#1e3a8a;transform:translateY(-8px);box-shadow:0 20px 45px rgba(30,58,138,0.1);background:white}
+.solution-icon{width:66px;height:66px;background:white;border:1px solid #e5e7eb;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:33px;margin-bottom:24px}
+.solution-card h3{font-size:22px;margin-bottom:16px;color:#0f172a;font-weight:700}
+.solution-card p{color:#64748b;margin-bottom:24px;line-height:1.75;font-size:15px}
+.solution-card ul{list-style:none}
+.solution-card li{padding:10px 0;padding-left:28px;position:relative;color:#475569;font-size:14px;line-height:1.6}
+.solution-card li::before{content:'✓';position:absolute;left:0;color:#1e3a8a;font-weight:bold;font-size:17px}
+
+/* 商业决策引擎 */
+.engine-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:32px;margin-top:45px}
+.engine-card{background:white;border:1px solid #e5e7eb;border-radius:18px;padding:44px;transition:all 0.3s;position:relative}
+.engine-card:hover{border-color:#1e3a8a;transform:translateY(-6px);box-shadow:0 20px 40px rgba(30,58,138,0.1)}
+.engine-number{position:absolute;top:20px;right:24px;width:48px;height:48px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:800;color:#1e3a8a}
+.engine-icon{width:68px;height:68px;background:#1e3a8a;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:35px;margin-bottom:24px}
+.engine-card h3{font-size:24px;margin-bottom:12px;color:#0f172a;font-weight:700}
+.engine-card p{color:#64748b;margin-bottom:20px;line-height:1.8;font-size:15px}
+.engine-features{background:#fafbfc;border-radius:12px;padding:20px;margin-top:20px}
+.engine-features ul{list-style:none}
+.engine-features li{padding:8px 0;padding-left:24px;position:relative;color:#475569;font-size:14px}
+.engine-features li::before{content:'→';position:absolute;left:0;color:#1e3a8a;font-weight:bold;font-size:16px}
+.engine-value{background:#f8fafc;border-left:4px solid #1e3a8a;border-radius:10px;padding:18px 20px;margin-top:20px}
+.engine-value strong{color:#1e3a8a;font-weight:600}
+
+/* 服务流程 - 极简展示 */
+.process-section{background:white;padding:90px 0}
+.process-wrapper{max-width:1100px;margin:0 auto}
+.process-image-container{background:#fafbfc;border-radius:20px;padding:45px;border:1px solid #e5e7eb}
+.process-image-container img{width:100%;height:auto;display:block;border-radius:12px}
+
+/* 特色优势 */
+.advantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:45px}
+.advantage-card{background:#fafbfc;border:1px solid #e5e7eb;border-radius:16px;padding:36px;text-align:center;transition:all 0.3s}
+.advantage-card:hover{border-color:#1e3a8a;transform:translateY(-5px);box-shadow:0 12px 30px rgba(30,58,138,0.1);background:white}
+.advantage-icon{width:60px;height:60px;background:white;border:1px solid #e5e7eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px}
+.advantage-card h4{font-size:18px;color:#0f172a;margin-bottom:12px;font-weight:700}
+.advantage-card p{color:#64748b;font-size:14px;line-height:1.7}
+
+/* CTA区域 - 极简表单 */
+.final-cta{padding:95px 0;background:#0f172a;color:white;text-align:center}
+.final-cta h2{font-size:42px;margin-bottom:20px;font-weight:800;letter-spacing:-1.2px}
+.final-cta p{font-size:18px;margin-bottom:45px;opacity:0.92}
+.cta-form-container{max-width:540px;margin:0 auto;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:46px}
+.cta-form-container h3{font-size:24px;margin-bottom:32px;font-weight:700}
+.form-group{margin-bottom:20px}
+.form-group input{width:100%;padding:16px 20px;border:1px solid rgba(255,255,255,0.25);border-radius:12px;background:rgba(255,255,255,0.12);color:white;font-size:15px;font-family:inherit;transition:all 0.3s}
+.form-group input:focus{outline:none;border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.18)}
+.form-group input::placeholder{color:rgba(255,255,255,0.6)}
+.submit-btn{width:100%;background:white;color:#0f172a;padding:17px;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,255,255,0.25)}
+.cta-note{margin-top:26px;font-size:14px;opacity:0.88;line-height:1.6}
+
+/* 响应式 */
+@media(max-width:768px){
+  .page-hero h1{font-size:36px}
+  .section-title{font-size:32px}
+  .nav-links{display:none}
+  .engine-grid,.solution-grid{grid-template-columns:1fr}
+  .process-image-container{padding:28px}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <div class="logo">移山科技 | GEO专家</div>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#solutions">解决方案</a></li>
+      <li><a href="#process">服务流程</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <a href="#contact" class="cta-btn">免费咨询</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a> / 解决方案与服务
+    </div>
+    <div class="page-hero-content">
+      <div class="hero-badge">一站式GEO优化体系</div>
+      <h1>让AI主动推荐您的品牌</h1>
+      <p class="subtitle">从被AI看到，到被用户信任。覆盖百度AI、DeepSeek、豆包等主流AI平台，系统化提升品牌在AI搜索中的可见度与推荐度</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-white" id="solutions">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">一站式GEO优化体系</h2>
+      <p class="section-subtitle">以客户价值为导向，三大核心方案助力品牌AI搜索增长</p>
+    </div>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <div class="solution-icon">🎯</div>
+        <h3>让用户更容易找到你</h3>
+        <p>洞察AI搜索趋势与用户意图，提前布局用户搜索路径，让你的产品和品牌出现在他们面前。</p>
+        <ul>
+          <li>找准用户常搜的问题</li>
+          <li>占据AI搜索优先推荐位</li>
+          <li>提前锁定潜在购买意图</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">🌐</div>
+        <h3>让用户随处看到你</h3>
+        <p>一次创作，多平台分发，覆盖主流AI平台，确保用户在各类AI搜索入口都能遇到你。</p>
+        <ul>
+          <li>多平台曝光与同步更新</li>
+          <li>AI引用路径持续追踪</li>
+          <li>强化品牌与产品信任感</li>
+        </ul>
+      </div>
+      <div class="solution-card">
+        <div class="solution-icon">📈</div>
+        <h3>让每次曝光更有价值</h3>
+        <p>通过AI推荐数据与转化分析，优化内容方向与呈现方式，让用户从看到你 → 相信你 → 主动点击咨询。</p>
+        <ul>
+          <li>分析AI推荐与用户反应</li>
+          <li>优化内容与产品展示</li>
+          <li>实现可持续增长与复购</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">商业决策引擎</h2>
+      <p class="section-subtitle">三大核心系统，驱动AI搜索增长</p>
+    </div>
+    <div class="engine-grid">
+      <div class="engine-card">
+        <div class="engine-number">01</div>
+        <div class="engine-icon">📊</div>
+        <h3>全网数据整合系统</h3>
+        <p>跨平台AI搜索表现实时监控系统，让您随时掌握品牌在AI世界的真实表现。</p>
+        <div class="engine-features">
+          <ul>
+            <li>覆盖百度AI、DeepSeek、豆包、元宝、Kimi等主流AI平台</li>
+            <li>同步监控知乎/公众号/百家号等信源影响</li>
+            <li>自动发现信源断层、权重缺口与情绪风险</li>
+            <li>可视化仪表盘呈现品牌"AI可见性健康指数"</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>实时知道品牌是否被看见、被推荐、被信任
+        </div>
+      </div>
+
+      <div class="engine-card">
+        <div class="engine-number">02</div>
+        <div class="engine-icon">🎯</div>
+        <h3>商业决策引擎</h3>
+        <p>AI搜索增长战略中枢系统，用数据驱动每一个增长决策。</p>
+        <div class="engine-features">
+          <ul>
+            <li>构建品牌在AI搜索领域的竞争格局模型</li>
+            <li>识别可见度/推荐度/信源权重等关键差异因子</li>
+            <li>自动生成阶段性增长策略与优先落点</li>
+            <li>以数据驱动资源投入，减少试错成本</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>明确"做什么最重要，先做什么最有效"
+        </div>
+      </div>
+
+      <div class="engine-card">
+        <div class="engine-number">03</div>
+        <div class="engine-icon">💡</div>
+        <h3>AI知识浇灌系统</h3>
+        <p>品牌可被AI记住与调用的内容增强系统，让AI成为您的品牌传播者。</p>
+        <div class="engine-features">
+          <ul>
+            <li>生成符合AI调用标准的文本/视频/图文内容</li>
+            <li>自动匹配高权重信源并智能分发</li>
+            <li>构建可被AI长期引用的"品牌知识权威库"</li>
+            <li>形成写→发→引用→优化的智能增长闭环</li>
+          </ul>
+        </div>
+        <div class="engine-value">
+          <strong>核心价值：</strong>让AI选择你、说你、推你
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="process">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">服务流程</h2>
+      <p class="section-subtitle">标准化流程，确保每个环节精准高效</p>
+    </div>
+    <div class="process-wrapper">
+      <div class="process-image-container">
+        <img src="../需求/服务流程.png" alt="移山科技GEO服务流程">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gradient">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">我们的核心优势</h2>
+      <p class="section-subtitle">为什么选择移山科技</p>
+    </div>
+    <div class="advantages-grid">
+      <div class="advantage-card">
+        <div class="advantage-icon">🏆</div>
+        <h4>行业先行者</h4>
+        <p>中国GEO领域先行者，15年+营销技术经验，深度理解AI搜索机制</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🔬</div>
+        <h4>技术驱动</h4>
+        <p>自研商业决策引擎，数据驱动每一个优化决策，科学高效</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🌐</div>
+        <h4>全平台覆盖</h4>
+        <p>覆盖百度AI、DeepSeek、豆包、元宝、Kimi等主流AI平台</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">📈</div>
+        <h4>效果可见</h4>
+        <p>平均品牌可见率提升85%+，客户案例遍布多个行业</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">⚡</div>
+        <h4>快速见效</h4>
+        <p>T+3上线，T+14看拐点，最快14天实现从0到1的突破</p>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-icon">🤝</div>
+        <h4>一站式服务</h4>
+        <p>从诊断到执行，从内容到分发，全流程专业服务支持</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="contact">
+  <div class="container">
+    <h2>准备好提升您的AI搜索表现了吗？</h2>
+    <p>立即联系我们，获取免费的GEO现状诊断和优化方案</p>
+    <div class="cta-form-container">
+      <h3>填写信息，获取免费诊断</h3>
+      <form id="contactForm">
+        <div class="form-group">
+          <input type="text" placeholder="您的姓名 *" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" placeholder="您的电话 *" required>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="公司名称 *" required>
+        </div>
+        <button type="submit" class="submit-btn">立即获取免费诊断</button>
+      </form>
+      <p class="cta-note">我们将在24小时内与您联系，为您提供专业的GEO诊断报告</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// 平滑滚动
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// 表单提交
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('感谢您的咨询！我们将在24小时内与您联系。');
+  this.reset();
+});
+</script>
+</body>
+</html>
