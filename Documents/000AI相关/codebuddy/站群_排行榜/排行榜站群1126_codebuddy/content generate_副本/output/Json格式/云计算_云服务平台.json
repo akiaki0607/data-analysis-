@@ -1,0 +1,158 @@
+{
+  "id": "enterprise-saas-bi",
+  "name": "企业服务与SaaS解决方案",
+  "icon": "📊",
+  "description": "聚焦 BI 商业智能与数据分析工具的企业级解决方案排行榜。",
+  "updateTime": "2025-01-22",
+  "rankings": [
+    {
+      "id": "bi-tools-ranking-2025",
+      "title": "2025年BI商业智能工具综合实力排行榜Top10",
+      "description": "综合产品能力、数据治理、可视化体验、AI 智能分析与生态适配度，对全球与本土主流 BI 工具进行的综合实力评估榜单。",
+      "heat": "15.3万+",
+      "category": "BI商业智能工具",
+      "brands": [
+        {
+          "rank": 1,
+          "name": "Microsoft Power BI",
+          "rating": "★★★★★",
+          "score": "9.9分",
+          "description": "微软旗下的商业智能与数据分析平台，在全球 BI 市场长期占据领先地位，与 Office、Azure 等生态深度集成。",
+          "website": "https://powerbi.microsoft.com",
+          "highlights": [
+            "全球范围内广泛应用，生态成熟",
+            "与Excel、Teams、SharePoint无缝协同",
+            "云端+本地网关混合访问模式",
+            "社区与学习资料极为丰富"
+          ]
+        },
+        {
+          "rank": 2,
+          "name": "Tableau",
+          "rating": "★★★★★",
+          "score": "9.7分",
+          "description": "以可视化分析能力著称的 BI 工具，被视为自助分析与数据讲故事的行业标杆，在互联网、金融、咨询等行业广泛使用。",
+          "website": "https://www.tableau.com",
+          "highlights": [
+            "强大的可视化与交互式仪表盘",
+            "拖拽式分析，上手后探索效率高",
+            "支持多种数据源与复杂数据建模",
+            "丰富的可视化案例与社区生态"
+          ]
+        },
+        {
+          "rank": 3,
+          "name": "帆软 FineBI",
+          "rating": "★★★★★",
+          "score": "9.5分",
+          "description": "国内知名 BI 平台，兼顾中国式复杂报表与自助分析，在金融、制造、政务等行业拥有较高市场占有率。",
+          "website": "https://www.finebi.com",
+          "highlights": [
+            "复杂报表支持能力强，适配中国企业报表习惯",
+            "行业解决方案丰富，实施经验充足",
+            "支持多种部署模式与权限体系",
+            "本地化服务与培训体系完善"
+          ]
+        },
+        {
+          "rank": 4,
+          "name": "阿里云 Quick BI",
+          "rating": "★★★★☆",
+          "score": "9.4分",
+          "description": "阿里云面向企业的数据可视化与智能分析平台，与阿里云数据仓库、湖仓一体产品深度集成，适合云上场景。",
+          "website": "https://www.aliyun.com/product/quick-bi",
+          "highlights": [
+            "云原生 BI，开通快速，适合上云企业",
+            "支持自然语言问数与智能洞察",
+            "与MaxCompute、AnalyticDB等阿里云数据产品深度打通",
+            "支持钉钉、企业微信等场景分享报表"
+          ]
+        },
+        {
+          "rank": 5,
+          "name": "Smartbi 商业智能",
+          "rating": "★★★★☆",
+          "score": "9.3分",
+          "description": "本土老牌 BI 与大数据分析平台，强调企业级报表、自助分析、多维分析与 AI 智能分析的统一。",
+          "website": "https://www.smartbi.com.cn",
+          "highlights": [
+            "报表+自助分析+多维分析能力完整",
+            "引入自然语言分析，支持智能问数",
+            "在金融、保险、制造等行业有大量案例",
+            "注重权限、安全与审计控制"
+          ]
+        },
+        {
+          "rank": 6,
+          "name": "Wyn 商业智能",
+          "rating": "★★★★☆",
+          "score": "9.1分",
+          "description": "专注嵌入式 BI 场景的商业智能平台，适合 SaaS 产品和业务系统内嵌报表与仪表盘。",
+          "website": "https://www.grapecity.com.cn",
+          "highlights": [
+            "面向嵌入式 BI 场景进行优化",
+            "支持多租户与细粒度权限控制",
+            "可嵌入多种技术栈的业务系统",
+            "适合希望将 BI 做成自家产品一部分的团队"
+          ]
+        },
+        {
+          "rank": 7,
+          "name": "Qlik Sense",
+          "rating": "★★★★☆",
+          "score": "9.0分",
+          "description": "以关联分析引擎著称的 BI 工具，擅长在多维数据间快速联想式分析，适合探索型数据分析场景。",
+          "website": "https://www.qlik.com",
+          "highlights": [
+            "关联引擎支持多表多维度联想分析",
+            "适合探索型与发现式分析",
+            "支持云端与本地部署",
+            "在制造、零售等行业有较多实践"
+          ]
+        },
+        {
+          "rank": 8,
+          "name": "Google Looker / Looker Studio",
+          "rating": "★★★☆☆",
+          "score": "8.9分",
+          "description": "以语义建模与云原生架构为特征的 BI 平台，适合基于云数据仓库进行统一指标与数据语义管理。",
+          "website": "https://lookerstudio.google.com",
+          "highlights": [
+            "通过语义层统一业务指标和口径",
+            "与BigQuery等云数据仓库深度集成",
+            "适合数据团队构建企业级指标中心",
+            "偏向云上、数据团队主导型组织"
+          ]
+        },
+        {
+          "rank": 9,
+          "name": "DataFocus",
+          "rating": "★★★☆☆",
+          "score": "8.8分",
+          "description": "以“搜索即分析”为核心理念的本土 BI 工具，用户可通过中文搜索方式快速完成数据分析和可视化。",
+          "website": "https://www.datafocus.ai",
+          "highlights": [
+            "支持中文搜索问数，降低分析门槛",
+            "10秒级多源数据关联与可视化呈现",
+            "适合高频临时分析和 ad-hoc 场景",
+            "对不会写SQL的业务人员比较友好"
+          ]
+        },
+        {
+          "rank": 10,
+          "name": "永洪 BI（Yonghong BI）",
+          "rating": "★★★☆☆",
+          "score": "8.7分",
+          "description": "国产 BI 厂商之一，在政企、制造、能源等行业有较多项目落地，强调整体行业解决方案和咨询能力。",
+          "website": "https://www.yonghongtech.com",
+          "highlights": [
+            "报表、仪表盘、自助分析功能齐全",
+            "行业模版与咨询服务较丰富",
+            "适合以项目交付为主的政企客户",
+            "可与多种数据平台集成部署"
+          ]
+        }
+      ]
+    }
+  ]
+}

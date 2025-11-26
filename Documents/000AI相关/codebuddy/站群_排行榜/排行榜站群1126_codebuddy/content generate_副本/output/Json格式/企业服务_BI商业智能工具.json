@@ -1,0 +1,158 @@
+{
+  "id": "cloud-ai-infra",
+  "name": "云计算、大数据与AI基础设施",
+  "icon": "☁️",
+  "description": "聚焦云计算、大数据与AI基础设施能力的主流云平台综合实力排行榜。",
+  "updateTime": "2025-01-22",
+  "rankings": [
+    {
+      "id": "cloud-platform-ranking-2025",
+      "title": "2025年云平台综合实力排行榜Top10",
+      "description": "面向中国市场的主流云平台综合实力评估榜单，综合考察云基础设施、大数据与AI平台、行业方案、安全合规与市场表现等维度。",
+      "heat": "21.6万+",
+      "category": "云平台综合实力",
+      "brands": [
+        {
+          "rank": 1,
+          "name": "阿里云（Alibaba Cloud）",
+          "rating": "★★★★★",
+          "score": "9.8分",
+          "description": "中国公有云与AI公有云市场长期领先的综合云平台，具备从基础设施到大数据与AI的一体化能力，在政企、互联网、金融、制造等行业拥有大量落地案例。",
+          "website": "https://www.aliyun.com",
+          "highlights": [
+            "中国公有云IaaS市场份额长期第一",
+            "飞天操作系统、神龙架构等自研底层技术",
+            "数据湖仓、数据治理与Quick BI等数据智能产品体系完善",
+            "通义千问大模型与丰富的行业解决方案生态"
+          ]
+        },
+        {
+          "rank": 2,
+          "name": "华为云（Huawei Cloud）",
+          "rating": "★★★★★",
+          "score": "9.7分",
+          "description": "依托华为在ICT领域的全栈技术能力，华为云在政务、金融、运营商等行业拥有较强竞争力，强调“云+算力+行业方案”的整体数字基础设施能力。",
+          "website": "https://www.huaweicloud.com",
+          "highlights": [
+            "政务、金融等关键行业解决方案成熟",
+            "昇腾AI基础设施与盘古大模型形成软硬协同优势",
+            "支持多云与混合云架构，云边协同能力强",
+            "在数据中心与网络基础设施层具备长期积累"
+          ]
+        },
+        {
+          "rank": 3,
+          "name": "腾讯云（Tencent Cloud）",
+          "rating": "★★★★★",
+          "score": "9.5分",
+          "description": "由腾讯对外输出的云平台，结合微信、QQ、内容与游戏等生态，在音视频、实时互动与互联网应用场景具有明显优势，同时布局AI与行业云解决方案。",
+          "website": "https://cloud.tencent.com",
+          "highlights": [
+            "音视频、游戏云与CDN能力行业领先",
+            "与微信小程序、企业微信等生态深度整合",
+            "推出混元大模型及多行业AI解决方案",
+            "适合互联网、内容、电商直播等场景"
+          ]
+        },
+        {
+          "rank": 4,
+          "name": "百度智能云（Baidu AI Cloud）",
+          "rating": "★★★★☆",
+          "score": "9.3分",
+          "description": "依托百度在搜索、NLP、语音与知识图谱等领域的长期技术积累，百度智能云在AI公有云与行业智能解决方案方面具备明显优势。",
+          "website": "https://cloud.baidu.com",
+          "highlights": [
+            "在NLP、智能语音与知识图谱方向技术领先",
+            "文心大模型与行业方案协同输出",
+            "在工业互联网、金融、政务等行业持续落地",
+            "针对AI公有云细分市场表现突出"
+          ]
+        },
+        {
+          "rank": 5,
+          "name": "火山引擎（Volcengine）",
+          "rating": "★★★★☆",
+          "score": "9.1分",
+          "description": "字节跳动旗下云平台，将抖音、今日头条等业务沉淀的音视频、推荐算法与数据增长能力云化输出，在内容、直播、电商等场景具备竞争优势。",
+          "website": "https://www.volcengine.com",
+          "highlights": [
+            "在音视频处理、推荐算法与内容分发方面能力强",
+            "提供数据中台、A/B测试与增长分析工具",
+            "适合内容平台、电商直播与互联网应用",
+            "在AI IaaS市场中增速较快，已进入第一梯队"
+          ]
+        },
+        {
+          "rank": 6,
+          "name": "中国电信天翼云",
+          "rating": "★★★★☆",
+          "score": "9.0分",
+          "description": "中国电信面向政企与行业客户的云平台，依托运营商网络与IDC资源，强调“云网一体、安全可信”的基础设施能力。",
+          "website": "https://www.ctyun.cn",
+          "highlights": [
+            "全国范围的云网一体基础设施布局",
+            "在政企、能源、交通等行业有大量项目实践",
+            "强调安全、可信与可控，适配政企客户诉求",
+            "支持专线接入与多种网络能力融合"
+          ]
+        },
+        {
+          "rank": 7,
+          "name": "中国移动云能力中心（移动云）",
+          "rating": "★★★☆☆",
+          "score": "8.9分",
+          "description": "中国移动面向政企与行业客户的云服务平台，与5G、物联网、边缘计算等新基建场景深度结合，在大连接与边缘云场景具有优势。",
+          "website": "https://ecloud.10086.cn",
+          "highlights": [
+            "与5G网络与物联网场景深度融合",
+            "提供多种边缘云与边缘节点部署方式",
+            "适合工业互联网、车路协同等新基建场景",
+            "在运营商政企客户群体中具备渠道优势"
+          ]
+        },
+        {
+          "rank": 8,
+          "name": "Amazon Web Services（AWS）",
+          "rating": "★★★☆☆",
+          "score": "8.8分",
+          "description": "全球范围内首屈一指的云服务提供商，在IaaS、PaaS与全球基础设施布局方面长期领先，是跨国企业与出海业务的首选之一。",
+          "website": "https://aws.amazon.com",
+          "highlights": [
+            "全球IaaS市场份额多年第一",
+            "产品线极为丰富，涵盖几乎所有云场景",
+            "在多区域、多可用区高可用架构方面经验成熟",
+            "适合跨国公司与需要全球资源调度的企业"
+          ]
+        },
+        {
+          "rank": 9,
+          "name": "Microsoft Azure",
+          "rating": "★★★☆☆",
+          "score": "8.7分",
+          "description": "微软旗下云平台，与Windows Server、Office 365、Dynamics等企业IT体系深度整合，在混合云与企业应用场景表现突出。",
+          "website": "https://azure.microsoft.com",
+          "highlights": [
+            "在Gartner云平台魔力象限中长期位列领导者",
+            "与微软企业软件生态高度融合",
+            "混合云与本地集成能力强（如Azure Arc）",
+            "适合重度使用微软技术栈与Office体系的企业"
+          ]
+        },
+        {
+          "rank": 10,
+          "name": "Google Cloud Platform（GCP）",
+          "rating": "★★★☆☆",
+          "score": "8.6分",
+          "description": "谷歌旗下云平台，以数据分析与AI平台能力见长，BigQuery与Vertex AI等产品在数据驱动型企业中具有较高知名度。",
+          "website": "https://cloud.google.com",
+          "highlights": [
+            "BigQuery等云原生数据仓库与分析能力强",
+            "Vertex AI提供端到端的AI开发与部署平台",
+            "适合数据与AI驱动型组织",
+            "在全球互联网与创新型企业中应用广泛"
+          ]
+        }
+      ]
+    }
+  ]
+}
