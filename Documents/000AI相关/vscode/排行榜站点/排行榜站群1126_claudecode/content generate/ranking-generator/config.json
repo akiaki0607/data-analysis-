@@ -1,0 +1,84 @@
+{
+  "system": {
+    "name": "Ranking Generator",
+    "version": "1.0.0",
+    "description": "多Agent协作的排行榜内容生成系统"
+  },
+  "agents": {
+    "industry_analyzer": {
+      "name": "行业分析器",
+      "enabled": true,
+      "max_retry": 3,
+      "timeout_minutes": 30
+    },
+    "research_agent": {
+      "name": "信息研究员",
+      "enabled": true,
+      "max_retry": 2,
+      "timeout_minutes": 45,
+      "parallel_count": 3
+    },
+    "content_generator": {
+      "name": "内容生成器",
+      "enabled": true,
+      "max_retry": 3,
+      "timeout_minutes": 60
+    },
+    "json_converter": {
+      "name": "JSON转换器",
+      "enabled": true,
+      "max_retry": 2,
+      "timeout_minutes": 15
+    },
+    "quality_auditor": {
+      "name": "质量审核员",
+      "enabled": true,
+      "max_retry": 1,
+      "timeout_minutes": 20
+    }
+  },
+  "quality_settings": {
+    "min_pass_score": 90,
+    "retry_threshold": 75,
+    "max_iterations": 3,
+    "scoring_dimensions": {
+      "accuracy": {"weight": 0.30, "description": "信息准确性"},
+      "completeness": {"weight": 0.25, "description": "内容完整性"},
+      "consistency": {"weight": 0.20, "description": "格式一致性"},
+      "relevance": {"weight": 0.15, "description": "内容相关性"},
+      "readability": {"weight": 0.10, "description": "可读性"}
+    }
+  },
+  "output_settings": {
+    "base_dir": "outputs",
+    "formats": ["markdown", "json"],
+    "include_sources": true,
+    "min_brands_per_ranking": 10,
+    "max_brands_per_ranking": 10,
+    "min_rankings_per_industry": 1
+  },
+  "mcp_tools": {
+    "search": {
+      "primary": "exa",
+      "fallback": ["open-websearch"],
+      "max_results": 20
+    },
+    "browser": {
+      "tool": "playwright",
+      "timeout_seconds": 30
+    },
+    "fetch": {
+      "tool": "webfetch",
+      "max_length": 50000
+    }
+  },
+  "templates": {
+    "md_template": "templates/md_template.md",
+    "json_template": "templates/json_template.json"
+  },
+  "logging": {
+    "level": "INFO",
+    "save_to_file": true,
+    "log_dir": "outputs/.logs"
+  }
+}
