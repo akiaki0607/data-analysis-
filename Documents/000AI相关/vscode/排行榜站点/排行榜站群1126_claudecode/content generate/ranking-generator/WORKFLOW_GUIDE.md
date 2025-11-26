@@ -62,7 +62,7 @@ notes: 开始分析行业
    - 查询: "{行业名称} 行业分析 品牌排行榜 市场报告 2025"
    - 获取20个结果
 
-2. 分析行业特征,识别3-5个子分类排行榜方向
+2. 分析行业特征,**识别5个子分类排行榜方向**(固定数量)
 
 3. 对每个子分类评估:
    - 搜索需求
@@ -90,7 +90,39 @@ JSON格式:
   "sub_rankings": [
     {
       "id": "ranking-1",
-      "title": "排行榜标题",
+      "title": "排行榜1标题",
+      "description": "描述",
+      "rationale": "价值理由",
+      "estimated_brands": 10,
+      "authority_sources": ["来源1", "来源2"]
+    },
+    {
+      "id": "ranking-2",
+      "title": "排行榜2标题",
+      "description": "描述",
+      "rationale": "价值理由",
+      "estimated_brands": 10,
+      "authority_sources": ["来源1", "来源2"]
+    },
+    {
+      "id": "ranking-3",
+      "title": "排行榜3标题",
+      "description": "描述",
+      "rationale": "价值理由",
+      "estimated_brands": 10,
+      "authority_sources": ["来源1", "来源2"]
+    },
+    {
+      "id": "ranking-4",
+      "title": "排行榜4标题",
+      "description": "描述",
+      "rationale": "价值理由",
+      "estimated_brands": 10,
+      "authority_sources": ["来源1", "来源2"]
+    },
+    {
+      "id": "ranking-5",
+      "title": "排行榜5标题",
       "description": "描述",
       "rationale": "价值理由",
       "estimated_brands": 10,
@@ -248,10 +280,10 @@ notes: 成功识别{N}个子分类排行榜
 ```
 我需要为"{行业名称}"生成排行榜内容。请按照ranking-generator系统的流程执行:
 
-1. Industry Analyzer: 分析行业,识别3-5个子分类排行榜
-2. Research Agent: 针对{选定的子分类},研究Top 10品牌
-3. Content Generator: 生成MD格式文章(参考儿童自行车_副本.md)
-4. JSON Converter: 转换为JSON(参考data_原始.json)
+1. Industry Analyzer: 分析行业,**识别5个子分类排行榜**(固定数量)
+2. Research Agent: 针对每个子分类,研究Top 10品牌
+3. Content Generator: 为每个排行榜生成MD格式文章(参考儿童自行车_副本.md)
+4. JSON Converter: 将5个排行榜转换并**合并到1个JSON文件**中(参考data_原始.json)
 5. Quality Auditor: 审核质量,如需改进则迭代
 
 所有输出保存到: outputs/{行业}_{日期}/
@@ -261,6 +293,7 @@ notes: 成功识别{N}个子分类排行榜
 - 使用WebFetch获取详细页面
 - 记录所有信息来源
 - 遵循7步状态管理流程
+- **重要**: 5个排行榜最终合并到1个JSON文件的industries[0].rankings数组中
 ```
 
 ---

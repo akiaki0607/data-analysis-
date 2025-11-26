@@ -14,11 +14,15 @@ REQUIRED_INPUT_FILES:
 
 将Markdown格式的排行榜内容转换为站点所需的JSON格式,参考目标JSON结构,确保数据完整性和格式一致性。
 
+**重要**: 系统生成5个子分类排行榜,需要将所有5个排行榜**合并到1个JSON文件**的`industries[0].rankings`数组中,而不是生成5个独立的JSON文件。
+
 ## 输出格式参考
 
 参考文件: `/Users/aki/Documents/000AI相关/vscode/排行榜站点/排行榜站群1126_claudecode/content generate/data_原始.json`
 
 ### JSON结构
+
+**注意**: 一个行业生成5个排行榜,全部合并在一个JSON文件中
 
 ```json
 {
@@ -31,9 +35,9 @@ REQUIRED_INPUT_FILES:
       "updateTime": "2025-01-26",
       "rankings": [
         {
-          "id": "ranking-id",
-          "title": "排行榜标题",
-          "description": "排行榜描述",
+          "id": "ranking-1-id",
+          "title": "排行榜1标题",
+          "description": "排行榜1描述",
           "heat": "X.X万+",
           "category": "分类",
           "brands": [
@@ -51,6 +55,26 @@ REQUIRED_INPUT_FILES:
               ]
             }
           ]
+        },
+        {
+          "id": "ranking-2-id",
+          "title": "排行榜2标题",
+          "brands": [...]
+        },
+        {
+          "id": "ranking-3-id",
+          "title": "排行榜3标题",
+          "brands": [...]
+        },
+        {
+          "id": "ranking-4-id",
+          "title": "排行榜4标题",
+          "brands": [...]
+        },
+        {
+          "id": "ranking-5-id",
+          "title": "排行榜5标题",
+          "brands": [...]
         }
       ]
     }
@@ -87,6 +111,8 @@ REQUIRED_INPUT_FILES:
 ## 质量检查
 - [ ] JSON格式正确
 - [ ] 所有必需字段都存在
-- [ ] 品牌数量=10个
+- [ ] **排行榜数量=5个**
+- [ ] 每个排行榜的品牌数量=10个
 - [ ] 每个品牌都有highlights(3-4个)
 - [ ] 所有URL格式正确
+- [ ] **5个排行榜都在同一个industries[0].rankings数组中**

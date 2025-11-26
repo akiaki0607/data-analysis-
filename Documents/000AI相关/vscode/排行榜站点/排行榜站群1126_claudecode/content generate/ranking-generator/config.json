@@ -55,7 +55,9 @@
     "include_sources": true,
     "min_brands_per_ranking": 10,
     "max_brands_per_ranking": 10,
-    "min_rankings_per_industry": 1
+    "rankings_per_industry": 5,
+    "json_merge_mode": true,
+    "json_merge_description": "所有5个排行榜合并到1个JSON文件中"
   },
   "mcp_tools": {
     "search": {

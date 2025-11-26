@@ -7,9 +7,9 @@
 **目标**: 为https://paihp.com网站生成"智能手表"行业的排行榜内容
 
 **预期输出**:
-- 1个Markdown格式的排行榜文章
-- 1个JSON格式的数据文件
-- 包含Top 10智能手表品牌的详细信息
+- 5个排行榜,合并到1个JSON文件中
+- 每个排行榜包含Top 10品牌的详细信息
+- Markdown格式的文章(可选)
 
 ---
 
@@ -78,7 +78,8 @@ done
      * "智能手表 品牌排行榜 权威"
      * "smartwatch market analysis 2025"
 
-   - 分析行业特征,确定子分类排行榜(选择1个最有价值的)
+   - 分析行业特征,**确定5个子分类排行榜**(固定数量)
+   - 例如: 综合排行榜、运动手表排行榜、商务手表排行榜、健康监测手表排行榜、儿童手表排行榜
    - 评估标准: 搜索需求、市场成熟度、数据可得性
 
 4. **写入输出**
@@ -99,9 +100,37 @@ done
      },
      "sub_rankings": [
        {
-         "id": "smartwatch-brands-2025",
-         "title": "2025年智能手表品牌排行榜Top10",
+         "id": "smartwatch-comprehensive-2025",
+         "title": "2025年智能手表综合品牌排行榜Top10",
          "description": "基于市场份额、技术创新、用户口碑综合评选",
+         "estimated_brands": 10,
+         "authority_sources": [...]
+       },
+       {
+         "id": "smartwatch-sports-2025",
+         "title": "2025年运动智能手表品牌排行榜Top10",
+         "description": "专注运动健康功能的智能手表品牌",
+         "estimated_brands": 10,
+         "authority_sources": [...]
+       },
+       {
+         "id": "smartwatch-business-2025",
+         "title": "2025年商务智能手表品牌排行榜Top10",
+         "description": "适合商务场景的高端智能手表",
+         "estimated_brands": 10,
+         "authority_sources": [...]
+       },
+       {
+         "id": "smartwatch-health-2025",
+         "title": "2025年健康监测智能手表品牌排行榜Top10",
+         "description": "专注健康数据监测的智能手表",
+         "estimated_brands": 10,
+         "authority_sources": [...]
+       },
+       {
+         "id": "smartwatch-kids-2025",
+         "title": "2025年儿童智能手表品牌排行榜Top10",
+         "description": "专为儿童设计的定位和通讯手表",
          "estimated_brands": 10,
          "authority_sources": [...]
        }
@@ -126,7 +155,9 @@ done
    ```
 
 3. **执行研究**
-   使用Exa搜索Top 10智能手表品牌:
+   **针对每个子分类排行榜**(共5个),使用Exa搜索Top 10品牌:
+
+   例如,针对"智能手表综合排行榜":
    - "智能手表品牌排行榜 2025"
    - "Apple Watch Huawei Watch Samsung Galaxy Watch 对比"
    - "小米手表 OPPO手表 vivo手表 评测"
@@ -139,6 +170,8 @@ done
    - 市场地位和份额
    - 用户评价
    - 技术创新点
+
+   **重复此过程5次**,为5个不同的排行榜收集数据
 
    **目标品牌示例** (确定实际Top 10):
    1. Apple (Apple Watch)
@@ -245,6 +278,8 @@ done
 2. **执行转换**
    参考文件: /Users/aki/Documents/000AI相关/vscode/排行榜站点/排行榜站群1126_claudecode/content generate/data_原始.json
 
+   **关键**: 将5个排行榜合并到1个JSON文件的industries[0].rankings数组中
+
    生成JSON:
    ```json
    {
@@ -257,8 +292,8 @@ done
          "updateTime": "2025-01-26",
          "rankings": [
            {
-             "id": "smartwatch-brands-2025",
-             "title": "2025年智能手表品牌排行榜Top10",
+             "id": "smartwatch-comprehensive-2025",
+             "title": "2025年智能手表综合品牌排行榜Top10",
              "description": "基于市场份额、技术创新、用户口碑综合评选",
              "heat": "15.6万+",
              "category": "智能穿戴",
@@ -279,6 +314,29 @@ done
                }
                // ... 其他9个品牌
              ]
+           },
+           {
+             "id": "smartwatch-sports-2025",
+             "title": "2025年运动智能手表品牌排行榜Top10",
+             "description": "专注运动健康功能的智能手表品牌",
+             "heat": "8.2万+",
+             "category": "智能穿戴",
+             "brands": [...]
+           },
+           {
+             "id": "smartwatch-business-2025",
+             "title": "2025年商务智能手表品牌排行榜Top10",
+             "brands": [...]
+           },
+           {
+             "id": "smartwatch-health-2025",
+             "title": "2025年健康监测智能手表品牌排行榜Top10",
+             "brands": [...]
+           },
+           {
+             "id": "smartwatch-kids-2025",
+             "title": "2025年儿童智能手表品牌排行榜Top10",
+             "brands": [...]
            }
          ]
        }
@@ -290,7 +348,8 @@ done
    文件: 04_JSON转换/ranking_data.json
 
 4. **验证**
-   - 品牌数量 = 10
+   - 排行榜数量 = 5
+   - 每个排行榜品牌数量 = 10
    - 每个品牌有3-4个highlights
    - 所有URL格式正确
    - JSON格式valid
